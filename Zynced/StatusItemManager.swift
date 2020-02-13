@@ -38,8 +38,28 @@ class StatusItemManager: NSObject {
         }
         
         // Setup info views
-        if let infoItem = menu?.items.first {
-            let customView = ConfigurationInfoView(frame: NSRect(x: 0.0, y: 0.0, width: 350.0, height: 56.0))
+        if let infoItem = menu?.items[0] {
+            let customView = ConfigurationInfoView(frame: NSRect(x: 0.0, y: 0.0, width: 350.0, height: 58.0))
+            infoItem.view = customView
+        }
+        
+        if let infoItem = menu?.items[2] {
+            let customView = ConfigurationInfoView(frame: NSRect(x: 0.0, y: 0.0, width: 350.0, height: 58.0))
+            infoItem.view = customView
+        }
+        
+        if let infoItem = menu?.items[4] {
+            let customView = ConfigurationInfoView(frame: NSRect(x: 0.0, y: 0.0, width: 350.0, height: 58.0))
+            infoItem.view = customView
+        }
+        
+        if let infoItem = menu?.items[6] {
+            let customView = ConfigurationInfoView(frame: NSRect(x: 0.0, y: 0.0, width: 350.0, height: 58.0))
+            infoItem.view = customView
+        }
+        
+        if let infoItem = menu?.items[8] {
+            let customView = ConfigurationInfoView(frame: NSRect(x: 0.0, y: 0.0, width: 350.0, height: 58.0))
             infoItem.view = customView
         }
     }

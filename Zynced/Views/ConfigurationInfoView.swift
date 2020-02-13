@@ -31,7 +31,11 @@ class ConfigurationInfoView: NSView, LoadableView {
     override func awakeFromNib() {
         statusIndicator.wantsLayer = true
         statusIndicator.layer?.cornerRadius = statusIndicator.bounds.width / 2
-        statusIndicator.layer?.backgroundColor = CGColor.StatusColor.failed
+        statusIndicator.layer?.backgroundColor = CGColor.StatusColor.active
+        
+        nameLabel.stringValue = "Admin Server"
+        locationLabel.stringValue = "~/Movies/Projekte/DaVinci Resolve"
+        lastSyncedLabel.stringValue = "12:08"
     }
     
 }
