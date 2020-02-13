@@ -1,0 +1,36 @@
+
+/* Class = "NSMenuItem"; title = "Zynced"; ObjectID = "1Xt-HY-uBw"; */
+"1Xt-HY-uBw.title" = "Zynced";
+
+/* Class = "NSMenuItem"; title = "Quit Zynced"; ObjectID = "4sb-4s-VLi"; */
+"4sb-4s-VLi.title" = "Quitter Zynced";
+
+/* Class = "NSMenuItem"; title = "About Zynced"; ObjectID = "5kV-Vb-QxS"; */
+"5kV-Vb-QxS.title" = "À propos de Zynced";
+
+/* Class = "NSMenu"; title = "Main Menu"; ObjectID = "AYu-sK-qS6"; */
+"AYu-sK-qS6.title" = "Main Menu";
+
+/* Class = "NSMenuItem"; title = "Preferences…"; ObjectID = "BOF-NM-1cW"; */
+"BOF-NM-1cW.title" = "Préférences…";
+
+/* Class = "NSMenuItem"; title = "Item5"; ObjectID = "RXd-o4-GTV"; */
+"RXd-o4-GTV.title" = "Item5";
+
+/* Class = "NSMenuItem"; title = "Item2"; ObjectID = "Vnw-cW-7Hj"; */
+"Vnw-cW-7Hj.title" = "Item2";
+
+/* Class = "NSViewController"; title = "Preferences"; ObjectID = "XfG-lQ-9wD"; */
+"XfG-lQ-9wD.title" = "Préférences";
+
+/* Class = "NSMenuItem"; title = "Item4"; ObjectID = "lG8-Pv-SvU"; */
+"lG8-Pv-SvU.title" = "Item4";
+
+/* Class = "NSMenuItem"; title = "Item1"; ObjectID = "mXI-AP-PT8"; */
+"mXI-AP-PT8.title" = "Item1";
+
+/* Class = "NSMenuItem"; title = "Item3"; ObjectID = "mw2-j8-9iJ"; */
+"mw2-j8-9iJ.title" = "Item3";
+
+/* Class = "NSMenu"; title = "Zynced"; ObjectID = "uQy-DD-JDr"; */
+"uQy-DD-JDr.title" = "Zynced";

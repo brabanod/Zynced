@@ -12,9 +12,6 @@ class ViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Setup Title
-        self.title = "Preferences"
     }
     
 
