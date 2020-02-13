@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -19,6 +19,7 @@
 		5084A78123F562E0005F67D8 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5084A78023F562E0005F67D8 /* PreferencesView.swift */; };
 		5084A78323F562EA005F67D8 /* PreferencesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5084A78223F562EA005F67D8 /* PreferencesView.xib */; };
 		5084A78723F56DC3005F67D8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5084A78923F56DC3005F67D8 /* Localizable.strings */; };
+		5084A78F23F57522005F67D8 /* BoteCore in Frameworks */ = {isa = PBXBuildFile; productRef = 5084A78E23F57522005F67D8 /* BoteCore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5084A78F23F57522005F67D8 /* BoteCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -123,6 +125,9 @@
 			dependencies = (
 			);
 			name = Zynced;
+			packageProductDependencies = (
+				5084A78E23F57522005F67D8 /* BoteCore */,
+			);
 			productName = Zynced;
 			productReference = 5084A76123F55549005F67D8 /* Zynced.app */;
 			productType = "com.apple.product-type.application";
@@ -153,6 +158,9 @@
 				fr,
 			);
 			mainGroup = 5084A75823F55549005F67D8;
+			packageReferences = (
+				5084A78D23F57522005F67D8 /* XCRemoteSwiftPackageReference "BoteCore" */,
+			);
 			productRefGroup = 5084A76223F55549005F67D8 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -395,6 +403,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5084A78D23F57522005F67D8 /* XCRemoteSwiftPackageReference "BoteCore" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://gitlab.com/columbbus/BoteCore.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5084A78E23F57522005F67D8 /* BoteCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5084A78D23F57522005F67D8 /* XCRemoteSwiftPackageReference "BoteCore" */;
+			productName = BoteCore;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 5084A75923F55549005F67D8 /* Project object */;
 }
