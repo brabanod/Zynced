@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import BoteCore
 
 class ConfigurationInfoView: NSView, LoadableView {
     
@@ -38,4 +39,44 @@ class ConfigurationInfoView: NSView, LoadableView {
         lastSyncedLabel.stringValue = "12:08"
     }
     
+    
+    func setStatus(_ status: SyncStatus) {
+        switch status {
+        case .connected:
+            statusIndicator.layer?.backgroundColor = CGColor.StatusColor.connected
+        case .active:
+            statusIndicator.layer?.backgroundColor = CGColor.StatusColor.active
+        case .inactive:
+            statusIndicator.layer?.backgroundColor = CGColor.StatusColor.inactive
+        case .failed:
+            statusIndicator.layer?.backgroundColor = CGColor.StatusColor.failed
+        }
+    }
+    
+    
+    func setName(_ string: String) {
+        nameLabel.stringValue = string
+    }
+    
+    
+    func setLocation(_ path: String) {
+        // Replace the home directory with ~
+        let homePath = FileManager.default.homeDirectoryForCurrentUser.absoluteString.dropFirst("file://".count)
+        let readablePath = path.replacingOccurrences(of: homePath, with: "~/")
+        locationLabel.stringValue = readablePath
+    }
+    
+    
+    func setLastSynced(_ time: Date) {
+        // If last synced today, show time
+        if Calendar.current.isDateInToday(time) {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "HH:mm"
+            lastSyncedLabel.stringValue = formatter.string(from: Date.init())
+        }
+        // Else show nothing
+        else {
+            lastSyncedLabel.stringValue = "-"
+        }
+    }
 }
