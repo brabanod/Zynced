@@ -20,8 +20,8 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3AF-oY-c4z">
-                    <rect key="frame" x="18" y="32" width="89" height="17"/>
-                    <textFieldCell key="cell" lineBreakMode="clipping" title="Config Name" id="wyB-8Z-fCr">
+                    <rect key="frame" x="18" y="32" width="134" height="17"/>
+                    <textFieldCell key="cell" lineBreakMode="truncatingTail" title="Configuration Name" id="wyB-8Z-fCr">
                         <font key="font" metaFont="system" size="14"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -29,7 +29,7 @@
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="J0W-c7-V8I">
                     <rect key="frame" x="18" y="8" width="56" height="16"/>
-                    <textFieldCell key="cell" lineBreakMode="clipping" title="Location" id="gLG-fP-34c">
+                    <textFieldCell key="cell" lineBreakMode="truncatingTail" title="Location" id="gLG-fP-34c">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -62,6 +62,7 @@
                 <constraint firstAttribute="bottom" secondItem="nxi-1f-A1o" secondAttribute="bottom" constant="8" id="gR2-2S-I8r"/>
                 <constraint firstAttribute="trailing" secondItem="1bJ-so-6kr" secondAttribute="trailing" constant="20" id="mi7-fO-Nwb"/>
                 <constraint firstItem="J0W-c7-V8I" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" id="rSV-HQ-Zjy"/>
+                <constraint firstItem="1bJ-so-6kr" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3AF-oY-c4z" secondAttribute="trailing" constant="20" id="rw3-7R-n7A"/>
             </constraints>
             <point key="canvasLocation" x="140" y="81.5"/>
         </customView>

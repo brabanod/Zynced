@@ -7,8 +7,12 @@
 //
 
 import Cocoa
+import BoteCore
 
 class ViewController: NSViewController {
+    
+    var configManager: ConfigurationManager!
+    var syncOrchestrator: SyncOrchestrator!
 
     override func viewDidLoad() {
         super.viewDidLoad()

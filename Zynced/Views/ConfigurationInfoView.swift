@@ -32,11 +32,7 @@ class ConfigurationInfoView: NSView, LoadableView {
     override func awakeFromNib() {
         statusIndicator.wantsLayer = true
         statusIndicator.layer?.cornerRadius = statusIndicator.bounds.width / 2
-        statusIndicator.layer?.backgroundColor = CGColor.StatusColor.active
-        
-        nameLabel.stringValue = "Admin Server"
-        locationLabel.stringValue = "~/Movies/Projekte/DaVinci Resolve"
-        lastSyncedLabel.stringValue = "12:08"
+        statusIndicator.layer?.backgroundColor = CGColor.StatusColor.inactive
     }
     
     
@@ -67,16 +63,18 @@ class ConfigurationInfoView: NSView, LoadableView {
     }
     
     
-    func setLastSynced(_ time: Date) {
-        // If last synced today, show time
-        if Calendar.current.isDateInToday(time) {
-            let formatter = DateFormatter()
-            formatter.dateFormat = "HH:mm"
-            lastSyncedLabel.stringValue = formatter.string(from: Date.init())
+    func setLastSynced(_ time: Date?) {
+        if let lastSynced = time {
+            // If last synced today, show time
+            if Calendar.current.isDateInToday(lastSynced) {
+                let formatter = DateFormatter()
+                formatter.dateFormat = "HH:mm"
+                lastSyncedLabel.stringValue = formatter.string(from: lastSynced)
+                return
+            }
         }
+        
         // Else show nothing
-        else {
-            lastSyncedLabel.stringValue = "-"
-        }
+        lastSyncedLabel.stringValue = "-"
     }
 }
