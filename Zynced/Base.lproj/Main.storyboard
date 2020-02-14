@@ -15,26 +15,6 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Zynced" systemMenu="apple" id="uQy-DD-JDr">
                                     <items>
-                                        <menuItem title="Item1" id="mXI-AP-PT8">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                        </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="zUh-Nk-AgN"/>
-                                        <menuItem title="Item2" id="Vnw-cW-7Hj">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                        </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="YnZ-Fn-lPn"/>
-                                        <menuItem title="Item3" id="mw2-j8-9iJ">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                        </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="mwx-d9-PQs"/>
-                                        <menuItem title="Item4" id="lG8-Pv-SvU">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                        </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="DI2-hd-CcK"/>
-                                        <menuItem title="Item5" id="RXd-o4-GTV">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                        </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="fXx-CQ-918"/>
                                         <menuItem title="About Zynced" id="5kV-Vb-QxS">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>

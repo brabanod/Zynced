@@ -49,25 +49,37 @@ class StatusItemManager: NSObject {
             statusItem?.menu = menu
             menu.delegate = self
         }
-        
-        
-        // Setup ConfigurationInfoView's
-        
+    }
+    
+    
+    func setupMonitoring() {
         // Load syncItems and order by status (connected > active > failed > inactive)
         let syncItems = syncOrchestrator.syncItems.sorted { (a, b) -> Bool in
             return a.status > b.status
         }
         
-        // Setup ItemInfoView for every given item
+        // Reset subscriptions
         subscriptions.removeAll()
-        // Take the first items in the list
-        for item in syncItems.prefix(shownItemsCount) {
-            // Setup menu items and separator
+        
+        if syncItems.count > 0 {
+            // Setup ItemInfoView for every given item
+            // Take the first items in the list
+            for item in syncItems.prefix(shownItemsCount) {
+                // Setup menu items and separator
+                let separator = NSMenuItem.separator()
+                let menuItem = createMenuItem(for: item)
+                
+                // Insert menu items at top of menu
+                menu?.items.insert(contentsOf: [menuItem, separator], at: 0)
+            }
+        } else {
+            // Show menu item, which indicates that no items are available
             let separator = NSMenuItem.separator()
-            let menuItem = createMenuItem(for: item)
+            let emptyItem = NSMenuItem(title: NSLocalizedString("No items to monitor", comment: "Message for status menu, when there are no items to display"), action: nil, keyEquivalent: "")
+            emptyItem.isEnabled = false
             
             // Insert menu items at top of menu
-            menu?.items.insert(contentsOf: [menuItem, separator], at: 0)
+            menu?.items.insert(contentsOf: [emptyItem, separator], at: 0)
         }
     }
     
@@ -93,6 +105,16 @@ class StatusItemManager: NSObject {
         menuItem.view = infoView
         
         return menuItem
+    }
+    
+    
+    func teardownMonitoring() {
+        // Cancel all subscriptions
+        for (statusSub, syncedSub) in subscriptions {
+            statusSub.cancel()
+            syncedSub.cancel()
+        }
+        subscriptions.removeAll()
     }
     
     
@@ -130,16 +152,15 @@ extension StatusItemManager: NSWindowDelegate {
 extension StatusItemManager: NSMenuDelegate {
     
     func menuWillOpen(_ menu: NSMenu) {
-        // Update something
-        // call initStatusItem again
+        // Setup ConfigurationInfoView's
+        setupMonitoring()
     }
     
     func menuDidClose(_ menu: NSMenu) {
-        // Cancel all subscriptions
-        for (statusSub, syncedSub) in subscriptions {
-            statusSub.cancel()
-            syncedSub.cancel()
-        }
-        subscriptions.removeAll()
+        // Deactivate monitoring
+        teardownMonitoring()
+        
+        // Remove the added menu items, thus only keep the last three items
+        menu.items = menu.items.suffix(3)
     }
 }
