@@ -61,6 +61,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 })
             } catch let error {
                 // Alert print(error)
+                // Write to Error Log file for this item's id
             }
         }
         
