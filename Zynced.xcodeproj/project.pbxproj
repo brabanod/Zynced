@@ -23,7 +23,7 @@
 		5084A78F23F57522005F67D8 /* BoteCore in Frameworks */ = {isa = PBXBuildFile; productRef = 5084A78E23F57522005F67D8 /* BoteCore */; };
 		50B2C81923FBFB480048FA6C /* ErrorLoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B2C81823FBFB480048FA6C /* ErrorLoggerTests.swift */; };
 		50B2C82223FC1A280048FA6C /* Preferences.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50B2C82123FC1A280048FA6C /* Preferences.storyboard */; };
-		50B2C82423FC1A990048FA6C /* OverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B2C82323FC1A990048FA6C /* OverviewViewController.swift */; };
+		50B2C82423FC1A990048FA6C /* SyncViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B2C82323FC1A990048FA6C /* SyncViewController.swift */; };
 		50B2C82723FC1AA70048FA6C /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B2C82523FC1AA70048FA6C /* PreferencesViewController.swift */; };
 		50B2C82A23FC1B510048FA6C /* PreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B2C82923FC1B510048FA6C /* PreferencesWindowController.swift */; };
 /* End PBXBuildFile section */
@@ -63,7 +63,7 @@
 		50B2C81823FBFB480048FA6C /* ErrorLoggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLoggerTests.swift; sourceTree = "<group>"; };
 		50B2C81A23FBFB480048FA6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50B2C82123FC1A280048FA6C /* Preferences.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Preferences.storyboard; sourceTree = "<group>"; };
-		50B2C82323FC1A990048FA6C /* OverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewViewController.swift; sourceTree = "<group>"; };
+		50B2C82323FC1A990048FA6C /* SyncViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncViewController.swift; sourceTree = "<group>"; };
 		50B2C82523FC1AA70048FA6C /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
 		50B2C82923FC1B510048FA6C /* PreferencesWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWindowController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -159,7 +159,7 @@
 				50B2C82123FC1A280048FA6C /* Preferences.storyboard */,
 				50B2C82923FC1B510048FA6C /* PreferencesWindowController.swift */,
 				50B2C82523FC1AA70048FA6C /* PreferencesViewController.swift */,
-				50B2C82323FC1A990048FA6C /* OverviewViewController.swift */,
+				50B2C82323FC1A990048FA6C /* SyncViewController.swift */,
 			);
 			path = Preferences;
 			sourceTree = "<group>";
@@ -279,7 +279,7 @@
 				5084A77823F55B85005F67D8 /* LoadableView.swift in Sources */,
 				50B2C82A23FC1B510048FA6C /* PreferencesWindowController.swift in Sources */,
 				5084A77E23F560AF005F67D8 /* Colors.swift in Sources */,
-				50B2C82423FC1A990048FA6C /* OverviewViewController.swift in Sources */,
+				50B2C82423FC1A990048FA6C /* SyncViewController.swift in Sources */,
 				5084A77523F55677005F67D8 /* StatusItemManager.swift in Sources */,
 				5084A76723F55549005F67D8 /* ViewController.swift in Sources */,
 				50B2C82723FC1AA70048FA6C /* PreferencesViewController.swift in Sources */,

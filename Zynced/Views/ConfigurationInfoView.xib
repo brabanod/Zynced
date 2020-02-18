@@ -22,7 +22,7 @@
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3AF-oY-c4z">
                     <rect key="frame" x="18" y="32" width="134" height="17"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingTail" title="Configuration Name" id="wyB-8Z-fCr">
-                        <font key="font" metaFont="system" size="14"/>
+                        <font key="font" metaFont="menu" size="14"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>

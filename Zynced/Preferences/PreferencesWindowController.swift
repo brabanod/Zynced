@@ -17,6 +17,7 @@ class PreferencesWindowController: NSWindowController {
         self.window?.styleMask.remove(.resizable)
         self.window?.styleMask.remove(.miniaturizable)
         self.window?.center()
+        self.window?.setContentBorderThickness(50.0, for: NSRectEdge.minY)
     }
 
 }

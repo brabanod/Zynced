@@ -86,7 +86,7 @@ class StatusItemManager: NSObject {
     
     func createMenuItem(for item: SyncItem) -> NSMenuItem {
         // Setup ConfigurationInfoView
-        let infoView = ConfigurationInfoView(frame: NSRect(x: 0.0, y: 0.0, width: 350.0, height: 58.0))
+        let infoView = ConfigurationInfoView(frame: NSRect(x: 0.0, y: 0.0, width: 350.0, height: ConfigurationInfoView.defaultHeight))
         infoView.setName(item.configuration.name)
         infoView.setStatus(item.status)
         infoView.setLocation(item.configuration.from.path)
@@ -126,7 +126,7 @@ class StatusItemManager: NSObject {
             // Instatiate ViewController and set properties
             let storyboard = NSStoryboard(name: "Preferences", bundle: nil)
             guard let windowCtrl = storyboard.instantiateController(withIdentifier: .init(stringLiteral: "preferencesID")) as? PreferencesWindowController else { return }
-            guard let vc = windowCtrl.contentViewController as? OverviewViewController else { return }
+            guard let vc = windowCtrl.contentViewController as? SyncViewController else { return }
             vc.configManager = configManager
             vc.syncOrchestrator = syncOrchestrator
             

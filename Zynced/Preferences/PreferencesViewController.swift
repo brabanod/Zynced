@@ -11,7 +11,7 @@ import BoteCore
 
 class PreferencesViewController: NSViewController {
 
-    var configManager: ConfigurationManager!
-    var syncOrchestrator: SyncOrchestrator!
+    var configManager: ConfigurationManager?
+    var syncOrchestrator: SyncOrchestrator?
     
 }

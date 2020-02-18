@@ -16,6 +16,8 @@ class ConfigurationInfoView: NSView, LoadableView {
     @IBOutlet weak var lastSyncedLabel: NSTextField!
     @IBOutlet weak var statusIndicator: NSView!
     
+    static let defaultHeight: CGFloat = 58.0
+    
     
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
