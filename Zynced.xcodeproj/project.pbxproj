@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		504B136723FB453400E271BE /* ErrorLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504B136623FB453400E271BE /* ErrorLogger.swift */; };
 		5084A76523F55549005F67D8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5084A76423F55549005F67D8 /* AppDelegate.swift */; };
 		5084A76723F55549005F67D8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5084A76623F55549005F67D8 /* ViewController.swift */; };
 		5084A76923F5554A005F67D8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5084A76823F5554A005F67D8 /* Assets.xcassets */; };
@@ -20,9 +21,21 @@
 		5084A78323F562EA005F67D8 /* PreferencesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5084A78223F562EA005F67D8 /* PreferencesView.xib */; };
 		5084A78723F56DC3005F67D8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5084A78923F56DC3005F67D8 /* Localizable.strings */; };
 		5084A78F23F57522005F67D8 /* BoteCore in Frameworks */ = {isa = PBXBuildFile; productRef = 5084A78E23F57522005F67D8 /* BoteCore */; };
+		50B2C81923FBFB480048FA6C /* ErrorLoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B2C81823FBFB480048FA6C /* ErrorLoggerTests.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		50B2C81B23FBFB480048FA6C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5084A75923F55549005F67D8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5084A76023F55549005F67D8;
+			remoteInfo = Zynced;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		504B136623FB453400E271BE /* ErrorLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLogger.swift; sourceTree = "<group>"; };
 		5084A76123F55549005F67D8 /* Zynced.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zynced.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5084A76423F55549005F67D8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5084A76623F55549005F67D8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -42,6 +55,9 @@
 		5084A78A23F56DC6005F67D8 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5084A78B23F56F62005F67D8 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
 		5084A78C23F56F62005F67D8 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		50B2C81623FBFB480048FA6C /* ZyncedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZyncedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		50B2C81823FBFB480048FA6C /* ErrorLoggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLoggerTests.swift; sourceTree = "<group>"; };
+		50B2C81A23FBFB480048FA6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +69,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		50B2C81323FBFB480048FA6C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -60,6 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				5084A76323F55549005F67D8 /* Zynced */,
+				50B2C81723FBFB480048FA6C /* ZyncedTests */,
 				5084A76223F55549005F67D8 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -68,6 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				5084A76123F55549005F67D8 /* Zynced.app */,
+				50B2C81623FBFB480048FA6C /* ZyncedTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -78,6 +103,7 @@
 				5084A76423F55549005F67D8 /* AppDelegate.swift */,
 				5084A77423F55677005F67D8 /* StatusItemManager.swift */,
 				5084A76623F55549005F67D8 /* ViewController.swift */,
+				504B136623FB453400E271BE /* ErrorLogger.swift */,
 				5084A77623F55B6C005F67D8 /* Views */,
 				5084A77F23F560B2005F67D8 /* Common */,
 				5084A76823F5554A005F67D8 /* Assets.xcassets */,
@@ -109,6 +135,15 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		50B2C81723FBFB480048FA6C /* ZyncedTests */ = {
+			isa = PBXGroup;
+			children = (
+				50B2C81823FBFB480048FA6C /* ErrorLoggerTests.swift */,
+				50B2C81A23FBFB480048FA6C /* Info.plist */,
+			);
+			path = ZyncedTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -132,6 +167,24 @@
 			productReference = 5084A76123F55549005F67D8 /* Zynced.app */;
 			productType = "com.apple.product-type.application";
 		};
+		50B2C81523FBFB480048FA6C /* ZyncedTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 50B2C81D23FBFB480048FA6C /* Build configuration list for PBXNativeTarget "ZyncedTests" */;
+			buildPhases = (
+				50B2C81223FBFB480048FA6C /* Sources */,
+				50B2C81323FBFB480048FA6C /* Frameworks */,
+				50B2C81423FBFB480048FA6C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				50B2C81C23FBFB480048FA6C /* PBXTargetDependency */,
+			);
+			name = ZyncedTests;
+			productName = ZyncedTests;
+			productReference = 50B2C81623FBFB480048FA6C /* ZyncedTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -144,6 +197,10 @@
 				TargetAttributes = {
 					5084A76023F55549005F67D8 = {
 						CreatedOnToolsVersion = 11.3.1;
+					};
+					50B2C81523FBFB480048FA6C = {
+						CreatedOnToolsVersion = 11.3.1;
+						TestTargetID = 5084A76023F55549005F67D8;
 					};
 				};
 			};
@@ -166,6 +223,7 @@
 			projectRoot = "";
 			targets = (
 				5084A76023F55549005F67D8 /* Zynced */,
+				50B2C81523FBFB480048FA6C /* ZyncedTests */,
 			);
 		};
 /* End PBXProject section */
@@ -183,6 +241,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		50B2C81423FBFB480048FA6C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -196,11 +261,28 @@
 				5084A76723F55549005F67D8 /* ViewController.swift in Sources */,
 				5084A77C23F55C2A005F67D8 /* ConfigurationInfoView.swift in Sources */,
 				5084A76523F55549005F67D8 /* AppDelegate.swift in Sources */,
+				504B136723FB453400E271BE /* ErrorLogger.swift in Sources */,
 				5084A78123F562E0005F67D8 /* PreferencesView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		50B2C81223FBFB480048FA6C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				50B2C81923FBFB480048FA6C /* ErrorLoggerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		50B2C81C23FBFB480048FA6C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5084A76023F55549005F67D8 /* Zynced */;
+			targetProxy = 50B2C81B23FBFB480048FA6C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		5084A76A23F5554A005F67D8 /* Main.storyboard */ = {
@@ -381,6 +463,46 @@
 			};
 			name = Release;
 		};
+		50B2C81E23FBFB480048FA6C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = NL97TS4Q9A;
+				INFOPLIST_FILE = ZyncedTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = de.pascalbraband.ZyncedTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Zynced.app/Contents/MacOS/Zynced";
+			};
+			name = Debug;
+		};
+		50B2C81F23FBFB480048FA6C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = NL97TS4Q9A;
+				INFOPLIST_FILE = ZyncedTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = de.pascalbraband.ZyncedTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Zynced.app/Contents/MacOS/Zynced";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -398,6 +520,15 @@
 			buildConfigurations = (
 				5084A77223F5554A005F67D8 /* Debug */,
 				5084A77323F5554A005F67D8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		50B2C81D23FBFB480048FA6C /* Build configuration list for PBXNativeTarget "ZyncedTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				50B2C81E23FBFB480048FA6C /* Debug */,
+				50B2C81F23FBFB480048FA6C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
