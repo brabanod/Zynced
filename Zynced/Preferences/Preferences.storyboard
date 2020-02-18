@@ -154,6 +154,30 @@
                                             </customView>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="WLB-zm-869">
                                                 <rect key="frame" x="266" y="18" width="134" height="135"/>
+                                                <subviews>
+                                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wzc-ab-C7t">
+                                                        <rect key="frame" x="0.0" y="68" width="67" height="67"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" secondItem="wzc-ab-C7t" secondAttribute="height" multiplier="1:1" id="xjH-m1-A71"/>
+                                                        </constraints>
+                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="LeftArrow" id="Skg-n2-U5R"/>
+                                                    </imageView>
+                                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Jv0-2L-SrF">
+                                                        <rect key="frame" x="67" y="68" width="67" height="67"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" secondItem="Jv0-2L-SrF" secondAttribute="height" multiplier="1:1" id="Oys-3Z-1oY"/>
+                                                        </constraints>
+                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="RightArrowSelected" id="nKs-iO-01Z"/>
+                                                    </imageView>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="wzc-ab-C7t" firstAttribute="leading" secondItem="WLB-zm-869" secondAttribute="leading" id="5D2-8Z-m5q"/>
+                                                    <constraint firstItem="Jv0-2L-SrF" firstAttribute="width" secondItem="WLB-zm-869" secondAttribute="width" multiplier="0.5" id="D0f-D2-df2"/>
+                                                    <constraint firstItem="Jv0-2L-SrF" firstAttribute="top" secondItem="WLB-zm-869" secondAttribute="top" id="TA0-VC-IIr"/>
+                                                    <constraint firstItem="wzc-ab-C7t" firstAttribute="width" secondItem="WLB-zm-869" secondAttribute="width" multiplier="0.5" id="ZQC-cs-Wvz"/>
+                                                    <constraint firstItem="wzc-ab-C7t" firstAttribute="top" secondItem="WLB-zm-869" secondAttribute="top" id="mFa-iq-BOi"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Jv0-2L-SrF" secondAttribute="trailing" id="nZK-PX-7XG"/>
+                                                </constraints>
                                             </customView>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="8IM-i2-laj">
                                                 <rect key="frame" x="0.0" y="18" width="266" height="135"/>
@@ -166,10 +190,67 @@
                                                         </constraints>
                                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Local" id="Ual-Ax-kYH"/>
                                                     </imageView>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nqF-o0-0Oz">
+                                                        <rect key="frame" x="103" y="48" width="60" height="17"/>
+                                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Location" id="iIL-2k-eWm">
+                                                            <font key="font" metaFont="menu" size="14"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kBa-C3-6OD">
+                                                        <rect key="frame" x="117" y="22" width="32" height="16"/>
+                                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Path" id="Q3Y-ub-nOu">
+                                                            <font key="font" metaFont="system"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
                                                 </subviews>
                                                 <constraints>
+                                                    <constraint firstItem="kBa-C3-6OD" firstAttribute="centerX" secondItem="8IM-i2-laj" secondAttribute="centerX" id="Kk8-ar-B2J"/>
+                                                    <constraint firstItem="kBa-C3-6OD" firstAttribute="top" secondItem="nqF-o0-0Oz" secondAttribute="bottom" constant="10" id="LaF-CZ-b0q"/>
+                                                    <constraint firstItem="nqF-o0-0Oz" firstAttribute="top" secondItem="VQ5-et-Uo6" secondAttribute="bottom" constant="10" id="ON2-o4-Vkg"/>
                                                     <constraint firstItem="VQ5-et-Uo6" firstAttribute="top" secondItem="8IM-i2-laj" secondAttribute="top" id="Ug6-GE-zqQ"/>
                                                     <constraint firstItem="VQ5-et-Uo6" firstAttribute="centerX" secondItem="8IM-i2-laj" secondAttribute="centerX" id="jkh-Yf-Tg6"/>
+                                                    <constraint firstItem="nqF-o0-0Oz" firstAttribute="centerX" secondItem="8IM-i2-laj" secondAttribute="centerX" id="xDl-6a-Vyv"/>
+                                                </constraints>
+                                            </customView>
+                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="aqK-a5-Bwb">
+                                                <rect key="frame" x="400" y="18" width="266" height="135"/>
+                                                <subviews>
+                                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="euU-ze-Epb">
+                                                        <rect key="frame" x="103" y="75" width="60" height="60"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="60" id="VeX-qP-DyM"/>
+                                                            <constraint firstAttribute="height" constant="60" id="qxU-3r-wrH"/>
+                                                        </constraints>
+                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Remote" id="khb-ds-T34"/>
+                                                    </imageView>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="A1d-ER-heX">
+                                                        <rect key="frame" x="103" y="48" width="60" height="17"/>
+                                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Location" id="TGf-Ps-WMM">
+                                                            <font key="font" metaFont="menu" size="14"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0ql-Hi-FWi">
+                                                        <rect key="frame" x="117" y="22" width="32" height="16"/>
+                                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Path" id="pVq-eC-s4a">
+                                                            <font key="font" metaFont="system"/>
+                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="euU-ze-Epb" firstAttribute="centerX" secondItem="aqK-a5-Bwb" secondAttribute="centerX" id="Jqf-LQ-J0C"/>
+                                                    <constraint firstItem="0ql-Hi-FWi" firstAttribute="centerX" secondItem="aqK-a5-Bwb" secondAttribute="centerX" id="RJX-ej-Pve"/>
+                                                    <constraint firstItem="A1d-ER-heX" firstAttribute="centerX" secondItem="aqK-a5-Bwb" secondAttribute="centerX" id="aLZ-KH-sac"/>
+                                                    <constraint firstItem="0ql-Hi-FWi" firstAttribute="top" secondItem="A1d-ER-heX" secondAttribute="bottom" constant="10" id="erq-Kb-uqS"/>
+                                                    <constraint firstItem="A1d-ER-heX" firstAttribute="top" secondItem="euU-ze-Epb" secondAttribute="bottom" constant="10" id="fl6-1e-EOc"/>
+                                                    <constraint firstItem="euU-ze-Epb" firstAttribute="top" secondItem="aqK-a5-Bwb" secondAttribute="top" id="jIE-k7-wNw"/>
                                                 </constraints>
                                             </customView>
                                         </subviews>
@@ -182,14 +263,18 @@
                                             <constraint firstItem="OqW-b1-sPa" firstAttribute="top" secondItem="8IM-i2-laj" secondAttribute="bottom" id="Cly-Kl-Vm0"/>
                                             <constraint firstItem="WLB-zm-869" firstAttribute="centerX" secondItem="zVW-sJ-Xuo" secondAttribute="centerX" id="DLo-l6-a8V"/>
                                             <constraint firstItem="0Ad-rD-4Fi" firstAttribute="top" secondItem="zVW-sJ-Xuo" secondAttribute="top" id="Gji-7n-3O1"/>
+                                            <constraint firstItem="OqW-b1-sPa" firstAttribute="top" secondItem="aqK-a5-Bwb" secondAttribute="bottom" id="HLO-nP-qzf"/>
                                             <constraint firstItem="OqW-b1-sPa" firstAttribute="top" secondItem="WLB-zm-869" secondAttribute="bottom" id="Ha5-Vx-4BN"/>
                                             <constraint firstAttribute="trailing" secondItem="OqW-b1-sPa" secondAttribute="trailing" id="R63-ac-3XR"/>
                                             <constraint firstItem="0Ad-rD-4Fi" firstAttribute="leading" secondItem="zVW-sJ-Xuo" secondAttribute="leading" id="Tij-wg-Ck0"/>
+                                            <constraint firstItem="aqK-a5-Bwb" firstAttribute="top" secondItem="0Ad-rD-4Fi" secondAttribute="bottom" id="ctF-Up-mc8"/>
                                             <constraint firstItem="WLB-zm-869" firstAttribute="top" secondItem="0Ad-rD-4Fi" secondAttribute="bottom" id="dMT-CJ-TZC"/>
                                             <constraint firstItem="8IM-i2-laj" firstAttribute="top" secondItem="0Ad-rD-4Fi" secondAttribute="bottom" id="eXZ-k3-IgT"/>
                                             <constraint firstAttribute="bottom" secondItem="OqW-b1-sPa" secondAttribute="bottom" id="faO-YO-btQ"/>
+                                            <constraint firstItem="aqK-a5-Bwb" firstAttribute="leading" secondItem="WLB-zm-869" secondAttribute="trailing" id="gQc-DA-WcO"/>
                                             <constraint firstItem="OqW-b1-sPa" firstAttribute="leading" secondItem="zVW-sJ-Xuo" secondAttribute="leading" id="ggS-Qr-vo4"/>
                                             <constraint firstAttribute="trailing" secondItem="0Ad-rD-4Fi" secondAttribute="trailing" id="qSx-bU-xtt"/>
+                                            <constraint firstAttribute="trailing" secondItem="aqK-a5-Bwb" secondAttribute="trailing" id="v7a-mr-Yws"/>
                                         </constraints>
                                     </customView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="2uK-Xh-lzg">
@@ -280,8 +365,11 @@
         </scene>
     </scenes>
     <resources>
+        <image name="LeftArrow" width="38" height="31"/>
         <image name="Local" width="55" height="45"/>
         <image name="NSAddTemplate" width="11" height="11"/>
         <image name="NSRemoveTemplate" width="11" height="11"/>
+        <image name="Remote" width="60" height="60"/>
+        <image name="RightArrowSelected" width="38" height="32"/>
     </resources>
 </document>
