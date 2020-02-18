@@ -56,12 +56,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             do {
                 let item = try syncOrchestrator.register(configuration: configuration)
                 try syncOrchestrator.startSynchronizing(for: item, errorHandler: { (item, error) in
+                    // Write to error log for this item's id
                     print("ERROR:\nItem: \(item)\nMessage: \(error)")
-                    // FIXME: Write to Error Log file for this item's id
+                    do { try ErrorLogger.write(for: configuration.id, date: Date(), type: error, message: error.localizedDescription) } catch _ { }
                 })
             } catch let error {
-                // Alert print(error)
-                // Write to Error Log file for this item's id
+                // Write to error log for this item's id
+                print("ERROR:\nConfig: \(configuration)\nMessage: \(error)")
+                do { try ErrorLogger.write(for: configuration.id, date: Date(), type: error, message: error.localizedDescription) } catch _ { }
             }
         }
         
