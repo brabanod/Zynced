@@ -124,16 +124,15 @@ class StatusItemManager: NSObject {
             preferencesShown = true
             
             // Instatiate ViewController and set properties
-            let storyboard = NSStoryboard(name: "Main", bundle: nil)
-            guard let vc = storyboard.instantiateController(withIdentifier: .init(stringLiteral: "preferencesID")) as? ViewController else { return }
+            let storyboard = NSStoryboard(name: "Preferences", bundle: nil)
+            guard let windowCtrl = storyboard.instantiateController(withIdentifier: .init(stringLiteral: "preferencesID")) as? PreferencesWindowController else { return }
+            guard let vc = windowCtrl.contentViewController as? OverviewViewController else { return }
             vc.configManager = configManager
             vc.syncOrchestrator = syncOrchestrator
             
-            // Present window vis ViewController
-            let window = NSWindow(contentViewController: vc)
-            NSApp.activate(ignoringOtherApps: true)
-            window.makeKeyAndOrderFront(nil)
-            window.delegate = self
+            // Present window
+            windowCtrl.window?.makeKeyAndOrderFront(nil)
+            windowCtrl.window?.delegate = self
         }
     }
 }

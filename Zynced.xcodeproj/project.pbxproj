@@ -22,6 +22,10 @@
 		5084A78723F56DC3005F67D8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5084A78923F56DC3005F67D8 /* Localizable.strings */; };
 		5084A78F23F57522005F67D8 /* BoteCore in Frameworks */ = {isa = PBXBuildFile; productRef = 5084A78E23F57522005F67D8 /* BoteCore */; };
 		50B2C81923FBFB480048FA6C /* ErrorLoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B2C81823FBFB480048FA6C /* ErrorLoggerTests.swift */; };
+		50B2C82223FC1A280048FA6C /* Preferences.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50B2C82123FC1A280048FA6C /* Preferences.storyboard */; };
+		50B2C82423FC1A990048FA6C /* OverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B2C82323FC1A990048FA6C /* OverviewViewController.swift */; };
+		50B2C82723FC1AA70048FA6C /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B2C82523FC1AA70048FA6C /* PreferencesViewController.swift */; };
+		50B2C82A23FC1B510048FA6C /* PreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B2C82923FC1B510048FA6C /* PreferencesWindowController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +62,10 @@
 		50B2C81623FBFB480048FA6C /* ZyncedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZyncedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		50B2C81823FBFB480048FA6C /* ErrorLoggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLoggerTests.swift; sourceTree = "<group>"; };
 		50B2C81A23FBFB480048FA6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		50B2C82123FC1A280048FA6C /* Preferences.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Preferences.storyboard; sourceTree = "<group>"; };
+		50B2C82323FC1A990048FA6C /* OverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewViewController.swift; sourceTree = "<group>"; };
+		50B2C82523FC1AA70048FA6C /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
+		50B2C82923FC1B510048FA6C /* PreferencesWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWindowController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +112,7 @@
 				5084A77423F55677005F67D8 /* StatusItemManager.swift */,
 				5084A76623F55549005F67D8 /* ViewController.swift */,
 				504B136623FB453400E271BE /* ErrorLogger.swift */,
+				50B2C82023FC194D0048FA6C /* Preferences */,
 				5084A77623F55B6C005F67D8 /* Views */,
 				5084A77F23F560B2005F67D8 /* Common */,
 				5084A76823F5554A005F67D8 /* Assets.xcassets */,
@@ -142,6 +151,17 @@
 				50B2C81A23FBFB480048FA6C /* Info.plist */,
 			);
 			path = ZyncedTests;
+			sourceTree = "<group>";
+		};
+		50B2C82023FC194D0048FA6C /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				50B2C82123FC1A280048FA6C /* Preferences.storyboard */,
+				50B2C82923FC1B510048FA6C /* PreferencesWindowController.swift */,
+				50B2C82523FC1AA70048FA6C /* PreferencesViewController.swift */,
+				50B2C82323FC1A990048FA6C /* OverviewViewController.swift */,
+			);
+			path = Preferences;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -236,6 +256,7 @@
 				5084A78723F56DC3005F67D8 /* Localizable.strings in Resources */,
 				5084A76923F5554A005F67D8 /* Assets.xcassets in Resources */,
 				5084A78323F562EA005F67D8 /* PreferencesView.xib in Resources */,
+				50B2C82223FC1A280048FA6C /* Preferences.storyboard in Resources */,
 				5084A77A23F55BDA005F67D8 /* ConfigurationInfoView.xib in Resources */,
 				5084A76C23F5554A005F67D8 /* Main.storyboard in Resources */,
 			);
@@ -256,9 +277,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				5084A77823F55B85005F67D8 /* LoadableView.swift in Sources */,
+				50B2C82A23FC1B510048FA6C /* PreferencesWindowController.swift in Sources */,
 				5084A77E23F560AF005F67D8 /* Colors.swift in Sources */,
+				50B2C82423FC1A990048FA6C /* OverviewViewController.swift in Sources */,
 				5084A77523F55677005F67D8 /* StatusItemManager.swift in Sources */,
 				5084A76723F55549005F67D8 /* ViewController.swift in Sources */,
+				50B2C82723FC1AA70048FA6C /* PreferencesViewController.swift in Sources */,
 				5084A77C23F55C2A005F67D8 /* ConfigurationInfoView.swift in Sources */,
 				5084A76523F55549005F67D8 /* AppDelegate.swift in Sources */,
 				504B136723FB453400E271BE /* ErrorLogger.swift in Sources */,
