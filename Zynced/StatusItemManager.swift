@@ -131,6 +131,7 @@ class StatusItemManager: NSObject {
             vc.syncOrchestrator = syncOrchestrator
             
             // Present window
+            NSApp.activate(ignoringOtherApps: true)
             windowCtrl.window?.makeKeyAndOrderFront(nil)
             windowCtrl.window?.delegate = self
         }
