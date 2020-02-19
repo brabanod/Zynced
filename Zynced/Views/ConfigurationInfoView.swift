@@ -14,7 +14,8 @@ class ConfigurationInfoView: NSView, LoadableView {
     @IBOutlet weak var nameLabel: NSTextField!
     @IBOutlet weak var locationLabel: NSTextField!
     @IBOutlet weak var lastSyncedLabel: NSTextField!
-    @IBOutlet weak var statusIndicator: NSView!
+    @IBOutlet weak var statusIndicator: StatusIndicatorView!
+    
     
     static let defaultHeight: CGFloat = 58.0
     
@@ -32,23 +33,12 @@ class ConfigurationInfoView: NSView, LoadableView {
     
     
     override func awakeFromNib() {
-        statusIndicator.wantsLayer = true
-        statusIndicator.layer?.cornerRadius = statusIndicator.bounds.width / 2
-        statusIndicator.layer?.backgroundColor = CGColor.StatusColor.inactive
+        statusIndicator.update(status: .inactive)
     }
     
     
     func setStatus(_ status: SyncStatus) {
-        switch status {
-        case .connected:
-            statusIndicator.layer?.backgroundColor = CGColor.StatusColor.connected
-        case .active:
-            statusIndicator.layer?.backgroundColor = CGColor.StatusColor.active
-        case .inactive:
-            statusIndicator.layer?.backgroundColor = CGColor.StatusColor.inactive
-        case .failed:
-            statusIndicator.layer?.backgroundColor = CGColor.StatusColor.failed
-        }
+        statusIndicator.update(status: status)
     }
     
     

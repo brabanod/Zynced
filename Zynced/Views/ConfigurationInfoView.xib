@@ -10,7 +10,7 @@
                 <outlet property="lastSyncedLabel" destination="nxi-1f-A1o" id="a6X-vu-IVJ"/>
                 <outlet property="locationLabel" destination="J0W-c7-V8I" id="bbh-C3-mFW"/>
                 <outlet property="nameLabel" destination="3AF-oY-c4z" id="mGG-Bc-6Co"/>
-                <outlet property="statusIndicator" destination="1bJ-so-6kr" id="6rg-fU-Wml"/>
+                <outlet property="statusIndicator" destination="1bJ-so-6kr" id="Erm-vQ-4e4"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
@@ -35,7 +35,7 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <customView translatesAutoresizingMaskIntoConstraints="NO" id="1bJ-so-6kr">
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="1bJ-so-6kr" customClass="StatusIndicatorView" customModule="Zynced" customModuleProvider="target">
                     <rect key="frame" x="270" y="39" width="10" height="10"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="10" id="H3p-n5-EUn"/>
