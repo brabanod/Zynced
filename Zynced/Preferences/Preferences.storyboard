@@ -53,7 +53,7 @@
                                                     <tableColumns>
                                                         <tableColumn width="330" minWidth="40" maxWidth="1000" id="DKx-fu-5wF">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                                <font key="font" metaFont="label" size="11"/>
+                                                                <font key="font" metaFont="menu" size="11"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                             </tableHeaderCell>
@@ -334,9 +334,49 @@
                                                     </box>
                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="2CR-qB-VZ9">
                                                         <rect key="frame" x="0.0" y="0.0" width="333" height="279"/>
+                                                        <subviews>
+                                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="UwE-wW-pOe" customClass="StackedInputView" customModule="Zynced" customModuleProvider="target">
+                                                                <rect key="frame" x="10" y="239" width="303" height="20"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="20" id="XfD-if-tSG"/>
+                                                                </constraints>
+                                                            </customView>
+                                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="UH2-rp-3dt" customClass="StackedInputView" customModule="Zynced" customModuleProvider="target">
+                                                                <rect key="frame" x="10" y="0.0" width="303" height="229"/>
+                                                            </customView>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstItem="UwE-wW-pOe" firstAttribute="top" secondItem="2CR-qB-VZ9" secondAttribute="top" constant="20" id="1GO-Yb-Gks"/>
+                                                            <constraint firstItem="UwE-wW-pOe" firstAttribute="leading" secondItem="2CR-qB-VZ9" secondAttribute="leading" constant="10" id="3Sq-OF-9or"/>
+                                                            <constraint firstAttribute="trailing" secondItem="UH2-rp-3dt" secondAttribute="trailing" constant="20" id="BNK-IC-wRa"/>
+                                                            <constraint firstItem="UH2-rp-3dt" firstAttribute="leading" secondItem="2CR-qB-VZ9" secondAttribute="leading" constant="10" id="CDL-np-iX7"/>
+                                                            <constraint firstAttribute="bottom" secondItem="UH2-rp-3dt" secondAttribute="bottom" id="bus-42-PNg"/>
+                                                            <constraint firstItem="UH2-rp-3dt" firstAttribute="top" secondItem="UwE-wW-pOe" secondAttribute="bottom" constant="10" id="w57-c1-C88"/>
+                                                            <constraint firstAttribute="trailing" secondItem="UwE-wW-pOe" secondAttribute="trailing" constant="20" id="wJk-r6-QLt"/>
+                                                        </constraints>
                                                     </customView>
                                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="Hqb-v3-cSK">
                                                         <rect key="frame" x="334" y="0.0" width="332" height="279"/>
+                                                        <subviews>
+                                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="OHu-V5-W8Y" customClass="StackedInputView" customModule="Zynced" customModuleProvider="target">
+                                                                <rect key="frame" x="10" y="239" width="302" height="20"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="20" id="F6w-wB-RAB"/>
+                                                                </constraints>
+                                                            </customView>
+                                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="4bb-EW-9fw" customClass="StackedInputView" customModule="Zynced" customModuleProvider="target">
+                                                                <rect key="frame" x="10" y="0.0" width="302" height="229"/>
+                                                            </customView>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstAttribute="trailing" secondItem="4bb-EW-9fw" secondAttribute="trailing" constant="20" id="PK4-vR-Kf4"/>
+                                                            <constraint firstAttribute="bottom" secondItem="4bb-EW-9fw" secondAttribute="bottom" id="U4w-Z6-QIW"/>
+                                                            <constraint firstItem="4bb-EW-9fw" firstAttribute="leading" secondItem="Hqb-v3-cSK" secondAttribute="leading" constant="10" id="ULp-FK-HeP"/>
+                                                            <constraint firstItem="OHu-V5-W8Y" firstAttribute="top" secondItem="Hqb-v3-cSK" secondAttribute="top" constant="20" id="bAf-Yx-lBd"/>
+                                                            <constraint firstItem="OHu-V5-W8Y" firstAttribute="leading" secondItem="Hqb-v3-cSK" secondAttribute="leading" constant="10" id="dIg-Ab-jd4"/>
+                                                            <constraint firstAttribute="trailing" secondItem="OHu-V5-W8Y" secondAttribute="trailing" constant="20" id="qYG-RN-cyl"/>
+                                                            <constraint firstItem="4bb-EW-9fw" firstAttribute="top" secondItem="OHu-V5-W8Y" secondAttribute="bottom" constant="10" id="tb4-fy-6VO"/>
+                                                        </constraints>
                                                     </customView>
                                                 </subviews>
                                                 <constraints>
@@ -443,9 +483,13 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="connectionSelectLeft" destination="UwE-wW-pOe" id="gD9-ly-xoe"/>
+                        <outlet property="connectionSelectRight" destination="OHu-V5-W8Y" id="ygX-3l-lr1"/>
                         <outlet property="detailContainer" destination="5Nh-0W-JNk" id="2Iu-nX-P1q"/>
                         <outlet property="itemsTable" destination="oVw-Gp-Hlu" id="wwX-vI-PAn"/>
                         <outlet property="saveButton" destination="ZJC-iP-NEs" id="qf8-oF-Shh"/>
+                        <outlet property="stackedInputLeft" destination="UH2-rp-3dt" id="THJ-dF-MQx"/>
+                        <outlet property="stackedInputRight" destination="4bb-EW-9fw" id="VeD-DD-kjS"/>
                         <outlet property="startStopButton" destination="dbq-w9-Whx" id="pkc-Nh-9Iz"/>
                         <outlet property="syncDirectionSelector" destination="J67-Xx-gHF" id="TdJ-Vf-YVc"/>
                     </connections>

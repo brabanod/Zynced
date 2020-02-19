@@ -183,7 +183,9 @@ class StackedInputView: NSView {
 
             case .dropdown:
                 let dropdown = NSPopUpButton(frame: .zero)
+                dropdown.target = self
                 dropdown.action = #selector(StackedInputView.popUpButtonDidChange(_:))
+                dropdown.autoenablesItems = true
                 input = dropdown
             }
 

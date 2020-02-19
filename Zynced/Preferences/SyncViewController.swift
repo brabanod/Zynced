@@ -18,7 +18,15 @@ class SyncViewController: PreferencesViewController {
     @IBOutlet weak var saveButton: NSButton!
     @IBOutlet weak var startStopButton: NSButton!
     
+    @IBOutlet weak var connectionSelectLeft: StackedInputView!
+    @IBOutlet weak var connectionSelectRight: StackedInputView!
+    private let connectionChoicesLeft = [NSLocalizedString("Local", comment: "Description for local connection")]
+    private let connectionChoicesRight = [NSLocalizedString("Local", comment: "Description for local connection"),
+                                          NSLocalizedString("SFTP", comment: "Description for SFTP connection"),
+                                          NSLocalizedString("FTP", comment: "Description for FTP connection")]
     
+    @IBOutlet weak var stackedInputLeft: StackedInputView!
+    @IBOutlet weak var stackedInputRight: StackedInputView!
     
     var subscriptions = [(AnyCancellable, AnyCancellable)]()
     
@@ -29,7 +37,7 @@ class SyncViewController: PreferencesViewController {
         
         // Set detail container background to white
         detailContainer.wantsLayer = true
-        detailContainer.layer?.backgroundColor = .white
+        detailContainer.layer?.backgroundColor = NSColor(named: NSColor.Name("BackgroundColor"))?.cgColor
         
         // Setup buttons
         startStopButton.keyEquivalent = "\r"
@@ -41,6 +49,9 @@ class SyncViewController: PreferencesViewController {
         
         // Sync direction selector setup
         syncDirectionSelector.delegate = self
+        
+        // Setup stacked input views
+        setupConnectionSelect()
     }
     
     
@@ -53,6 +64,21 @@ class SyncViewController: PreferencesViewController {
         itemsTable.reloadData()
         if itemsTable.numberOfRows > 0 {
             itemsTable.selectRowIndexes(IndexSet(integer: 0), byExtendingSelection: false)
+        }
+    }
+    
+    
+    func setupConnectionSelect() {
+        let connectionSelectLeftId = "connectionSelectLeft"
+        let connectionSelectRightId = "connectionSelectRight"
+        connectionSelectLeft.layout([InputItem(label: NSLocalizedString("Connection", comment: "Label for connection configuration input description."), type: .dropdown, inputIdentifier: connectionSelectLeftId)])
+        connectionSelectRight.layout([InputItem(label: NSLocalizedString("Connection", comment: "Label for connection configuration input description."), type: .dropdown, inputIdentifier: connectionSelectRightId)])
+        
+        if let leftDropdown = connectionSelectLeft.inputStack.views.first(where: { $0.identifier!.rawValue ==  connectionSelectLeftId} ) as? NSPopUpButton {
+            leftDropdown.addItems(withTitles: connectionChoicesLeft)
+        }
+        if let rightDropdown = connectionSelectRight.inputStack.views.first(where: { $0.identifier!.rawValue ==  connectionSelectRightId} ) as? NSPopUpButton {
+            rightDropdown.addItems(withTitles: connectionChoicesRight)
         }
     }
     
