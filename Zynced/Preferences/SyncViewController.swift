@@ -13,6 +13,7 @@ class SyncViewController: PreferencesViewController {
     
     @IBOutlet weak var itemsTable: NSTableView!
     @IBOutlet weak var syncDirectionSelector: SyncDirectionSelector!
+    @IBOutlet weak var detailContainer: NSView!
     
     
     var subscriptions = [(AnyCancellable, AnyCancellable)]()
@@ -21,6 +22,9 @@ class SyncViewController: PreferencesViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         removeSubscriptions()
+        
+        detailContainer.wantsLayer = true
+        detailContainer.layer?.backgroundColor = .white
         
         // Table setup
         itemsTable.delegate = self

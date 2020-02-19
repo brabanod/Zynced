@@ -193,7 +193,7 @@
                                                         <rect key="frame" x="117" y="22" width="32" height="16"/>
                                                         <textFieldCell key="cell" lineBreakMode="clipping" title="Path" id="Q3Y-ub-nOu">
                                                             <font key="font" metaFont="system"/>
-                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
@@ -230,7 +230,7 @@
                                                         <rect key="frame" x="117" y="22" width="32" height="16"/>
                                                         <textFieldCell key="cell" lineBreakMode="clipping" title="Path" id="pVq-eC-s4a">
                                                             <font key="font" metaFont="system"/>
-                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
@@ -347,6 +347,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="detailContainer" destination="5Nh-0W-JNk" id="2Iu-nX-P1q"/>
                         <outlet property="itemsTable" destination="oVw-Gp-Hlu" id="wwX-vI-PAn"/>
                         <outlet property="syncDirectionSelector" destination="J67-Xx-gHF" id="TdJ-Vf-YVc"/>
                     </connections>
