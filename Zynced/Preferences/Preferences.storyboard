@@ -53,7 +53,7 @@
                                                     <tableColumns>
                                                         <tableColumn width="330" minWidth="40" maxWidth="1000" id="DKx-fu-5wF">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                                <font key="font" metaFont="controlContent" size="11"/>
+                                                                <font key="font" metaFont="label" size="11"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                             </tableHeaderCell>
@@ -65,11 +65,11 @@
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView id="jWa-yL-90Y">
-                                                                    <rect key="frame" x="1" y="1" width="1000" height="17"/>
+                                                                    <rect key="frame" x="1" y="1" width="330" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hQS-LS-fss">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="1000" height="17"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="330" height="17"/>
                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="UNX-Ee-Tnf">
                                                                                 <font key="font" metaFont="system"/>
@@ -190,9 +190,9 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kBa-C3-6OD">
-                                                        <rect key="frame" x="117" y="22" width="32" height="16"/>
+                                                        <rect key="frame" x="116" y="21" width="34" height="17"/>
                                                         <textFieldCell key="cell" lineBreakMode="clipping" title="Path" id="Q3Y-ub-nOu">
-                                                            <font key="font" metaFont="system"/>
+                                                            <font key="font" metaFont="menu" size="14"/>
                                                             <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
@@ -227,9 +227,9 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0ql-Hi-FWi">
-                                                        <rect key="frame" x="117" y="22" width="32" height="16"/>
+                                                        <rect key="frame" x="116" y="21" width="34" height="17"/>
                                                         <textFieldCell key="cell" lineBreakMode="clipping" title="Path" id="pVq-eC-s4a">
-                                                            <font key="font" metaFont="system"/>
+                                                            <font key="font" metaFont="menu" size="14"/>
                                                             <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>

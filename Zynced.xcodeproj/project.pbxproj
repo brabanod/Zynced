@@ -28,7 +28,7 @@
 		50B2C82423FC1A990048FA6C /* SyncViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B2C82323FC1A990048FA6C /* SyncViewController.swift */; };
 		50B2C82723FC1AA70048FA6C /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B2C82523FC1AA70048FA6C /* PreferencesViewController.swift */; };
 		50B2C82A23FC1B510048FA6C /* PreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B2C82923FC1B510048FA6C /* PreferencesWindowController.swift */; };
-		50D3896023FD71BD0083F3C3 /* StackedInputsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D3895F23FD71BD0083F3C3 /* StackedInputsView.swift */; };
+		50D3896023FD71BD0083F3C3 /* StackedInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D3895F23FD71BD0083F3C3 /* StackedInputView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,7 +71,7 @@
 		50B2C82323FC1A990048FA6C /* SyncViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncViewController.swift; sourceTree = "<group>"; };
 		50B2C82523FC1AA70048FA6C /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
 		50B2C82923FC1B510048FA6C /* PreferencesWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWindowController.swift; sourceTree = "<group>"; };
-		50D3895F23FD71BD0083F3C3 /* StackedInputsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackedInputsView.swift; sourceTree = "<group>"; };
+		50D3895F23FD71BD0083F3C3 /* StackedInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackedInputView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,7 +140,7 @@
 				5084A78023F562E0005F67D8 /* PreferencesView.swift */,
 				5027889323FD38F700635849 /* StatusIndicatorView.swift */,
 				504D7F4723FD3F80007B72E4 /* SyncDirectionSelector.swift */,
-				50D3895F23FD71BD0083F3C3 /* StackedInputsView.swift */,
+				50D3895F23FD71BD0083F3C3 /* StackedInputView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -286,7 +286,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5084A77823F55B85005F67D8 /* LoadableView.swift in Sources */,
-				50D3896023FD71BD0083F3C3 /* StackedInputsView.swift in Sources */,
+				50D3896023FD71BD0083F3C3 /* StackedInputView.swift in Sources */,
 				50B2C82A23FC1B510048FA6C /* PreferencesWindowController.swift in Sources */,
 				5084A77E23F560AF005F67D8 /* Colors.swift in Sources */,
 				50B2C82423FC1A990048FA6C /* SyncViewController.swift in Sources */,
