@@ -53,7 +53,7 @@
                                                     <tableColumns>
                                                         <tableColumn width="330" minWidth="40" maxWidth="1000" id="DKx-fu-5wF">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                                <font key="font" metaFont="toolTip"/>
+                                                                <font key="font" metaFont="controlContent" size="11"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                             </tableHeaderCell>
@@ -125,6 +125,9 @@
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
+                                                <connections>
+                                                    <action selector="showErrorLog:" target="xoL-8r-b9H" id="cuC-GW-gFf"/>
+                                                </connections>
                                             </button>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="yc8-iJ-UUV" customClass="StatusIndicatorView" customModule="Zynced" customModuleProvider="target">
                                                 <rect key="frame" x="527" y="40" width="10" height="10"/>
@@ -155,28 +158,16 @@
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="WLB-zm-869">
                                                 <rect key="frame" x="266" y="18" width="134" height="135"/>
                                                 <subviews>
-                                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wzc-ab-C7t">
-                                                        <rect key="frame" x="0.0" y="68" width="67" height="67"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" secondItem="wzc-ab-C7t" secondAttribute="height" multiplier="1:1" id="xjH-m1-A71"/>
-                                                        </constraints>
-                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="LeftArrow" id="Skg-n2-U5R"/>
-                                                    </imageView>
-                                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Jv0-2L-SrF">
-                                                        <rect key="frame" x="67" y="68" width="67" height="67"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" secondItem="Jv0-2L-SrF" secondAttribute="height" multiplier="1:1" id="Oys-3Z-1oY"/>
-                                                        </constraints>
-                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="RightArrowSelected" id="nKs-iO-01Z"/>
-                                                    </imageView>
+                                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="J67-Xx-gHF" customClass="SyncDirectionSelector" customModule="Zynced" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="67" width="134" height="68"/>
+                                                    </customView>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstItem="wzc-ab-C7t" firstAttribute="leading" secondItem="WLB-zm-869" secondAttribute="leading" id="5D2-8Z-m5q"/>
-                                                    <constraint firstItem="Jv0-2L-SrF" firstAttribute="width" secondItem="WLB-zm-869" secondAttribute="width" multiplier="0.5" id="D0f-D2-df2"/>
-                                                    <constraint firstItem="Jv0-2L-SrF" firstAttribute="top" secondItem="WLB-zm-869" secondAttribute="top" id="TA0-VC-IIr"/>
-                                                    <constraint firstItem="wzc-ab-C7t" firstAttribute="width" secondItem="WLB-zm-869" secondAttribute="width" multiplier="0.5" id="ZQC-cs-Wvz"/>
-                                                    <constraint firstItem="wzc-ab-C7t" firstAttribute="top" secondItem="WLB-zm-869" secondAttribute="top" id="mFa-iq-BOi"/>
-                                                    <constraint firstAttribute="trailing" secondItem="Jv0-2L-SrF" secondAttribute="trailing" id="nZK-PX-7XG"/>
+                                                    <constraint firstAttribute="trailing" secondItem="J67-Xx-gHF" secondAttribute="trailing" id="3u5-Oc-X7l"/>
+                                                    <constraint firstItem="J67-Xx-gHF" firstAttribute="leading" secondItem="WLB-zm-869" secondAttribute="leading" id="96N-ay-U8J"/>
+                                                    <constraint firstItem="J67-Xx-gHF" firstAttribute="top" secondItem="WLB-zm-869" secondAttribute="top" id="J3X-eK-uWv"/>
+                                                    <constraint firstItem="J67-Xx-gHF" firstAttribute="height" secondItem="WLB-zm-869" secondAttribute="height" multiplier="0.5" id="MLr-pU-gso"/>
+                                                    <constraint firstItem="J67-Xx-gHF" firstAttribute="width" secondItem="WLB-zm-869" secondAttribute="width" id="YmK-cn-NPA"/>
                                                 </constraints>
                                             </customView>
                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="8IM-i2-laj">
@@ -193,7 +184,7 @@
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nqF-o0-0Oz">
                                                         <rect key="frame" x="103" y="48" width="60" height="17"/>
                                                         <textFieldCell key="cell" lineBreakMode="clipping" title="Location" id="iIL-2k-eWm">
-                                                            <font key="font" metaFont="menu" size="14"/>
+                                                            <font key="font" metaFont="system" size="14"/>
                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
@@ -230,7 +221,7 @@
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="A1d-ER-heX">
                                                         <rect key="frame" x="103" y="48" width="60" height="17"/>
                                                         <textFieldCell key="cell" lineBreakMode="clipping" title="Location" id="TGf-Ps-WMM">
-                                                            <font key="font" metaFont="menu" size="14"/>
+                                                            <font key="font" metaFont="system" size="14"/>
                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
@@ -357,6 +348,7 @@
                     </view>
                     <connections>
                         <outlet property="itemsTable" destination="oVw-Gp-Hlu" id="wwX-vI-PAn"/>
+                        <outlet property="syncDirectionSelector" destination="J67-Xx-gHF" id="TdJ-Vf-YVc"/>
                     </connections>
                 </viewController>
                 <customObject id="fNk-SF-M6v" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -365,11 +357,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="LeftArrow" width="38" height="31"/>
         <image name="Local" width="55" height="45"/>
         <image name="NSAddTemplate" width="11" height="11"/>
         <image name="NSRemoveTemplate" width="11" height="11"/>
         <image name="Remote" width="60" height="60"/>
-        <image name="RightArrowSelected" width="38" height="32"/>
     </resources>
 </document>

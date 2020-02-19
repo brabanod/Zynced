@@ -12,6 +12,8 @@ import Combine
 class SyncViewController: PreferencesViewController {
     
     @IBOutlet weak var itemsTable: NSTableView!
+    @IBOutlet weak var syncDirectionSelector: SyncDirectionSelector!
+    
     
     var subscriptions = [(AnyCancellable, AnyCancellable)]()
     
@@ -20,9 +22,13 @@ class SyncViewController: PreferencesViewController {
         super.viewDidLoad()
         removeSubscriptions()
         
+        // Table setup
         itemsTable.delegate = self
         itemsTable.dataSource = self
         itemsTable.rowHeight = ConfigurationInfoView.defaultHeight
+        
+        // Sync direction selector setup
+        syncDirectionSelector.delegate = self
     }
     
     
@@ -33,6 +39,9 @@ class SyncViewController: PreferencesViewController {
     
     override func viewWillAppear() {
         itemsTable.reloadData()
+        if itemsTable.numberOfRows > 0 {
+            itemsTable.selectRowIndexes(IndexSet(integer: 0), byExtendingSelection: false)
+        }
     }
     
     
@@ -58,6 +67,11 @@ class SyncViewController: PreferencesViewController {
             // Alert: No item selected
         }
     }
+    
+    
+    @IBAction func showErrorLog(_ sender: Any) {
+    }
+    
 }
 
 
@@ -100,4 +114,27 @@ extension SyncViewController: NSTableViewDataSource {
     func numberOfRows(in tableView: NSTableView) -> Int {
         return syncOrchestrator?.syncItems.count ?? 0
     }
+}
+
+
+
+
+extension SyncViewController: SyncDirectionSelectorDelegate {
+    func didSelectLeft() {
+        print("did select left sync direction ...")
+    }
+    
+    func didUnselectLeft() {
+        print("did unselect left sync direction ...")
+    }
+    
+    func didSelectRight() {
+        print("did select right sync direction ...")
+    }
+    
+    func didUnselectRight() {
+        print("did unselect right sync direction ...")
+    }
+    
+    
 }
