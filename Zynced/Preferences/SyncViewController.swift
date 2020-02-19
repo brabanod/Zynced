@@ -15,6 +15,10 @@ class SyncViewController: PreferencesViewController {
     @IBOutlet weak var syncDirectionSelector: SyncDirectionSelector!
     @IBOutlet weak var detailContainer: NSView!
     
+    @IBOutlet weak var saveButton: NSButton!
+    @IBOutlet weak var startStopButton: NSButton!
+    
+    
     
     var subscriptions = [(AnyCancellable, AnyCancellable)]()
     
@@ -23,8 +27,12 @@ class SyncViewController: PreferencesViewController {
         super.viewDidLoad()
         removeSubscriptions()
         
+        // Set detail container background to white
         detailContainer.wantsLayer = true
         detailContainer.layer?.backgroundColor = .white
+        
+        // Setup buttons
+        startStopButton.keyEquivalent = "\r"
         
         // Table setup
         itemsTable.delegate = self
@@ -73,7 +81,20 @@ class SyncViewController: PreferencesViewController {
     }
     
     
-    @IBAction func showErrorLog(_ sender: Any) {
+    @IBAction func showErrorLog(_ sender: NSButton) {
+    }
+    
+    
+    @IBAction func saveClicked(_ sender: NSButton) {
+    }
+    
+    
+    @IBAction func startStopSyncClicked(_ sender: NSButton) {
+        // Start -> Set button to default
+        sender.keyEquivalent = "\r"
+        
+        // Stop -> Set button to non-default
+        //sender.keyEquivalent = ""
     }
     
 }
