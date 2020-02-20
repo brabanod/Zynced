@@ -66,7 +66,7 @@ class StackedInputView: NSView {
     }
     
     
-    /*
+    /**
      Creates the basic structure for every StackedInputView
      */
     private func setupLayout() {
@@ -130,7 +130,7 @@ class StackedInputView: NSView {
     }
     
     
-    /*
+    /**
      Removes all input groups from the `StackedInputView`.
      */
     private func resetLayout() {

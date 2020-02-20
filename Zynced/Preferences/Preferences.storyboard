@@ -53,7 +53,7 @@
                                                     <tableColumns>
                                                         <tableColumn width="330" minWidth="40" maxWidth="1000" id="DKx-fu-5wF">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                                <font key="font" metaFont="menu" size="11"/>
+                                                                <font key="font" metaFont="controlContent" size="11"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                             </tableHeaderCell>
@@ -342,7 +342,7 @@
                                                                 </constraints>
                                                             </customView>
                                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="UH2-rp-3dt" customClass="StackedInputView" customModule="Zynced" customModuleProvider="target">
-                                                                <rect key="frame" x="10" y="0.0" width="303" height="229"/>
+                                                                <rect key="frame" x="10" y="0.0" width="303" height="219"/>
                                                             </customView>
                                                         </subviews>
                                                         <constraints>
@@ -351,7 +351,7 @@
                                                             <constraint firstAttribute="trailing" secondItem="UH2-rp-3dt" secondAttribute="trailing" constant="20" id="BNK-IC-wRa"/>
                                                             <constraint firstItem="UH2-rp-3dt" firstAttribute="leading" secondItem="2CR-qB-VZ9" secondAttribute="leading" constant="10" id="CDL-np-iX7"/>
                                                             <constraint firstAttribute="bottom" secondItem="UH2-rp-3dt" secondAttribute="bottom" id="bus-42-PNg"/>
-                                                            <constraint firstItem="UH2-rp-3dt" firstAttribute="top" secondItem="UwE-wW-pOe" secondAttribute="bottom" constant="10" id="w57-c1-C88"/>
+                                                            <constraint firstItem="UH2-rp-3dt" firstAttribute="top" secondItem="UwE-wW-pOe" secondAttribute="bottom" constant="20" id="w57-c1-C88"/>
                                                             <constraint firstAttribute="trailing" secondItem="UwE-wW-pOe" secondAttribute="trailing" constant="20" id="wJk-r6-QLt"/>
                                                         </constraints>
                                                     </customView>
@@ -365,7 +365,7 @@
                                                                 </constraints>
                                                             </customView>
                                                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="4bb-EW-9fw" customClass="StackedInputView" customModule="Zynced" customModuleProvider="target">
-                                                                <rect key="frame" x="10" y="0.0" width="302" height="229"/>
+                                                                <rect key="frame" x="10" y="0.0" width="302" height="219"/>
                                                             </customView>
                                                         </subviews>
                                                         <constraints>
@@ -375,7 +375,7 @@
                                                             <constraint firstItem="OHu-V5-W8Y" firstAttribute="top" secondItem="Hqb-v3-cSK" secondAttribute="top" constant="20" id="bAf-Yx-lBd"/>
                                                             <constraint firstItem="OHu-V5-W8Y" firstAttribute="leading" secondItem="Hqb-v3-cSK" secondAttribute="leading" constant="10" id="dIg-Ab-jd4"/>
                                                             <constraint firstAttribute="trailing" secondItem="OHu-V5-W8Y" secondAttribute="trailing" constant="20" id="qYG-RN-cyl"/>
-                                                            <constraint firstItem="4bb-EW-9fw" firstAttribute="top" secondItem="OHu-V5-W8Y" secondAttribute="bottom" constant="10" id="tb4-fy-6VO"/>
+                                                            <constraint firstItem="4bb-EW-9fw" firstAttribute="top" secondItem="OHu-V5-W8Y" secondAttribute="bottom" constant="20" id="tb4-fy-6VO"/>
                                                         </constraints>
                                                     </customView>
                                                 </subviews>

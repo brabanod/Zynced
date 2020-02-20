@@ -8,6 +8,7 @@
 
 import Cocoa
 import Combine
+import BoteCore
 
 class SyncViewController: PreferencesViewController {
     
@@ -52,6 +53,12 @@ class SyncViewController: PreferencesViewController {
         
         // Setup stacked input views
         setupConnectionSelect()
+        stackedInputLeft.identifier = NSUserInterfaceItemIdentifier(rawValue: "stackedInputLeft")
+        stackedInputRight.identifier = NSUserInterfaceItemIdentifier(rawValue: "stackedInputRight")
+        
+        // FIXME: Remove, only for TEST purpose
+        setupInputsLocal(for: stackedInputLeft, configuration: nil)
+        setupInputsSFTP(for: stackedInputRight, configuration: nil)
     }
     
     
@@ -94,13 +101,14 @@ class SyncViewController: PreferencesViewController {
     
     
     @IBAction func addItem(_ sender: Any) {
-        print("add")
+        // TODO: Update detail view
     }
     
     
     @IBAction func removeItem(_ sender: Any) {
         if itemsTable.selectedRow > -1 {
             // Alert: Ask if user really wants to delete
+            // Update detail view
         } else {
             // Alert: No item selected
         }
@@ -127,6 +135,7 @@ class SyncViewController: PreferencesViewController {
 
 
 
+// MARK: - NSTableViewDelegate
 extension SyncViewController: NSTableViewDelegate {
 
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
@@ -153,13 +162,23 @@ extension SyncViewController: NSTableViewDelegate {
         return NSView(frame: NSRect(x: 0.0, y: 0.0, width: tableView.bounds.width, height: ConfigurationInfoView.defaultHeight))
     }
     
+    
     func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
         return ConfigurationInfoView.defaultHeight
+    }
+    
+    
+    func tableViewSelectionDidChange(_ notification: Notification) {
+        if let tableview = notification.object as? NSTableView {
+            print("selected row index \(tableview.selectedRow)")
+            // TODO: Update detail view
+        }
     }
 }
 
 
 
+// MARK: - NSTableViewDataSource
 extension SyncViewController: NSTableViewDataSource {
     
     func numberOfRows(in tableView: NSTableView) -> Int {
@@ -170,6 +189,7 @@ extension SyncViewController: NSTableViewDataSource {
 
 
 
+// MARK: - SyncDirectionSelectorDelegate
 extension SyncViewController: SyncDirectionSelectorDelegate {
     func didSelectLeft() {
         print("did select left sync direction ...")
@@ -186,6 +206,62 @@ extension SyncViewController: SyncDirectionSelectorDelegate {
     func didUnselectRight() {
         print("did unselect right sync direction ...")
     }
+}
+
+
+
+// MARK: - Stack Input Setup
+extension SyncViewController {
     
+    private func setupInputs(for configuration: Configuration) {
+        // Setup inputs for left side (from)
+        setupInputs(for: configuration, stackView: stackedInputLeft)
+        
+        // Setup inputs for right side (to)
+        setupInputs(for: configuration, stackView: stackedInputRight)
+    }
+    
+    
+    private func setupInputs(for configuration: Configuration, stackView: StackedInputView) {
+        switch configuration.fromType {
+        case .local:
+            setupInputsLocal(for: stackView, configuration: configuration)
+        case .sftp:
+            setupInputsSFTP(for: stackView, configuration: configuration)
+        }
+    }
+    
+    
+    /**
+     Lays out inputs for a local connection.
+     
+     - parameters:
+        - stackView: The `StackedInputView`, in which the inputs should be layed out.
+        - configuration: Optional `Configuration`. If given, inputs are filled with these values. If not, inputs stay empty/default.
+     */
+    private func setupInputsLocal(for stackView: StackedInputView, configuration: Configuration?) {
+        let stackID = stackView.identifier?.rawValue ?? ""
+        if stackID == "" { print("### stackID ist empty") }
+        
+        stackView.layout([InputItem(label: NSLocalizedString("Path", comment: "Label for path configuration input description."), type: .textfield, inputIdentifier: stackID + ".localPath")])
+    }
+    
+    
+    /**
+    Lays out inputs for a SFTP connection.
+    
+    - parameters:
+       - stackView: The `StackedInputView`, in which the inputs should be layed out.
+       - configuration: Optional `Configuration`. If given, inputs are filled with these values. If not, inputs stay empty/default.
+    */
+    private func setupInputsSFTP(for stackView: StackedInputView, configuration: Configuration?) {
+        let stackID = stackView.identifier?.rawValue ?? ""
+        if stackID == "" { print("### stackID ist empty") }
+        
+        stackView.layout([InputItem(label: NSLocalizedString("Host", comment: "Label for host configuration input description."), type: .textfield, inputIdentifier: stackID + ".sftpHost"),
+                          InputItem(label: NSLocalizedString("User", comment: "Label for user configuration input description."), type: .textfield, inputIdentifier: stackID + ".sftpUser"),
+                          InputItem(label: NSLocalizedString("Password", comment: "Label for password configuration input description."), type: .textfield, inputIdentifier: stackID + ".sftpPassword"),
+                          InputItem(label: NSLocalizedString("Path", comment: "Label for path configuration input description."), type: .dropdown, inputIdentifier: stackID + ".sftpPath")])
+    }
     
 }
