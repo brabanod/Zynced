@@ -40,6 +40,8 @@ class StackedInputView: NSView {
     
     // The spacing between elements in the stacks
     private let stackItemSpacing: CGFloat = 20.0
+    
+    private var callbacks = [TextFieldCallback]()
 
     
     override init(frame frameRect: NSRect) {
@@ -137,6 +139,9 @@ class StackedInputView: NSView {
         for view in inputStack.views {
             inputStack.removeView(view)
         }
+        
+        // Remove all callbacks
+        callbacks = [TextFieldCallback]()
     }
     
     
@@ -172,8 +177,9 @@ class StackedInputView: NSView {
             case .textfield:
                 let textfield = NSTextField(frame: .zero)
                 textfield.isEditable = true
-                textfield.target = item.target
-                textfield.action = item.selector
+                let callback = TextFieldCallback(selector: item.selector, target: item.target)
+                callbacks.append(callback)
+                textfield.delegate = callback
                 input = textfield
 
             case .dropdown:
@@ -196,6 +202,28 @@ class StackedInputView: NSView {
             input.addConstraint(inputHeight)
             inputStack.addView(input, in: .top)
             inputStack.addConstraints([inputLeft, inputRight])
+        }
+    }
+}
+
+
+
+
+/**
+ This class is used to wire up a target + selector to an NSTextFieldDelegate
+ */
+class TextFieldCallback: NSObject, NSTextFieldDelegate {
+    let selector: Selector?
+    let target: AnyObject?
+    
+    init(selector: Selector?, target: AnyObject?) {
+        self.selector = selector
+        self.target = target
+    }
+    
+    func controlTextDidChange(_ obj: Notification) {
+        if target != nil && selector != nil {
+            target!.performSelector(inBackground: selector!, with: obj.object as? NSTextField)
         }
     }
 }

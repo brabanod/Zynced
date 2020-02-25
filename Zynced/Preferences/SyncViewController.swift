@@ -35,6 +35,9 @@ class SyncViewController: PreferencesViewController {
     let stackedInputLeftId = "stackedInputLeft"
     let stackedInputRightId = "stackedInputRight"
     
+    // Keeps track if inputs changed
+    var unsavedChanges = false
+    
     var subscriptions = [(AnyCancellable, AnyCancellable)]()
     
     // The currently in the table selected SyncItem
@@ -97,6 +100,10 @@ class SyncViewController: PreferencesViewController {
     }
     
     
+    
+    
+    // MARK: - Setup/Cleanup methods
+    
     func setupConnectionSelect() {
         connectionSelectLeft.layout([InputItem(label: NSLocalizedString("Connection", comment: "Label for connection configuration input description."), type: .dropdown, inputIdentifier: connectionSelectLeftId, selector: #selector(SyncViewController.leftConnectionChanged(_:)), target: self)])
         connectionSelectRight.layout([InputItem(label: NSLocalizedString("Connection", comment: "Label for connection configuration input description."), type: .dropdown, inputIdentifier: connectionSelectRightId, selector: #selector(SyncViewController.rightConnectionChanged(_:)), target: self)])
@@ -120,11 +127,17 @@ class SyncViewController: PreferencesViewController {
     }
     
     
+    
+    
+    // MARK: - IBActions
+    
     @IBAction func addItem(_ sender: Any) {
-        // Update detail view
-        setupInputsDefault()
-        // Deselect row in table
-        itemsTable.selectRowIndexes(IndexSet(integer: -1), byExtendingSelection: false)
+        checkForUnsavedChanges {
+            // Update detail view
+            self.setupInputsDefault()
+            // Deselect row in table
+            self.itemsTable.selectRowIndexes(IndexSet(integer: -1), byExtendingSelection: false)
+        }
     }
     
     
@@ -135,14 +148,12 @@ class SyncViewController: PreferencesViewController {
             alert.messageText = NSLocalizedString("Delete Confimation", comment: "Alert message asking for delete confirmation.")
             alert.informativeText = NSLocalizedString("Delete Confirmation Text", comment: "Alert text asking for delete confirmation.")
             alert.alertStyle = NSAlert.Style.warning
-            alert.addButton(withTitle: "Delete")
-            alert.addButton(withTitle: "Cancel")
+            alert.addButton(withTitle: NSLocalizedString("Delete", comment: "Title for delete button."))
+            alert.addButton(withTitle: NSLocalizedString("Cancel", comment: "Title for cancel button."))
             if let window = self.view.window {
                 alert.beginSheetModal(for: window) { (response) in
                     if response == .alertFirstButtonReturn {
-                        // TDOD: Delete and update detail view
-                        // use currentItem or selectedRow
-                        print("delete")
+                        self.delete()
                     }
                 }
             }
@@ -152,7 +163,7 @@ class SyncViewController: PreferencesViewController {
             alert.messageText = NSLocalizedString("No Item Selected", comment: "Alert message telling that no item was selected.")
             alert.informativeText = NSLocalizedString("No Item Selected Text", comment: "Alert text telling that no item was selected.")
             alert.alertStyle = NSAlert.Style.warning
-            alert.addButton(withTitle: "OK")
+            alert.addButton(withTitle: NSLocalizedString("OK", comment: "Title for ok button."))
             if let window = self.view.window {
                 alert.beginSheetModal(for: window, completionHandler: nil)
             }
@@ -162,19 +173,86 @@ class SyncViewController: PreferencesViewController {
     
     
     @IBAction func showErrorLog(_ sender: NSButton) {
+        // TODO: Get id from configuration of currentItem and use it to show ErrorLog
     }
     
     
     @IBAction func saveClicked(_ sender: NSButton) {
+        save()
     }
     
     
     @IBAction func startStopSyncClicked(_ sender: NSButton) {
+        // TODO: Start/Stop sync for currentItem
+        // Check in which status sync item is currently
+        
         // Start -> Set button to default
         sender.keyEquivalent = "\r"
         
         // Stop -> Set button to non-default
         //sender.keyEquivalent = ""
+    }
+    
+    
+    
+    
+    // MARK: Save/Delete
+    
+    func save() {
+        unsavedChanges = false
+        // TODO: if currentItem not nil, override. Else create new Item
+    }
+    
+    
+    func delete() {
+        // TDOD: Delete and update detail view
+        // use currentItem or selectedRow
+    }
+    
+    
+    /**
+     Checks if there are unsaved changes. If so, then presents user an alert, asking if the changes should be saved or discarded. The requested action is then performed.
+     */
+    func checkForUnsavedChanges(completion: @escaping () -> ()) {
+        if unsavedChanges {
+            saveUnsavedChanges { (saveChanges) in
+                // Save changes if result is true
+                if saveChanges {
+                    self.save()
+                }
+                // Discard changes otherwise, by doing nothing
+                // Call completion when finished
+                completion()
+            }
+        } else {
+            completion()
+        }
+        
+    }
+    
+    
+    /**
+     Presents alert, asking if changes should be discarded.
+     
+     - returns:
+     `true` if changes should be saved, and `false` if they should be discarded.
+     */
+    func saveUnsavedChanges(completion: @escaping (Bool) -> ()) {
+        let alert = NSAlert()
+        alert.messageText = NSLocalizedString("Unsaved Changes", comment: "Alert message aksing what to do with unsaved changes.")
+        alert.informativeText = NSLocalizedString("Unsaved Changes Text", comment: "Alert text aksing what to do with unsaved changes.")
+        alert.alertStyle = NSAlert.Style.warning
+        alert.addButton(withTitle: NSLocalizedString("Save", comment: "Title for yes button."))
+        alert.addButton(withTitle: NSLocalizedString("Discard", comment: "Title for no button."))
+        if let window = self.view.window {
+            alert.beginSheetModal(for: window) { (response) in
+                if response == .alertFirstButtonReturn {
+                    completion(true)
+                } else if response == .alertSecondButtonReturn {
+                    completion(false)
+                }
+            }
+        }
     }
     
 }
@@ -215,10 +293,14 @@ extension SyncViewController: NSTableViewDelegate {
     
     
     func tableViewSelectionDidChange(_ notification: Notification) {
+        // TODO: Check for unsaved changes
         if let tableview = notification.object as? NSTableView {
             // Update detail view
             if let configuration = syncOrchestrator?.syncItems[tableview.selectedRow].configuration {
                 setupInputs(for: configuration)
+                // TODO: Set title
+                // TODO: Set status indicator and subscribe for changes
+                // TODO: Check if sync is start or stop and set button accordingly, also subscribe to changes for this button
             }
         }
     }
@@ -307,7 +389,7 @@ extension SyncViewController {
         let stackID = stackView.identifier?.rawValue ?? ""
         if stackID == "" { print("### stackID ist empty") }
         
-        let layout = [InputItem(label: NSLocalizedString("Path", comment: "Label for path configuration input description."), type: .textfield, inputIdentifier: stackID + ".localPath")]
+        let layout = [InputItem(label: NSLocalizedString("Path", comment: "Label for path configuration input description."), type: .textfield, inputIdentifier: stackID + ".localPath", selector: #selector(SyncViewController.didChangeInput(_:)), target: self)]
         
         stackView.layout(layout)
         
@@ -335,10 +417,10 @@ extension SyncViewController {
         let stackID = stackView.identifier?.rawValue ?? ""
         if stackID == "" { print("### stackID ist empty") }
         
-        let layout = [InputItem(label: NSLocalizedString("Host", comment: "Label for host configuration input description."), type: .textfield, inputIdentifier: stackID + ".sftpHost"),
-                      InputItem(label: NSLocalizedString("User", comment: "Label for user configuration input description."), type: .textfield, inputIdentifier: stackID + ".sftpUser"),
-                      InputItem(label: NSLocalizedString("Password", comment: "Label for password configuration input description."), type: .textfield, inputIdentifier: stackID + ".sftpPassword"),
-                      InputItem(label: NSLocalizedString("Path", comment: "Label for path configuration input description."), type: .textfield, inputIdentifier: stackID + ".sftpPath")]
+        let layout = [InputItem(label: NSLocalizedString("Host", comment: "Label for host configuration input description."), type: .textfield, inputIdentifier: stackID + ".sftpHost", selector: #selector(SyncViewController.didChangeInput(_:)), target: self),
+                      InputItem(label: NSLocalizedString("User", comment: "Label for user configuration input description."), type: .textfield, inputIdentifier: stackID + ".sftpUser", selector: #selector(SyncViewController.didChangeInput(_:)), target: self),
+                      InputItem(label: NSLocalizedString("Password", comment: "Label for password configuration input description."), type: .textfield, inputIdentifier: stackID + ".sftpPassword", selector: #selector(SyncViewController.didChangeInput(_:)), target: self),
+                      InputItem(label: NSLocalizedString("Path", comment: "Label for path configuration input description."), type: .textfield, inputIdentifier: stackID + ".sftpPath", selector: #selector(SyncViewController.didChangeInput(_:)), target: self)]
         
         stackView.layout(layout)
         
@@ -424,5 +506,10 @@ extension SyncViewController {
     @objc func rightConnectionChanged(_ sender: NSPopUpButton) {
         let type = connectionChoicesRight[sender.indexOfSelectedItem]
         setupInputs(for: type, configuration: nil, stackView: stackedInputRight)
+    }
+    
+    
+    @objc func didChangeInput(_ sender: Any) {
+        unsavedChanges = true
     }
 }
