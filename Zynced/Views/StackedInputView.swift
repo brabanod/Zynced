@@ -18,12 +18,8 @@ struct InputItem {
     var label: String
     var type: InputType
     var inputIdentifier: String
-}
-
-
-protocol StackedInputViewDelegate {
-    func didChangeTextField(sender: NSTextField)
-    func didSelectDropdownItem(sender: NSPopUpButton, index: Int)
+    var selector: Selector?
+    var target: AnyObject?
 }
 
 
@@ -44,8 +40,6 @@ class StackedInputView: NSView {
     
     // The spacing between elements in the stacks
     private let stackItemSpacing: CGFloat = 20.0
-    
-    var delegate: StackedInputViewDelegate?
 
     
     override init(frame frameRect: NSRect) {
@@ -178,13 +172,14 @@ class StackedInputView: NSView {
             case .textfield:
                 let textfield = NSTextField(frame: .zero)
                 textfield.isEditable = true
-                textfield.delegate = self
+                textfield.target = item.target
+                textfield.action = item.selector
                 input = textfield
 
             case .dropdown:
                 let dropdown = NSPopUpButton(frame: .zero)
-                dropdown.target = self
-                dropdown.action = #selector(StackedInputView.popUpButtonDidChange(_:))
+                dropdown.target = item.target
+                dropdown.action = item.selector
                 dropdown.autoenablesItems = true
                 input = dropdown
             }
@@ -202,27 +197,5 @@ class StackedInputView: NSView {
             inputStack.addView(input, in: .top)
             inputStack.addConstraints([inputLeft, inputRight])
         }
-    }
-}
-
-
-
-extension StackedInputView: NSTextFieldDelegate {
-    
-    func controlTextDidEndEditing(_ obj: Notification) {
-        print("textfield did change...")
-        if let textField = obj.object as? NSTextField {
-            delegate?.didChangeTextField(sender: textField)
-        }
-    }
-}
-
-
-
-extension StackedInputView {
-    
-    @objc func popUpButtonDidChange(_ sender: NSPopUpButton) {
-        print("pop up did change...")
-        delegate?.didSelectDropdownItem(sender: sender, index: sender.indexOfSelectedItem)
     }
 }

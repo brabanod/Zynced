@@ -28,6 +28,8 @@ class SyncViewController: PreferencesViewController {
     
     @IBOutlet weak var stackedInputLeft: StackedInputView!
     @IBOutlet weak var stackedInputRight: StackedInputView!
+    let stackedInputLeftId = "stackedInputLeft"
+    let stackedInputRightId = "stackedInputRight"
     
     var subscriptions = [(AnyCancellable, AnyCancellable)]()
     
@@ -53,8 +55,8 @@ class SyncViewController: PreferencesViewController {
         
         // Setup stacked input views
         setupConnectionSelect()
-        stackedInputLeft.identifier = NSUserInterfaceItemIdentifier(rawValue: "stackedInputLeft")
-        stackedInputRight.identifier = NSUserInterfaceItemIdentifier(rawValue: "stackedInputRight")
+        stackedInputLeft.identifier = NSUserInterfaceItemIdentifier(rawValue: stackedInputLeftId)
+        stackedInputRight.identifier = NSUserInterfaceItemIdentifier(rawValue: stackedInputRightId)
         
         // FIXME: Remove, only for TEST purpose
         do {
@@ -83,8 +85,8 @@ class SyncViewController: PreferencesViewController {
     
     
     func setupConnectionSelect() {
-        connectionSelectLeft.layout([InputItem(label: NSLocalizedString("Connection", comment: "Label for connection configuration input description."), type: .dropdown, inputIdentifier: connectionSelectLeftId)])
-        connectionSelectRight.layout([InputItem(label: NSLocalizedString("Connection", comment: "Label for connection configuration input description."), type: .dropdown, inputIdentifier: connectionSelectRightId)])
+        connectionSelectLeft.layout([InputItem(label: NSLocalizedString("Connection", comment: "Label for connection configuration input description."), type: .dropdown, inputIdentifier: connectionSelectLeftId, selector: #selector(SyncViewController.leftConnectionChanged(_:)), target: self)])
+        connectionSelectRight.layout([InputItem(label: NSLocalizedString("Connection", comment: "Label for connection configuration input description."), type: .dropdown, inputIdentifier: connectionSelectRightId, selector: #selector(SyncViewController.rightConnectionChanged(_:)), target: self)])
         
         if let leftDropdown = connectionSelectLeft.inputStack.views.first(where: { $0.identifier!.rawValue ==  connectionSelectLeftId} ) as? NSPopUpButton {
             leftDropdown.addItems(withTitles: connectionChoicesLeft.map({ $0.toString() }))
@@ -108,6 +110,8 @@ class SyncViewController: PreferencesViewController {
     @IBAction func addItem(_ sender: Any) {
         // Update detail view
         setupInputsDefault()
+        // Deselect row in table
+        itemsTable.selectRowIndexes(IndexSet(integer: -1), byExtendingSelection: false)
     }
     
     
@@ -216,6 +220,7 @@ extension SyncViewController: SyncDirectionSelectorDelegate {
 
 
 
+
 // MARK: - Stack Input Setup
 extension SyncViewController {
     
@@ -227,15 +232,23 @@ extension SyncViewController {
     
     private func setupInputs(for configuration: Configuration) {
         // Setup inputs for left side (from)
-        setupInputs(for: configuration, stackView: stackedInputLeft)
+        setupInputs(for: configuration.fromType, configuration: configuration, stackView: stackedInputLeft)
         
         // Setup inputs for right side (to)
-        setupInputs(for: configuration, stackView: stackedInputRight)
+        setupInputs(for: configuration.toType, configuration: configuration, stackView: stackedInputRight)
     }
     
     
-    private func setupInputs(for configuration: Configuration, stackView: StackedInputView) {
-        switch configuration.fromType {
+    /**
+     Sets up input stacks.
+     
+     - parameters:
+        - type: The type, which determines the stack input layout and fields.
+        - configuration: An optional `Configuration`, which is filled in the input fields.
+        - stackView: The corresponding `StackedInputView`, for which the setup should be performed
+     */
+    private func setupInputs(for type: ConnectionType, configuration: Configuration?, stackView: StackedInputView) {
+        switch type {
         case .local:
             setupInputsLocal(for: stackView, configuration: configuration)
         case .sftp:
@@ -324,13 +337,13 @@ extension SyncViewController {
      */
     private func selectConnection(for stackView: StackedInputView, type: ConnectionType) {
         // Determine correct connection selector
-        var connectionSelect: StackedInputView! = connectionSelectRight
-        var connectionChoices = connectionChoicesRight
-        var connectionID = connectionSelectRightId
-        if stackView == stackedInputLeft {
-            connectionSelect = connectionSelectLeft
-            connectionChoices = connectionChoicesLeft
-            connectionID = connectionSelectLeftId
+        var connectionSelect: StackedInputView! = connectionSelectLeft
+        var connectionChoices = connectionChoicesLeft
+        var connectionID = connectionSelectLeftId
+        if stackView.identifier?.rawValue ?? "" == stackedInputRightId {
+            connectionSelect = connectionSelectRight
+            connectionChoices = connectionChoicesRight
+            connectionID = connectionSelectRightId
         }
         
         // Select item corresponding to given type on connection selector,
@@ -351,10 +364,27 @@ extension SyncViewController {
      */
     func getConnection(for stackView: StackedInputView, from configuration: Configuration) -> Connection {
         var connection = configuration.from
-        if stackView == stackedInputRight {
+        if stackView.identifier?.rawValue ?? "" == stackedInputRightId {
             connection = configuration.to
         }
         return connection
     }
+}
+
+
+
+
+// MARK: - Input Callbacks
+extension SyncViewController {
     
+    @objc func leftConnectionChanged(_ sender: NSPopUpButton) {
+        let type = connectionChoicesLeft[sender.indexOfSelectedItem]
+        setupInputs(for: type, configuration: nil, stackView: stackedInputLeft)
+    }
+    
+    
+    @objc func rightConnectionChanged(_ sender: NSPopUpButton) {
+        let type = connectionChoicesRight[sender.indexOfSelectedItem]
+        setupInputs(for: type, configuration: nil, stackView: stackedInputRight)
+    }
 }
