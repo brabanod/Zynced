@@ -44,7 +44,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             alert.messageText = NSLocalizedString("ConfMng fail message", comment: "Alert message for failed initialization of ConfigurationManager.")
             alert.informativeText = NSLocalizedString("ConfMng fail test", comment: "Alert text for failed initialization of ConfigurationManager.")
             alert.alertStyle = NSAlert.Style.critical
-            alert.addButton(withTitle: "OK")
+            alert.addButton(withTitle: NSLocalizedString("OK", comment: "Title for ok button."))
             let res = alert.runModal()
             if res == .alertFirstButtonReturn {
                 NSApp.terminate(self)
