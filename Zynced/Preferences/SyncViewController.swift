@@ -261,13 +261,13 @@ extension SyncViewController {
         stackView.layout(layout)
         
         // Fill with configuration
-        if configuration != nil {
-            if let connection = getConnection(for: stackView, from: configuration!) as? LocalConnection {
+        if let conf = configuration {
+            if let connection = getConnection(for: stackView, from: conf) as? LocalConnection {
                 if stackView.inputStack.views.count == layout.count {
                     (stackView.inputStack.views[0] as? NSTextField)?.stringValue = connection.path
                 }
             }
-            // Error Logger
+            ErrorLogger.write(for: conf.id, date: Date(), type: nil, message: "Coulnd't load Configuration, because Connection was not of type \(ConnectionType.local.toString()).")
         }
     }
     
@@ -292,8 +292,8 @@ extension SyncViewController {
         stackView.layout(layout)
         
         // Fill with configuration
-        if configuration != nil {
-            if let connection = getConnection(for: stackView, from: configuration!) as? SFTPConnection {
+        if let conf = configuration {
+            if let connection = getConnection(for: stackView, from: conf) as? SFTPConnection {
                 if stackView.inputStack.views.count == layout.count {
                     (stackView.inputStack.views[0] as? NSTextField)?.stringValue = connection.host
                     (stackView.inputStack.views[1] as? NSTextField)?.stringValue = connection.user
@@ -308,7 +308,7 @@ extension SyncViewController {
                     }
                 }
             }
-            // Error Logger
+            ErrorLogger.write(for: conf.id, date: Date(), type: nil, message: "Coulnd't load Configuration, because Connection was not of type \(ConnectionType.sftp.toString()).")
         }
     }
     
