@@ -66,4 +66,9 @@ class ErrorLoggerTests: XCTestCase {
         XCTAssertEqual(try ErrorLogger.read(for: uuid3), nil)
     }
 
+    
+    func testReadErrors() throws {
+        //dump(try ErrorLogger.readAll())
+        print(try ErrorLogger.readAll() as AnyObject)
+    }
 }

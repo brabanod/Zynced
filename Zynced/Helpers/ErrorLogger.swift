@@ -19,8 +19,9 @@ struct ErrorLogItem: Codable, Equatable {
 
 class ErrorLogger {
     
-    private static let configurationsSuiteName = (Bundle.main.bundleIdentifier ?? "de.pascalbraband.zynced") + ".error-log"
-    private static let defaults = UserDefaults.init(suiteName: ErrorLogger.configurationsSuiteName)!
+    private static let errorLogSuiteName = (Bundle.main.bundleIdentifier ?? "de.pascalbraband.zynced") + ".error-log"
+    private static let defaults = UserDefaults.init(suiteName: ErrorLogger.errorLogSuiteName)!
+    public static let defaultID = "General-Error"
     
     
     /**
@@ -56,6 +57,11 @@ class ErrorLogger {
     }
     
     
+    static func writeDefault(date: Date, type errorType: Error?, message: String) {
+        write(for: ErrorLogger.defaultID, date: Date(), type: errorType, message: message)
+    }
+    
+    
     /**
      Removes all saved `ErrorLogItem`'s for a given key.
      
@@ -65,6 +71,21 @@ class ErrorLogger {
     static func clean(for id: String) {
         defaults.removeObject(forKey: id)
         defaults.synchronize()
+    }
+    
+    
+    static func readAll() throws -> [String: [ErrorLogItem]]? {
+        if let all = defaults.persistentDomain(forName: ErrorLogger.errorLogSuiteName) {
+            let allDecoded = all.mapValues { value -> [ErrorLogItem] in
+                do {
+                    return try PropertyListDecoder().decode([ErrorLogItem].self, from: (value as! Data))
+                } catch {
+                    return [ErrorLogItem]()
+                }
+            }
+            return allDecoded
+        }
+        return nil
     }
     
     
@@ -83,7 +104,7 @@ class ErrorLogger {
      Removes all configurations saved in the User Defaults.
      */
     static func removeAll() {
-        defaults.removePersistentDomain(forName: configurationsSuiteName)
+        defaults.removePersistentDomain(forName: errorLogSuiteName)
         defaults.synchronize()
     }
 }

@@ -73,17 +73,6 @@ class SyncViewController: PreferencesViewController {
         setupConnectionSelect()
         stackedInputLeft.identifier = NSUserInterfaceItemIdentifier(rawValue: stackedInputLeftId)
         stackedInputRight.identifier = NSUserInterfaceItemIdentifier(rawValue: stackedInputRightId)
-        
-        // FIXME: Remove, only for TEST purpose
-        do {
-            let c1 = LocalConnection(path: "/Users/pascal/Documents/GPU/Projekt")
-            let c2 = try SFTPConnection(path: "/home/pi/GPU", host: "192.168.0.94", port: 28, user: "pi", authentication: .password(value: "admin"))
-            let conf = Configuration(from: c1, to: c2)
-            setupInputsLocal(for: stackedInputLeft, configuration: conf)
-            setupInputsSFTP(for: stackedInputRight, configuration: conf)
-        } catch _ {
-            print("ERRORORORO")
-        }
     }
     
     
@@ -108,10 +97,10 @@ class SyncViewController: PreferencesViewController {
         connectionSelectLeft.layout([InputItem(label: NSLocalizedString("Connection", comment: "Label for connection configuration input description."), type: .dropdown, inputIdentifier: connectionSelectLeftId, selector: #selector(SyncViewController.leftConnectionChanged(_:)), target: self)])
         connectionSelectRight.layout([InputItem(label: NSLocalizedString("Connection", comment: "Label for connection configuration input description."), type: .dropdown, inputIdentifier: connectionSelectRightId, selector: #selector(SyncViewController.rightConnectionChanged(_:)), target: self)])
         
-        if let leftDropdown = connectionSelectLeft.inputStack.views.first(where: { $0.identifier!.rawValue ==  connectionSelectLeftId} ) as? NSPopUpButton {
+        if let leftDropdown = connectionSelectLeft.inputStack.views.first(where: { $0.identifier!.rawValue == connectionSelectLeftId} ) as? NSPopUpButton {
             leftDropdown.addItems(withTitles: connectionChoicesLeft.map({ $0.toString() }))
         }
-        if let rightDropdown = connectionSelectRight.inputStack.views.first(where: { $0.identifier!.rawValue ==  connectionSelectRightId} ) as? NSPopUpButton {
+        if let rightDropdown = connectionSelectRight.inputStack.views.first(where: { $0.identifier!.rawValue == connectionSelectRightId} ) as? NSPopUpButton {
             rightDropdown.addItems(withTitles: connectionChoicesRight.map({ $0.toString() }))
         }
     }
@@ -137,6 +126,7 @@ class SyncViewController: PreferencesViewController {
             self.setupInputsDefault()
             // Deselect row in table
             self.itemsTable.selectRowIndexes(IndexSet(integer: -1), byExtendingSelection: false)
+            // TODO: Reset Title and status subscription
         }
     }
     
@@ -199,13 +189,69 @@ class SyncViewController: PreferencesViewController {
     // MARK: Save/Delete
     
     func save() {
-        unsavedChanges = false
-        // TODO: if currentItem not nil, override. Else create new Item
+        do {
+            unsavedChanges = false
+            
+            // Create Configuration from input labels
+            guard let leftDropdown = connectionSelectLeft.inputStack.views.first(where: { $0.identifier!.rawValue == connectionSelectLeftId} ) as? NSPopUpButton else { return }
+            let typeFrom = connectionChoicesLeft[leftDropdown.indexOfSelectedItem]
+            let fromConnection = try createConnection(type: typeFrom, stackView: stackedInputLeft)
+            
+            guard let rightDropdown = connectionSelectRight.inputStack.views.first(where: { $0.identifier!.rawValue == connectionSelectRightId} ) as? NSPopUpButton else { return }
+            let typeTo = connectionChoicesRight[rightDropdown.indexOfSelectedItem]
+            let toConnection = try createConnection(type: typeTo, stackView: stackedInputRight)
+            
+            let configuration = Configuration(from: fromConnection, to: toConnection, name: "FIXME wire up label")            
+            
+            // If currentItem not nil, override
+            // Override if currentItem not nil
+            if currentItem != nil {
+                // TODO: override
+            }
+            // Create new item otherwise
+            else {
+                try configManager?.add(configuration)
+                _ = try syncOrchestrator?.register(configuration: configuration)
+            }
+            
+            // TODO: Setup status subscription
+            
+        } catch let error {
+            let alert = NSAlert()
+            alert.messageText = NSLocalizedString("Save Failed", comment: "Alert message telling that saving failed.")
+            alert.informativeText = NSLocalizedString("Save Failed Text", comment: "Alert text telling that saving failed.")
+            alert.alertStyle = NSAlert.Style.warning
+            alert.addButton(withTitle: NSLocalizedString("OK", comment: "Title for ok button."))
+            if let window = self.view.window {
+                alert.beginSheetModal(for: window, completionHandler: nil)
+            }
+            ErrorLogger.writeDefault(date: Date(), type: error, message: error.localizedDescription)
+        }
+        
+        
+    }
+    
+    
+    /**
+     Creates a connection for a given type using the input fields from the stackView
+     */
+    func createConnection(type: ConnectionType, stackView: StackedInputView) throws -> Connection {
+        let inputs = stackView.inputStack.views
+        switch type {
+        case .local:
+            return LocalConnection(path: (inputs[0] as! NSTextField).stringValue)
+        case .sftp:
+            return try SFTPConnection(path: (inputs[3] as! NSTextField).stringValue,
+                                      host: (inputs[0] as! NSTextField).stringValue,
+                                      port: nil,
+                                      user: (inputs[1] as! NSTextField).stringValue,
+                                      authentication: .password(value: (inputs[2] as! NSTextField).stringValue))
+        }
     }
     
     
     func delete() {
-        // TDOD: Delete and update detail view
+        // TODO: Delete and update detail view
         // use currentItem or selectedRow
     }
     
@@ -296,6 +342,7 @@ extension SyncViewController: NSTableViewDelegate {
         // TODO: Check for unsaved changes
         if let tableview = notification.object as? NSTableView {
             // Update detail view
+            // TODO: check if selection changed to -1
             if let configuration = syncOrchestrator?.syncItems[tableview.selectedRow].configuration {
                 setupInputs(for: configuration)
                 // TODO: Set title
