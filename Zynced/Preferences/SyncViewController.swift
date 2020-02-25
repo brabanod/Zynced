@@ -21,10 +21,10 @@ class SyncViewController: PreferencesViewController {
     
     @IBOutlet weak var connectionSelectLeft: StackedInputView!
     @IBOutlet weak var connectionSelectRight: StackedInputView!
-    private let connectionChoicesLeft = [NSLocalizedString("Local", comment: "Description for local connection")]
-    private let connectionChoicesRight = [NSLocalizedString("Local", comment: "Description for local connection"),
-                                          NSLocalizedString("SFTP", comment: "Description for SFTP connection"),
-                                          NSLocalizedString("FTP", comment: "Description for FTP connection")]
+    private let connectionSelectLeftId = "connectionSelectLeft"
+    private let connectionSelectRightId = "connectionSelectRight"
+    private let connectionChoicesLeft: [ConnectionType] = [ConnectionType.local]
+    private let connectionChoicesRight: [ConnectionType] = [ConnectionType.local, ConnectionType.sftp]
     
     @IBOutlet weak var stackedInputLeft: StackedInputView!
     @IBOutlet weak var stackedInputRight: StackedInputView!
@@ -57,8 +57,15 @@ class SyncViewController: PreferencesViewController {
         stackedInputRight.identifier = NSUserInterfaceItemIdentifier(rawValue: "stackedInputRight")
         
         // FIXME: Remove, only for TEST purpose
-        setupInputsLocal(for: stackedInputLeft, configuration: nil)
-        setupInputsSFTP(for: stackedInputRight, configuration: nil)
+        do {
+            let c1 = LocalConnection(path: "/Users/pascal/Documents/GPU/Projekt")
+            let c2 = try SFTPConnection(path: "/home/pi/GPU", host: "192.168.0.94", port: 28, user: "pi", authentication: .password(value: "admin"))
+            let conf = Configuration(from: c1, to: c2)
+            setupInputsLocal(for: stackedInputLeft, configuration: conf)
+            setupInputsSFTP(for: stackedInputRight, configuration: conf)
+        } catch _ {
+            print("ERRORORORO")
+        }
     }
     
     
@@ -76,16 +83,14 @@ class SyncViewController: PreferencesViewController {
     
     
     func setupConnectionSelect() {
-        let connectionSelectLeftId = "connectionSelectLeft"
-        let connectionSelectRightId = "connectionSelectRight"
         connectionSelectLeft.layout([InputItem(label: NSLocalizedString("Connection", comment: "Label for connection configuration input description."), type: .dropdown, inputIdentifier: connectionSelectLeftId)])
         connectionSelectRight.layout([InputItem(label: NSLocalizedString("Connection", comment: "Label for connection configuration input description."), type: .dropdown, inputIdentifier: connectionSelectRightId)])
         
         if let leftDropdown = connectionSelectLeft.inputStack.views.first(where: { $0.identifier!.rawValue ==  connectionSelectLeftId} ) as? NSPopUpButton {
-            leftDropdown.addItems(withTitles: connectionChoicesLeft)
+            leftDropdown.addItems(withTitles: connectionChoicesLeft.map({ $0.toString() }))
         }
         if let rightDropdown = connectionSelectRight.inputStack.views.first(where: { $0.identifier!.rawValue ==  connectionSelectRightId} ) as? NSPopUpButton {
-            rightDropdown.addItems(withTitles: connectionChoicesRight)
+            rightDropdown.addItems(withTitles: connectionChoicesRight.map({ $0.toString() }))
         }
     }
     
@@ -101,14 +106,15 @@ class SyncViewController: PreferencesViewController {
     
     
     @IBAction func addItem(_ sender: Any) {
-        // TODO: Update detail view
+        // Update detail view
+        setupInputsDefault()
     }
     
     
     @IBAction func removeItem(_ sender: Any) {
         if itemsTable.selectedRow > -1 {
             // Alert: Ask if user really wants to delete
-            // Update detail view
+            // TDOD: Update detail view
         } else {
             // Alert: No item selected
         }
@@ -213,6 +219,12 @@ extension SyncViewController: SyncDirectionSelectorDelegate {
 // MARK: - Stack Input Setup
 extension SyncViewController {
     
+    private func setupInputsDefault() {
+        setupInputsLocal(for: stackedInputLeft, configuration: nil)
+        setupInputsSFTP(for: stackedInputRight, configuration: nil)
+    }
+    
+    
     private func setupInputs(for configuration: Configuration) {
         // Setup inputs for left side (from)
         setupInputs(for: configuration, stackView: stackedInputLeft)
@@ -240,10 +252,23 @@ extension SyncViewController {
         - configuration: Optional `Configuration`. If given, inputs are filled with these values. If not, inputs stay empty/default.
      */
     private func setupInputsLocal(for stackView: StackedInputView, configuration: Configuration?) {
+        selectConnection(for: stackView, type: .local)
         let stackID = stackView.identifier?.rawValue ?? ""
         if stackID == "" { print("### stackID ist empty") }
         
-        stackView.layout([InputItem(label: NSLocalizedString("Path", comment: "Label for path configuration input description."), type: .textfield, inputIdentifier: stackID + ".localPath")])
+        let layout = [InputItem(label: NSLocalizedString("Path", comment: "Label for path configuration input description."), type: .textfield, inputIdentifier: stackID + ".localPath")]
+        
+        stackView.layout(layout)
+        
+        // Fill with configuration
+        if configuration != nil {
+            if let connection = getConnection(for: stackView, from: configuration!) as? LocalConnection {
+                if stackView.inputStack.views.count == layout.count {
+                    (stackView.inputStack.views[0] as? NSTextField)?.stringValue = connection.path
+                }
+            }
+            // Error Logger
+        }
     }
     
     
@@ -255,13 +280,81 @@ extension SyncViewController {
        - configuration: Optional `Configuration`. If given, inputs are filled with these values. If not, inputs stay empty/default.
     */
     private func setupInputsSFTP(for stackView: StackedInputView, configuration: Configuration?) {
+        selectConnection(for: stackView, type: .sftp)
         let stackID = stackView.identifier?.rawValue ?? ""
         if stackID == "" { print("### stackID ist empty") }
         
-        stackView.layout([InputItem(label: NSLocalizedString("Host", comment: "Label for host configuration input description."), type: .textfield, inputIdentifier: stackID + ".sftpHost"),
-                          InputItem(label: NSLocalizedString("User", comment: "Label for user configuration input description."), type: .textfield, inputIdentifier: stackID + ".sftpUser"),
-                          InputItem(label: NSLocalizedString("Password", comment: "Label for password configuration input description."), type: .textfield, inputIdentifier: stackID + ".sftpPassword"),
-                          InputItem(label: NSLocalizedString("Path", comment: "Label for path configuration input description."), type: .dropdown, inputIdentifier: stackID + ".sftpPath")])
+        let layout = [InputItem(label: NSLocalizedString("Host", comment: "Label for host configuration input description."), type: .textfield, inputIdentifier: stackID + ".sftpHost"),
+                      InputItem(label: NSLocalizedString("User", comment: "Label for user configuration input description."), type: .textfield, inputIdentifier: stackID + ".sftpUser"),
+                      InputItem(label: NSLocalizedString("Password", comment: "Label for password configuration input description."), type: .textfield, inputIdentifier: stackID + ".sftpPassword"),
+                      InputItem(label: NSLocalizedString("Path", comment: "Label for path configuration input description."), type: .textfield, inputIdentifier: stackID + ".sftpPath")]
+        
+        stackView.layout(layout)
+        
+        // Fill with configuration
+        if configuration != nil {
+            if let connection = getConnection(for: stackView, from: configuration!) as? SFTPConnection {
+                if stackView.inputStack.views.count == layout.count {
+                    (stackView.inputStack.views[0] as? NSTextField)?.stringValue = connection.host
+                    (stackView.inputStack.views[1] as? NSTextField)?.stringValue = connection.user
+                    (stackView.inputStack.views[3] as? NSTextField)?.stringValue = connection.path
+                    
+                    // Set password/keypath textfield
+                    switch connection.authentication {
+                    case .password(value: let password):
+                        (stackView.inputStack.views[2] as? NSTextField)?.stringValue = password
+                    case .key(path: let path):
+                        (stackView.inputStack.views[2] as? NSTextField)?.stringValue = path
+                    }
+                }
+            }
+            // Error Logger
+        }
+    }
+    
+    
+    /**
+     Selects the correct item for one of the connection selectors.
+     
+     - parameters:
+        - stackView: The `StackedInputView`, which determines which connection selector should be set.
+        - type: The `ConnectionType`, which determines which item should be selected
+     
+     Should only be called from the input setup methods.
+     */
+    private func selectConnection(for stackView: StackedInputView, type: ConnectionType) {
+        // Determine correct connection selector
+        var connectionSelect: StackedInputView! = connectionSelectRight
+        var connectionChoices = connectionChoicesRight
+        var connectionID = connectionSelectRightId
+        if stackView == stackedInputLeft {
+            connectionSelect = connectionSelectLeft
+            connectionChoices = connectionChoicesLeft
+            connectionID = connectionSelectLeftId
+        }
+        
+        // Select item corresponding to given type on connection selector,
+        if let selectIndex = connectionChoices.firstIndex(where: { $0 == type }) {
+            if let dropdown = connectionSelect.inputStack.views.first(where: { $0.identifier!.rawValue == connectionID } ) as? NSPopUpButton {
+                dropdown.selectItem(at: selectIndex)
+            }
+        }
+    }
+    
+    
+    /**
+     Returns either the from or to `Connection`.
+     
+     - parameters:
+        - stackView: The `StackedInputView` instance, which determines, if should return from (left) or to (right)
+        - configuration: The `Configuration`, from which the `Connection` is extracted
+     */
+    func getConnection(for stackView: StackedInputView, from configuration: Configuration) -> Connection {
+        var connection = configuration.from
+        if stackView == stackedInputRight {
+            connection = configuration.to
+        }
+        return connection
     }
     
 }

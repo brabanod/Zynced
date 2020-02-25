@@ -28,6 +28,7 @@
 		50B2C82423FC1A990048FA6C /* SyncViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B2C82323FC1A990048FA6C /* SyncViewController.swift */; };
 		50B2C82723FC1AA70048FA6C /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B2C82523FC1AA70048FA6C /* PreferencesViewController.swift */; };
 		50B2C82A23FC1B510048FA6C /* PreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B2C82923FC1B510048FA6C /* PreferencesWindowController.swift */; };
+		50B8A6EA24055BED00EDB79A /* ConnectionType+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B8A6E924055BED00EDB79A /* ConnectionType+Extension.swift */; };
 		50D3896023FD71BD0083F3C3 /* StackedInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D3895F23FD71BD0083F3C3 /* StackedInputView.swift */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +72,7 @@
 		50B2C82323FC1A990048FA6C /* SyncViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncViewController.swift; sourceTree = "<group>"; };
 		50B2C82523FC1AA70048FA6C /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
 		50B2C82923FC1B510048FA6C /* PreferencesWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWindowController.swift; sourceTree = "<group>"; };
+		50B8A6E924055BED00EDB79A /* ConnectionType+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ConnectionType+Extension.swift"; sourceTree = "<group>"; };
 		50D3895F23FD71BD0083F3C3 /* StackedInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackedInputView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -169,6 +171,7 @@
 				50B2C82923FC1B510048FA6C /* PreferencesWindowController.swift */,
 				50B2C82523FC1AA70048FA6C /* PreferencesViewController.swift */,
 				50B2C82323FC1A990048FA6C /* SyncViewController.swift */,
+				50B8A6E924055BED00EDB79A /* ConnectionType+Extension.swift */,
 			);
 			path = Preferences;
 			sourceTree = "<group>";
@@ -290,6 +293,7 @@
 				50B2C82A23FC1B510048FA6C /* PreferencesWindowController.swift in Sources */,
 				5084A77E23F560AF005F67D8 /* Colors.swift in Sources */,
 				50B2C82423FC1A990048FA6C /* SyncViewController.swift in Sources */,
+				50B8A6EA24055BED00EDB79A /* ConnectionType+Extension.swift in Sources */,
 				5084A77523F55677005F67D8 /* StatusItemManager.swift in Sources */,
 				5084A76723F55549005F67D8 /* ViewController.swift in Sources */,
 				50B2C82723FC1AA70048FA6C /* PreferencesViewController.swift in Sources */,
