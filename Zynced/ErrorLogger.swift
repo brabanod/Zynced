@@ -31,24 +31,28 @@ class ErrorLogger {
         - date: The occurance date of the error for the new `ErrorLogItem`
         - message: The error message for the new `ErrorLogItem`
      */
-    static func write(for id: String, date: Date, type errorType: Error, message: String) throws {
-        // Load all ErrorLogItem's for the given id
-        var errorLogItems = [ErrorLogItem]()
-        if let previousItemsData = defaults.object(forKey: id) as? Data {
-            if let previousItems = try? PropertyListDecoder().decode([ErrorLogItem].self, from: previousItemsData) {
-                errorLogItems = previousItems
+    static func write(for id: String, date: Date, type errorType: Error?, message: String) {
+        do {
+            // Load all ErrorLogItem's for the given id
+            var errorLogItems = [ErrorLogItem]()
+            if let previousItemsData = defaults.object(forKey: id) as? Data {
+                if let previousItems = try? PropertyListDecoder().decode([ErrorLogItem].self, from: previousItemsData) {
+                    errorLogItems = previousItems
+                }
             }
+            
+            // Create new ErrorLogItem
+            let errorTypeString = String(describing: type(of: errorType)) + "." + String(describing: errorType.self)
+            let item = ErrorLogItem(date: date, type: errorTypeString, message: message)
+            
+            // Append to the previous items and save
+            errorLogItems.append(item)
+            let errorLogData = try PropertyListEncoder().encode(errorLogItems)
+            defaults.set(errorLogData, forKey: id)
+            defaults.synchronize()
+        } catch _ {
+            print("Failed to write to error log.")
         }
-        
-        // Create new ErrorLogItem
-        let errorTypeString = String(describing: type(of: errorType)) + "." + String(describing: errorType.self)
-        let item = ErrorLogItem(date: date, type: errorTypeString, message: message)
-        
-        // Append to the previous items and save
-        errorLogItems.append(item)
-        let errorLogData = try PropertyListEncoder().encode(errorLogItems)
-        defaults.set(errorLogData, forKey: id)
-        defaults.synchronize()
     }
     
     
