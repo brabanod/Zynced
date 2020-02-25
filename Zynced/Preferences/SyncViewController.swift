@@ -12,13 +12,16 @@ import BoteCore
 
 class SyncViewController: PreferencesViewController {
     
+    // Main views
     @IBOutlet weak var itemsTable: NSTableView!
-    @IBOutlet weak var syncDirectionSelector: SyncDirectionSelector!
     @IBOutlet weak var detailContainer: NSView!
     
+    // Detail view buttons
+    @IBOutlet weak var syncDirectionSelector: SyncDirectionSelector!
     @IBOutlet weak var saveButton: NSButton!
     @IBOutlet weak var startStopButton: NSButton!
     
+    // Connection Selectors
     @IBOutlet weak var connectionSelectLeft: StackedInputView!
     @IBOutlet weak var connectionSelectRight: StackedInputView!
     private let connectionSelectLeftId = "connectionSelectLeft"
@@ -26,12 +29,22 @@ class SyncViewController: PreferencesViewController {
     private let connectionChoicesLeft: [ConnectionType] = [ConnectionType.local]
     private let connectionChoicesRight: [ConnectionType] = [ConnectionType.local, ConnectionType.sftp]
     
+    // Stacked Inputs
     @IBOutlet weak var stackedInputLeft: StackedInputView!
     @IBOutlet weak var stackedInputRight: StackedInputView!
     let stackedInputLeftId = "stackedInputLeft"
     let stackedInputRightId = "stackedInputRight"
     
     var subscriptions = [(AnyCancellable, AnyCancellable)]()
+    
+    // The currently in the table selected SyncItem
+    lazy var currentItem: SyncItem? = {
+        let index = self.itemsTable.selectedRow
+        if index > 0 {
+            return self.syncOrchestrator?.syncItems[index]
+        }
+        return nil
+    }()
     
     
     override func viewDidLoad() {
@@ -115,13 +128,36 @@ class SyncViewController: PreferencesViewController {
     }
     
     
-    @IBAction func removeItem(_ sender: Any) {
+    @IBAction func deleteItem(_ sender: Any) {
         if itemsTable.selectedRow > -1 {
             // Alert: Ask if user really wants to delete
-            // TDOD: Update detail view
+            let alert = NSAlert()
+            alert.messageText = NSLocalizedString("Delete Confimation", comment: "Alert message asking for delete confirmation.")
+            alert.informativeText = NSLocalizedString("Delete Confirmation Text", comment: "Alert text asking for delete confirmation.")
+            alert.alertStyle = NSAlert.Style.warning
+            alert.addButton(withTitle: "Delete")
+            alert.addButton(withTitle: "Cancel")
+            if let window = self.view.window {
+                alert.beginSheetModal(for: window) { (response) in
+                    if response == .alertFirstButtonReturn {
+                        // TDOD: Delete and update detail view
+                        // use currentItem or selectedRow
+                        print("delete")
+                    }
+                }
+            }
         } else {
             // Alert: No item selected
+            let alert = NSAlert()
+            alert.messageText = NSLocalizedString("No Item Selected", comment: "Alert message telling that no item was selected.")
+            alert.informativeText = NSLocalizedString("No Item Selected Text", comment: "Alert text telling that no item was selected.")
+            alert.alertStyle = NSAlert.Style.warning
+            alert.addButton(withTitle: "OK")
+            if let window = self.view.window {
+                alert.beginSheetModal(for: window, completionHandler: nil)
+            }
         }
+        
     }
     
     
@@ -180,8 +216,10 @@ extension SyncViewController: NSTableViewDelegate {
     
     func tableViewSelectionDidChange(_ notification: Notification) {
         if let tableview = notification.object as? NSTableView {
-            print("selected row index \(tableview.selectedRow)")
-            // TODO: Update detail view
+            // Update detail view
+            if let configuration = syncOrchestrator?.syncItems[tableview.selectedRow].configuration {
+                setupInputs(for: configuration)
+            }
         }
     }
 }

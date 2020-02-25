@@ -452,7 +452,7 @@
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                         <connections>
-                                            <action selector="removeItem:" target="xoL-8r-b9H" id="GNb-qf-84j"/>
+                                            <action selector="deleteItem:" target="xoL-8r-b9H" id="GNb-qf-84j"/>
                                         </connections>
                                     </button>
                                 </subviews>
