@@ -280,7 +280,7 @@ class SyncViewController: PreferencesViewController {
             if let window = self.view.window {
                 alert.beginSheetModal(for: window) { (response) in
                     if response == .alertFirstButtonReturn {
-                        self.delete()
+                        self.delete(configuration: self.currentItem()?.configuration)
                     }
                 }
             }
@@ -298,8 +298,8 @@ class SyncViewController: PreferencesViewController {
     }
     
     
-    func delete() {
-        if let currentConfiguration = currentItem()?.configuration {
+    func delete(configuration: Configuration?) {
+        if let currentConfiguration = configuration {
             do {
                 syncOrchestrator?.unregister(configuration: currentConfiguration)
                 try configManager?.remove(id: currentConfiguration.id)
@@ -631,7 +631,7 @@ extension SyncViewController {
     
     
     /**
-     Returns either the from or to `Connection`.
+     Returns either the `from` or `to` `Connection`.
      
      - parameters:
         - stackView: The `StackedInputView` instance, which determines, if should return from (left) or to (right)
