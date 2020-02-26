@@ -590,10 +590,10 @@ extension SyncViewController {
                     
                     // Set password/keypath textfield
                     switch connection.authentication {
-                    case .password(value: let password):
-                        (stackView.inputStack.views[2] as? NSTextField)?.stringValue = password
-                    case .key(path: let path):
-                        (stackView.inputStack.views[2] as? NSTextField)?.stringValue = path
+                    case .password(value: _):
+                        (stackView.inputStack.views[2] as? NSTextField)?.stringValue = (try? connection.getPassword()) ?? ""
+                    case .key(path: _):
+                        (stackView.inputStack.views[2] as? NSTextField)?.stringValue = connection.getKeyPath() ?? ""
                     }
                 }
             } else {
