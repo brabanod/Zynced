@@ -177,9 +177,8 @@ class SyncViewController: PreferencesViewController {
     
     
     @IBAction func saveClicked(_ sender: NSButton) {
-        if var newConfiguration = composeConfiguration() {
-            save(configuration: &newConfiguration, overrideItem: currentItem())
-        }
+        var newConfiguration = composeConfiguration()
+        save(configuration: &newConfiguration, overrideItem: currentItem())
     }
     
     
@@ -206,23 +205,24 @@ class SyncViewController: PreferencesViewController {
         - configuration: The `Configuration`, which should be saved.
         - overrideItem: An optional `SyncItem`. If provided, this item will be overriden by the new data.
      */
-    func save(configuration: inout Configuration, overrideItem: SyncItem?) {
+    func save(configuration: inout Configuration?, overrideItem: SyncItem?) {
         do {
             unsavedChanges = false
             
-            //overrideItem?.configuration.from = configuration.from
-            //overrideItem?.configuration.to = configuration.to
+            if configuration == nil {
+                throw ExecutionError.failedSave
+            }
             
             // Override if item not nil
             if overrideItem != nil {
                 // Override: Important to call update before, because it also sets the correct id for the new Configuration
-                try configManager?.update(&configuration, for: overrideItem!.configuration.id)
-                overrideItem!.configuration = configuration
+                try configManager?.update(&configuration!, for: overrideItem!.configuration.id)
+                overrideItem!.configuration = configuration!
             }
             // Create new item otherwise
             else {
-                try configManager?.add(configuration)
-                _ = try syncOrchestrator?.register(configuration: configuration)
+                try configManager?.add(configuration!)
+                _ = try syncOrchestrator?.register(configuration: configuration!)
             }
             
             // TODO: Setup status subscription
@@ -249,30 +249,20 @@ class SyncViewController: PreferencesViewController {
      Composes a `Configuration` object using the data, that is currently in the input fields.
      */
     func composeConfiguration() -> Configuration? {
-        do {
-            // Create Configuration from input labels
-            guard let leftDropdown = connectionSelectLeft.inputStack.views.first(where: { $0.identifier!.rawValue == connectionSelectLeftId} ) as? NSPopUpButton else { throw ExecutionError.failedSave }
-            let typeFrom = connectionChoicesLeft[leftDropdown.indexOfSelectedItem]
-            let fromConnection = try createConnection(type: typeFrom, stackView: stackedInputLeft)
-            
-            guard let rightDropdown = connectionSelectRight.inputStack.views.first(where: { $0.identifier!.rawValue == connectionSelectRightId} ) as? NSPopUpButton else { throw ExecutionError.failedSave }
-            let typeTo = connectionChoicesRight[rightDropdown.indexOfSelectedItem]
-            let toConnection = try createConnection(type: typeTo, stackView: stackedInputRight)
-            
-            return Configuration(from: fromConnection, to: toConnection, name: "FIXME wire up label")
+        // Create Configuration from input labels
+        guard let leftDropdown = connectionSelectLeft.inputStack.views.first(where: { $0.identifier!.rawValue == connectionSelectLeftId} ) as? NSPopUpButton else { return nil }
+        let typeFrom = connectionChoicesLeft[leftDropdown.indexOfSelectedItem]
+        let fromConnection = try? createConnection(type: typeFrom, stackView: stackedInputLeft)
+        
+        guard let rightDropdown = connectionSelectRight.inputStack.views.first(where: { $0.identifier!.rawValue == connectionSelectRightId} ) as? NSPopUpButton else { return nil }
+        let typeTo = connectionChoicesRight[rightDropdown.indexOfSelectedItem]
+        let toConnection = try? createConnection(type: typeTo, stackView: stackedInputRight)
+        
+        if fromConnection != nil && toConnection != nil {
+            return Configuration(from: fromConnection!, to: toConnection!, name: "FIXME wire up label")
+        } else {
+            return nil
         }
-        catch let error {
-            let alert = NSAlert()
-            alert.messageText = NSLocalizedString("Save Failed", comment: "Alert message telling that saving failed.")
-            alert.informativeText = NSLocalizedString("Save Failed Text", comment: "Alert text telling that saving failed.")
-            alert.alertStyle = NSAlert.Style.warning
-            alert.addButton(withTitle: NSLocalizedString("OK", comment: "Title for ok button."))
-            if let window = self.view.window {
-                alert.beginSheetModal(for: window, completionHandler: nil)
-            }
-            ErrorLogger.writeDefault(date: Date(), type: error, message: error.localizedDescription)
-        }
-        return nil
     }
     
     
@@ -318,9 +308,7 @@ class SyncViewController: PreferencesViewController {
             saveUnsavedChanges { (saveChanges) in
                 // Save changes if result is true
                 if saveChanges {
-                    if newConfiguration != nil {
-                        self.save(configuration: &newConfiguration!, overrideItem: currentItem)
-                    }
+                    self.save(configuration: &newConfiguration, overrideItem: currentItem)
                 }
                 // Discard
                 else {
