@@ -54,9 +54,10 @@ class StatusItemManager: NSObject {
     
     func setupMonitoring() {
         // Load syncItems and order by status (connected > active > failed > inactive)
-        let syncItems = syncOrchestrator.syncItems.sorted { (a, b) -> Bool in
+        var syncItems = syncOrchestrator.syncItems.sorted { (a, b) -> Bool in
             return a.status > b.status
         }
+        syncItems.reverse()
         
         // Reset subscriptions
         subscriptions.removeAll()
