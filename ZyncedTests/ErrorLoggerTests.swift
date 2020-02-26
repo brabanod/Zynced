@@ -71,4 +71,16 @@ class ErrorLoggerTests: XCTestCase {
         //dump(try ErrorLogger.readAll())
         print(try ErrorLogger.readAll() as AnyObject)
     }
+    
+    
+    func testClean() throws {
+        let cleanKeys = ["General-Error",
+                         "683EAF2D-9297-4388-8D04-17C8A40EC54E",
+                         "EF91B3DD-4BEE-4D49-8FBA-1C830A220CFF",
+                         "7AD78F17-8973-4DD9-8BE4-34FBEC75E8D6",
+                         "38E275AB-2F2F-4A3E-B93B-A7812D8202D4"]
+        for key in cleanKeys {
+            ErrorLogger.clean(for: key)
+        }
+    }
 }
