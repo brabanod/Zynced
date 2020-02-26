@@ -210,6 +210,9 @@ class StackedInputView: NSView {
             for i in (0...(inputStack.views.count-2)).reversed() {
                 inputStack.views[i].nextKeyView = inputStack.views[i+1]
             }
+            
+            // Connect the last input to the first
+            inputStack.views[inputStack.views.count-1].nextKeyView = inputStack.views[0]
         }
     }
 }
