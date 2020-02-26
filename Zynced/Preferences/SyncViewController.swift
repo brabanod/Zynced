@@ -554,8 +554,9 @@ extension SyncViewController {
                 if stackView.inputStack.views.count == layout.count {
                     (stackView.inputStack.views[0] as? NSTextField)?.stringValue = connection.path
                 }
+            } else {
+                ErrorLogger.write(for: conf.id, date: Date(), type: nil, message: "Coulnd't load Configuration, because Connection was not of type \(ConnectionType.local.toString()).")
             }
-            ErrorLogger.write(for: conf.id, date: Date(), type: nil, message: "Coulnd't load Configuration, because Connection was not of type \(ConnectionType.local.toString()).")
         }
     }
     
@@ -595,8 +596,9 @@ extension SyncViewController {
                         (stackView.inputStack.views[2] as? NSTextField)?.stringValue = path
                     }
                 }
+            } else {
+                ErrorLogger.write(for: conf.id, date: Date(), type: nil, message: "Coulnd't load Configuration, because Connection was not of type \(ConnectionType.sftp.toString()).")
             }
-            ErrorLogger.write(for: conf.id, date: Date(), type: nil, message: "Coulnd't load Configuration, because Connection was not of type \(ConnectionType.sftp.toString()).")
         }
     }
     
