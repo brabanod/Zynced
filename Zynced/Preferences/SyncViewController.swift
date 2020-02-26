@@ -91,8 +91,12 @@ class SyncViewController: PreferencesViewController {
     
     override func viewWillAppear() {
         itemsTable.reloadData()
+        // Select first item in table when presenting view
         if itemsTable.numberOfRows > 0 {
             itemsTable.selectRowIndexes(IndexSet(integer: 0), byExtendingSelection: false)
+        } else {
+            // Show default input fields
+            setupInputsDefault()
         }
     }
     
@@ -114,8 +118,10 @@ class SyncViewController: PreferencesViewController {
     }
     
     
+    /**
+     Cancels all subscriptions for the table view.
+     */
     func removeSubscriptions() {
-        // Cancel all subscriptions
         for (statusSub, syncedSub) in subscriptions {
             statusSub.cancel()
             syncedSub.cancel()
@@ -139,33 +145,7 @@ class SyncViewController: PreferencesViewController {
     
     
     @IBAction func deleteItem(_ sender: Any) {
-        if itemsTable.selectedRow > -1 {
-            // Alert: Ask if user really wants to delete
-            let alert = NSAlert()
-            alert.messageText = NSLocalizedString("Delete Confimation", comment: "Alert message asking for delete confirmation.")
-            alert.informativeText = NSLocalizedString("Delete Confirmation Text", comment: "Alert text asking for delete confirmation.")
-            alert.alertStyle = NSAlert.Style.warning
-            alert.addButton(withTitle: NSLocalizedString("Delete", comment: "Title for delete button."))
-            alert.addButton(withTitle: NSLocalizedString("Cancel", comment: "Title for cancel button."))
-            if let window = self.view.window {
-                alert.beginSheetModal(for: window) { (response) in
-                    if response == .alertFirstButtonReturn {
-                        self.delete()
-                    }
-                }
-            }
-        } else {
-            // Alert: No item selected
-            let alert = NSAlert()
-            alert.messageText = NSLocalizedString("No Item Selected", comment: "Alert message telling that no item was selected.")
-            alert.informativeText = NSLocalizedString("No Item Selected Text", comment: "Alert text telling that no item was selected.")
-            alert.alertStyle = NSAlert.Style.warning
-            alert.addButton(withTitle: NSLocalizedString("OK", comment: "Title for ok button."))
-            if let window = self.view.window {
-                alert.beginSheetModal(for: window, completionHandler: nil)
-            }
-        }
-        
+        deleteDialog()
     }
     
     
@@ -282,9 +262,62 @@ class SyncViewController: PreferencesViewController {
     }
     
     
+    /**
+     Presents delete dialog and performs deletion if the user asks to do so.
+     */
+    func deleteDialog() {
+        if itemsTable.selectedRow > -1 {
+            // Alert: Ask if user really wants to delete
+            let alert = NSAlert()
+            alert.messageText = NSLocalizedString("Delete Confimation", comment: "Alert message asking for delete confirmation.")
+            alert.informativeText = NSLocalizedString("Delete Confirmation Text", comment: "Alert text asking for delete confirmation.")
+            alert.alertStyle = NSAlert.Style.warning
+            alert.addButton(withTitle: NSLocalizedString("Delete", comment: "Title for delete button."))
+            alert.addButton(withTitle: NSLocalizedString("Cancel", comment: "Title for cancel button."))
+            if let window = self.view.window {
+                alert.beginSheetModal(for: window) { (response) in
+                    if response == .alertFirstButtonReturn {
+                        self.delete()
+                    }
+                }
+            }
+        } else {
+            // Alert: No item selected
+            let alert = NSAlert()
+            alert.messageText = NSLocalizedString("No Item Selected", comment: "Alert message telling that no item was selected.")
+            alert.informativeText = NSLocalizedString("No Item Selected Text", comment: "Alert text telling that no item was selected.")
+            alert.alertStyle = NSAlert.Style.warning
+            alert.addButton(withTitle: NSLocalizedString("OK", comment: "Title for ok button."))
+            if let window = self.view.window {
+                alert.beginSheetModal(for: window, completionHandler: nil)
+            }
+        }
+    }
+    
+    
     func delete() {
-        // TODO: Delete and update detail view + table
-        // use currentItem or selectedRow
+        if let currentConfiguration = currentItem()?.configuration {
+            do {
+                syncOrchestrator?.unregister(configuration: currentConfiguration)
+                try configManager?.remove(id: currentConfiguration.id)
+                reloadTable()
+                
+                // If the last item was deleted, show default inputs
+                if syncOrchestrator?.syncItems.count ?? 0 <= 0 {
+                    setupInputsDefault()
+                }
+            } catch let error {
+                let alert = NSAlert()
+                alert.messageText = NSLocalizedString("Delete Failed", comment: "Alert message telling that deleting failed.")
+                alert.informativeText = NSLocalizedString("Delete Failed Text", comment: "Alert text telling that deleting failed.")
+                alert.alertStyle = NSAlert.Style.warning
+                alert.addButton(withTitle: NSLocalizedString("OK", comment: "Title for ok button."))
+                if let window = self.view.window {
+                    alert.beginSheetModal(for: window, completionHandler: nil)
+                }
+                ErrorLogger.writeDefault(date: Date(), type: error, message: error.localizedDescription)
+            }
+        }
     }
     
     
@@ -412,6 +445,7 @@ extension SyncViewController: NSTableViewDelegate {
     
     func reloadTable() {
         let selectedRow = itemsTable.selectedRow
+        removeSubscriptions()
         itemsTable.reloadData()
         if itemsTable.numberOfRows > 0 {
             itemsTable.selectRowIndexes(IndexSet(integer: selectedRow), byExtendingSelection: false)
