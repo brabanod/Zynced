@@ -209,6 +209,9 @@ class SyncViewController: PreferencesViewController {
             // Update itemsTable
             reloadTable()
             
+            // Select the new item (last item in table)
+            itemsTable.selectRowIndexes(IndexSet(integer: itemsTable.numberOfRows-1), byExtendingSelection: false)
+            
         } catch let error {
             let alert = NSAlert()
             alert.messageText = NSLocalizedString("Save Failed", comment: "Alert message telling that saving failed.")
