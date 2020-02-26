@@ -47,7 +47,7 @@ class SyncViewController: PreferencesViewController {
     // The currently in the table selected SyncItem
     func currentItem() -> SyncItem?  {
         let index = self.itemsTable.selectedRow
-        if index >= 0 {
+        if isIndexInRange(index) {
             return self.syncOrchestrator?.syncItems[index]
         }
         return nil
@@ -130,11 +130,9 @@ class SyncViewController: PreferencesViewController {
     
     @IBAction func addItem(_ sender: Any) {
         checkForUnsavedChanges {
-            // Update detail view
-            self.setupInputsDefault()
-            // Deselect row in table
-            // FIXME: Deselect doesnt work
-            self.itemsTable.selectRowIndexes(IndexSet(integer: -1), byExtendingSelection: false)
+            // Deselect row in table, this will also update the detail view
+            self.itemsTable.deselectAll(self)
+            
             // TODO: Reset Title and status subscription
         }
     }
@@ -386,21 +384,27 @@ extension SyncViewController: NSTableViewDelegate {
     
     
     func tableView(_ tableView: NSTableView, shouldSelectRow row: Int) -> Bool {
+        // Check for unsaved changes before switching the selected SyncItem
         checkForUnsavedChanges { }
         return true
     }
     
     
     func tableViewSelectionDidChange(_ notification: Notification) {
-        // TODO: Check for unsaved changes
         if let tableview = notification.object as? NSTableView {
             // Update detail view
-            // TODO: check if selection changed to -1 or bigger than syncItems.count
-            if let configuration = syncOrchestrator?.syncItems[tableview.selectedRow].configuration {
-                setupInputs(for: configuration)
-                // TODO: Set title
-                // TODO: Set status indicator and subscribe for changes
-                // TODO: Check if sync is start or stop and set button accordingly, also subscribe to changes for this button
+            // Check if selection changed to an item in the syncItems array
+            if isIndexInRange(tableview.selectedRow) {
+                if let configuration = syncOrchestrator?.syncItems[tableview.selectedRow].configuration {
+                    // Setup inputs for the selected SyncItem
+                    setupInputs(for: configuration)
+                    // TODO: Set title
+                    // TODO: Set status indicator and subscribe for changes
+                    // TODO: Check if sync is start or stop and set button accordingly, also subscribe to changes for this button
+                }
+            } else {
+                // Setup inputs for creating new Configuration
+                setupInputsDefault()
             }
         }
     }
@@ -412,6 +416,11 @@ extension SyncViewController: NSTableViewDelegate {
         if itemsTable.numberOfRows > 0 {
             itemsTable.selectRowIndexes(IndexSet(integer: selectedRow), byExtendingSelection: false)
         }
+    }
+    
+    
+    func isIndexInRange(_ index: Int) -> Bool {
+        return index >= 0 && index < syncOrchestrator?.syncItems.count ?? 0
     }
 }
 
