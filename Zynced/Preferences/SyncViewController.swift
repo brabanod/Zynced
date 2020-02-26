@@ -10,6 +10,10 @@ import Cocoa
 import Combine
 import BoteCore
 
+enum ExecutionError: Error {
+    case failedSave
+}
+
 class SyncViewController: PreferencesViewController {
     
     // Main views
@@ -41,14 +45,18 @@ class SyncViewController: PreferencesViewController {
     var subscriptions = [(AnyCancellable, AnyCancellable)]()
     
     // The currently in the table selected SyncItem
-    lazy var currentItem: SyncItem? = {
+    func currentItem() -> SyncItem?  {
         let index = self.itemsTable.selectedRow
-        if index > 0 {
+        if index >= 0 {
             return self.syncOrchestrator?.syncItems[index]
         }
         return nil
-    }()
+    }
     
+    
+    
+    
+    // MARK: - View Controller
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -125,6 +133,7 @@ class SyncViewController: PreferencesViewController {
             // Update detail view
             self.setupInputsDefault()
             // Deselect row in table
+            // FIXME: Deselect doesnt work
             self.itemsTable.selectRowIndexes(IndexSet(integer: -1), byExtendingSelection: false)
             // TODO: Reset Title and status subscription
         }
@@ -168,7 +177,9 @@ class SyncViewController: PreferencesViewController {
     
     
     @IBAction func saveClicked(_ sender: NSButton) {
-        save()
+        if var newConfiguration = composeConfiguration() {
+            save(configuration: &newConfiguration, overrideItem: currentItem())
+        }
     }
     
     
@@ -188,25 +199,25 @@ class SyncViewController: PreferencesViewController {
     
     // MARK: Save/Delete
     
-    func save() {
+    /**
+     Saves a `Configuration` based on the data, that is currently in the input fields.
+     
+     - parameters:
+        - configuration: The `Configuration`, which should be saved.
+        - overrideItem: An optional `SyncItem`. If provided, this item will be overriden by the new data.
+     */
+    func save(configuration: inout Configuration, overrideItem: SyncItem?) {
         do {
             unsavedChanges = false
             
-            // Create Configuration from input labels
-            guard let leftDropdown = connectionSelectLeft.inputStack.views.first(where: { $0.identifier!.rawValue == connectionSelectLeftId} ) as? NSPopUpButton else { return }
-            let typeFrom = connectionChoicesLeft[leftDropdown.indexOfSelectedItem]
-            let fromConnection = try createConnection(type: typeFrom, stackView: stackedInputLeft)
+            //overrideItem?.configuration.from = configuration.from
+            //overrideItem?.configuration.to = configuration.to
             
-            guard let rightDropdown = connectionSelectRight.inputStack.views.first(where: { $0.identifier!.rawValue == connectionSelectRightId} ) as? NSPopUpButton else { return }
-            let typeTo = connectionChoicesRight[rightDropdown.indexOfSelectedItem]
-            let toConnection = try createConnection(type: typeTo, stackView: stackedInputRight)
-            
-            let configuration = Configuration(from: fromConnection, to: toConnection, name: "FIXME wire up label")            
-            
-            // If currentItem not nil, override
-            // Override if currentItem not nil
-            if currentItem != nil {
-                // TODO: override
+            // Override if item not nil
+            if overrideItem != nil {
+                // Override: Important to call update before, because it also sets the correct id for the new Configuration
+                try configManager?.update(&configuration, for: overrideItem!.configuration.id)
+                overrideItem!.configuration = configuration
             }
             // Create new item otherwise
             else {
@@ -215,6 +226,10 @@ class SyncViewController: PreferencesViewController {
             }
             
             // TODO: Setup status subscription
+            
+            
+            // Update itemsTable
+            reloadTable()
             
         } catch let error {
             let alert = NSAlert()
@@ -227,8 +242,37 @@ class SyncViewController: PreferencesViewController {
             }
             ErrorLogger.writeDefault(date: Date(), type: error, message: error.localizedDescription)
         }
-        
-        
+    }
+    
+    
+    /**
+     Composes a `Configuration` object using the data, that is currently in the input fields.
+     */
+    func composeConfiguration() -> Configuration? {
+        do {
+            // Create Configuration from input labels
+            guard let leftDropdown = connectionSelectLeft.inputStack.views.first(where: { $0.identifier!.rawValue == connectionSelectLeftId} ) as? NSPopUpButton else { throw ExecutionError.failedSave }
+            let typeFrom = connectionChoicesLeft[leftDropdown.indexOfSelectedItem]
+            let fromConnection = try createConnection(type: typeFrom, stackView: stackedInputLeft)
+            
+            guard let rightDropdown = connectionSelectRight.inputStack.views.first(where: { $0.identifier!.rawValue == connectionSelectRightId} ) as? NSPopUpButton else { throw ExecutionError.failedSave }
+            let typeTo = connectionChoicesRight[rightDropdown.indexOfSelectedItem]
+            let toConnection = try createConnection(type: typeTo, stackView: stackedInputRight)
+            
+            return Configuration(from: fromConnection, to: toConnection, name: "FIXME wire up label")
+        }
+        catch let error {
+            let alert = NSAlert()
+            alert.messageText = NSLocalizedString("Save Failed", comment: "Alert message telling that saving failed.")
+            alert.informativeText = NSLocalizedString("Save Failed Text", comment: "Alert text telling that saving failed.")
+            alert.alertStyle = NSAlert.Style.warning
+            alert.addButton(withTitle: NSLocalizedString("OK", comment: "Title for ok button."))
+            if let window = self.view.window {
+                alert.beginSheetModal(for: window, completionHandler: nil)
+            }
+            ErrorLogger.writeDefault(date: Date(), type: error, message: error.localizedDescription)
+        }
+        return nil
     }
     
     
@@ -251,8 +295,13 @@ class SyncViewController: PreferencesViewController {
     
     
     func delete() {
-        // TODO: Delete and update detail view
+        // TODO: Delete and update detail view + table
         // use currentItem or selectedRow
+    }
+    
+    
+    func discardChanges() {
+        unsavedChanges = false
     }
     
     
@@ -261,12 +310,22 @@ class SyncViewController: PreferencesViewController {
      */
     func checkForUnsavedChanges(completion: @escaping () -> ()) {
         if unsavedChanges {
+            // Compose new configuration and get current item now, before they change
+            var newConfiguration = self.composeConfiguration()
+            let currentItem = self.currentItem()
+            
+            // Present dialog
             saveUnsavedChanges { (saveChanges) in
                 // Save changes if result is true
                 if saveChanges {
-                    self.save()
+                    if newConfiguration != nil {
+                        self.save(configuration: &newConfiguration!, overrideItem: currentItem)
+                    }
                 }
-                // Discard changes otherwise, by doing nothing
+                // Discard
+                else {
+                    self.discardChanges()
+                }
                 // Call completion when finished
                 completion()
             }
@@ -338,17 +397,32 @@ extension SyncViewController: NSTableViewDelegate {
     }
     
     
+    func tableView(_ tableView: NSTableView, shouldSelectRow row: Int) -> Bool {
+        checkForUnsavedChanges { }
+        return true
+    }
+    
+    
     func tableViewSelectionDidChange(_ notification: Notification) {
         // TODO: Check for unsaved changes
         if let tableview = notification.object as? NSTableView {
             // Update detail view
-            // TODO: check if selection changed to -1
+            // TODO: check if selection changed to -1 or bigger than syncItems.count
             if let configuration = syncOrchestrator?.syncItems[tableview.selectedRow].configuration {
                 setupInputs(for: configuration)
                 // TODO: Set title
                 // TODO: Set status indicator and subscribe for changes
                 // TODO: Check if sync is start or stop and set button accordingly, also subscribe to changes for this button
             }
+        }
+    }
+    
+    
+    func reloadTable() {
+        let selectedRow = itemsTable.selectedRow
+        itemsTable.reloadData()
+        if itemsTable.numberOfRows > 0 {
+            itemsTable.selectRowIndexes(IndexSet(integer: selectedRow), byExtendingSelection: false)
         }
     }
 }
