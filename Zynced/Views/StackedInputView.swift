@@ -112,17 +112,6 @@ class StackedInputView: NSView {
 
         self.addSubview(inputStack)
         self.addConstraints([inputTop, inputBottom, inputLeft, inputRight])
-        
-        
-        
-        
-        // FIXME: Just for demo -- REMOVE
-//        spacer.wantsLayer = true
-//        spacer.layer?.backgroundColor = CGColor(red: 0.6, green: 0.1, blue: 0.0, alpha: 0.3)
-//        labelStack.wantsLayer = true
-//        labelStack.layer?.backgroundColor = CGColor(red: 0.2, green: 0.1, blue: 0.0, alpha: 0.3)
-//        inputStack.wantsLayer = true
-//        inputStack.layer?.backgroundColor = CGColor(red: 0.6, green: 0.8, blue: 0.0, alpha: 0.3)
     }
     
     
@@ -149,6 +138,7 @@ class StackedInputView: NSView {
         resetLayout()
         inputItems = inputs
         
+        // Create input for each item in array
         for item in inputs {
             // Create label
             let label = NSTextField(frame: .zero)
@@ -202,6 +192,24 @@ class StackedInputView: NSView {
             input.addConstraint(inputHeight)
             inputStack.addView(input, in: .top)
             inputStack.addConstraints([inputLeft, inputRight])
+        }
+        
+        // Connect inputs for cycling through them
+        connectInputs()
+    }
+    
+    
+    /**
+     Connects all the input views in the stack with `nextKeyView`.
+     */
+    func connectInputs() {
+        // Begin from the item second to last and set nextKeyView to the last
+        // Then cycle through the stack to the first item
+        // Only possible if the stack has two or more input views
+        if inputStack.views.count >= 2 {
+            for i in (0...(inputStack.views.count-2)).reversed() {
+                inputStack.views[i].nextKeyView = inputStack.views[i+1]
+            }
         }
     }
 }
