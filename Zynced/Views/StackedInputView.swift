@@ -167,6 +167,7 @@ class StackedInputView: NSView {
             case .textfield:
                 let textfield = NSTextField(frame: .zero)
                 textfield.isEditable = true
+                textfield.cell?.isScrollable = true
                 let callback = TextFieldCallback(selector: item.selector, target: item.target)
                 callbacks.append(callback)
                 textfield.delegate = callback
