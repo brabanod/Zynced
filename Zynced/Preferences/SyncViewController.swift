@@ -156,10 +156,7 @@ class SyncViewController: PreferencesViewController {
     
     
     @IBAction func saveClicked(_ sender: NSButton) {
-        let currentItem = self.currentItem()
-        var currentConfig = currentItem?.configuration
-        var newConfiguration = composeConfiguration(from: &currentConfig)
-        save(configuration: &newConfiguration, overrideItem: currentItem)
+        save(overrideItem: self.currentItem())
     }
     
     
@@ -186,22 +183,23 @@ class SyncViewController: PreferencesViewController {
         - configuration: The `Configuration`, which should be saved.
         - overrideItem: An optional `SyncItem`. If provided, this item will be overriden by the new data.
      */
-    func save(configuration: inout Configuration?, overrideItem: SyncItem?) {
+    func save(overrideItem: SyncItem?) {
         do {
             unsavedChanges = false
             
-            guard configuration != nil else { throw ExecutionError.failedSave }
+            var overrideConfiguration = overrideItem?.configuration
+            guard var configuration = composeConfiguration(from: &overrideConfiguration) else { throw ExecutionError.failedSave }
             
             let isNewConfiguration = overrideItem == nil
             
             if isNewConfiguration {
                 // Create new item otherwise
-                try configManager?.add(configuration!)
-                _ = try syncOrchestrator?.register(configuration: configuration!)
+                try configManager?.add(configuration)
+                _ = try syncOrchestrator?.register(configuration: configuration)
             } else {
                 // Override: Important to call update before, because it also sets the correct id for the new Configuration
-                try configManager?.update(&configuration!, for: overrideItem!.configuration.id)
-                overrideItem!.configuration = configuration!
+                try configManager?.update(&configuration, for: overrideItem!.configuration.id)
+                overrideItem!.configuration = configuration
             }
             
             // TODO: Setup status subscription
@@ -358,16 +356,12 @@ class SyncViewController: PreferencesViewController {
      Checks if there are unsaved changes. If so, then presents user an alert, asking if the changes should be saved or discarded. The requested action is then performed.
      */
     func checkForUnsavedChanges(currentItem: SyncItem?, completion: @escaping () -> ()) {
-        if unsavedChanges {
-            // Compose new configuration and get current item now, before they change
-            var currentConfig = currentItem?.configuration
-            var newConfiguration = self.composeConfiguration(from: &currentConfig)
-            
+        if unsavedChanges {            
             // Present dialog
             saveUnsavedChanges { (saveChanges) in
                 // Save changes if result is true
                 if saveChanges {
-                    self.save(configuration: &newConfiguration, overrideItem: currentItem)
+                    self.save(overrideItem: currentItem)
                 }
                 // Discard
                 else {
