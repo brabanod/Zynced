@@ -52,6 +52,7 @@ class SyncViewController: PreferencesViewController {
         }
         return nil
     }
+    var previousItem: SyncItem?
     
     
     
@@ -135,7 +136,7 @@ class SyncViewController: PreferencesViewController {
     // MARK: - IBActions
     
     @IBAction func addItem(_ sender: Any) {
-        checkForUnsavedChanges {
+        checkForUnsavedChanges(currentItem: self.currentItem()) {
             // Deselect row in table, this will also update the detail view
             self.itemsTable.deselectAll(self)
             
@@ -189,20 +190,18 @@ class SyncViewController: PreferencesViewController {
         do {
             unsavedChanges = false
             
-            if configuration == nil {
-                throw ExecutionError.failedSave
-            }
+            guard configuration != nil else { throw ExecutionError.failedSave }
             
-            // Override if item not nil
-            if overrideItem != nil {
+            let isNewConfiguration = overrideItem == nil
+            
+            if isNewConfiguration {
+                // Create new item otherwise
+                try configManager?.add(configuration!)
+                _ = try syncOrchestrator?.register(configuration: configuration!)
+            } else {
                 // Override: Important to call update before, because it also sets the correct id for the new Configuration
                 try configManager?.update(&configuration!, for: overrideItem!.configuration.id)
                 overrideItem!.configuration = configuration!
-            }
-            // Create new item otherwise
-            else {
-                try configManager?.add(configuration!)
-                _ = try syncOrchestrator?.register(configuration: configuration!)
             }
             
             // TODO: Setup status subscription
@@ -211,8 +210,10 @@ class SyncViewController: PreferencesViewController {
             // Update itemsTable
             reloadTable()
             
-            // Select the new item (last item in table)
-            itemsTable.selectRowIndexes(IndexSet(integer: itemsTable.numberOfRows-1), byExtendingSelection: false)
+            // Select last item in table, if new item was created
+            if isNewConfiguration {
+                itemsTable.selectRowIndexes(IndexSet(integer: itemsTable.numberOfRows-1), byExtendingSelection: false)
+            }
             
         } catch let error {
             let alert = NSAlert()
@@ -356,10 +357,9 @@ class SyncViewController: PreferencesViewController {
     /**
      Checks if there are unsaved changes. If so, then presents user an alert, asking if the changes should be saved or discarded. The requested action is then performed.
      */
-    func checkForUnsavedChanges(completion: @escaping () -> ()) {
+    func checkForUnsavedChanges(currentItem: SyncItem?, completion: @escaping () -> ()) {
         if unsavedChanges {
             // Compose new configuration and get current item now, before they change
-            let currentItem = self.currentItem()
             var currentConfig = currentItem?.configuration
             var newConfiguration = self.composeConfiguration(from: &currentConfig)
             
@@ -444,30 +444,29 @@ extension SyncViewController: NSTableViewDelegate {
     }
     
     
-    func tableView(_ tableView: NSTableView, shouldSelectRow row: Int) -> Bool {
-        // Check for unsaved changes before switching the selected SyncItem
-        checkForUnsavedChanges { }
-        return true
-    }
-    
-    
     func tableViewSelectionDidChange(_ notification: Notification) {
         if let tableview = notification.object as? NSTableView {
             // Update detail view
             // Check if selection changed to an item in the syncItems array
-            if isIndexInRange(tableview.selectedRow) {
-                if let configuration = syncOrchestrator?.syncItems[tableview.selectedRow].configuration {
-                    // Setup inputs for the selected SyncItem
-                    setupInputs(for: configuration)
-                    // TODO: Set title
-                    // TODO: Set status indicator and subscribe for changes
-                    // TODO: Check if sync is start or stop and set button accordingly, also subscribe to changes for this button
+            let currentItem = previousItem
+            checkForUnsavedChanges(currentItem: currentItem) {
+                if self.isIndexInRange(tableview.selectedRow) {
+                    if let configuration = self.syncOrchestrator?.syncItems[tableview.selectedRow].configuration {
+                        // Setup inputs for the selected SyncItem
+                        self.setupInputs(for: configuration)
+                        // TODO: Set title
+                        // TODO: Set status indicator and subscribe for changes
+                        // TODO: Check if sync is start or stop and set button accordingly, also subscribe to changes for this button
+                    }
+                } else {
+                    // Setup inputs for creating new Configuration
+                    self.setupInputsDefault()
                 }
-            } else {
-                // Setup inputs for creating new Configuration
-                setupInputsDefault()
+                
+                self.previousItem = self.currentItem()
             }
         }
+        
     }
     
     
