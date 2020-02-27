@@ -212,7 +212,7 @@ class StackedInputView: NSView {
             }
             
             // Connect the last input to the first
-            inputStack.views[inputStack.views.count-1].nextKeyView = inputStack.views[0]
+            inputStack.views.last?.nextKeyView = inputStack.views.first
         }
     }
 }
