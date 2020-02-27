@@ -11,7 +11,7 @@ import Combine
 import BoteCore
 
 enum ExecutionError: Error {
-    case failedSave
+    case failedSave, failedCompose(String)
 }
 
 class SyncViewController: PreferencesViewController {
@@ -155,8 +155,10 @@ class SyncViewController: PreferencesViewController {
     
     
     @IBAction func saveClicked(_ sender: NSButton) {
-        var newConfiguration = composeConfiguration()
-        save(configuration: &newConfiguration, overrideItem: currentItem())
+        let currentItem = self.currentItem()
+        var currentConfig = currentItem?.configuration
+        var newConfiguration = composeConfiguration(from: &currentConfig)
+        save(configuration: &newConfiguration, overrideItem: currentItem)
     }
     
     
@@ -229,15 +231,17 @@ class SyncViewController: PreferencesViewController {
     /**
      Composes a `Configuration` object using the data, that is currently in the input fields.
      */
-    func composeConfiguration() -> Configuration? {
+    func composeConfiguration(from current: inout Configuration?) -> Configuration? {
         // Create Configuration from input labels
         guard let leftDropdown = connectionSelectLeft.inputStack.views.first(where: { $0.identifier!.rawValue == connectionSelectLeftId} ) as? NSPopUpButton else { return nil }
         let typeFrom = connectionChoicesLeft[leftDropdown.indexOfSelectedItem]
-        let fromConnection = try? createConnection(type: typeFrom, stackView: stackedInputLeft)
+        var currentFrom = current?.from
+        let fromConnection = try? createConnection(type: typeFrom, override: &currentFrom, stackView: stackedInputLeft)
         
         guard let rightDropdown = connectionSelectRight.inputStack.views.first(where: { $0.identifier!.rawValue == connectionSelectRightId} ) as? NSPopUpButton else { return nil }
         let typeTo = connectionChoicesRight[rightDropdown.indexOfSelectedItem]
-        let toConnection = try? createConnection(type: typeTo, stackView: stackedInputRight)
+        var currentTo = current?.to
+        let toConnection = try? createConnection(type: typeTo, override: &currentTo, stackView: stackedInputRight)
         
         if fromConnection != nil && toConnection != nil {
             return Configuration(from: fromConnection!, to: toConnection!, name: "FIXME wire up label")
@@ -250,17 +254,37 @@ class SyncViewController: PreferencesViewController {
     /**
      Creates a connection for a given type using the input fields from the stackView
      */
-    func createConnection(type: ConnectionType, stackView: StackedInputView) throws -> Connection {
+    func createConnection(type: ConnectionType, override: inout Connection?, stackView: StackedInputView) throws -> Connection {
         let inputs = stackView.inputStack.views
-        switch type {
-        case .local:
-            return LocalConnection(path: (inputs[0] as! NSTextField).stringValue)
-        case .sftp:
-            return try SFTPConnection(path: (inputs[3] as! NSTextField).stringValue,
-                                      host: (inputs[0] as! NSTextField).stringValue,
-                                      port: nil,
-                                      user: (inputs[1] as! NSTextField).stringValue,
-                                      authentication: .password(value: (inputs[2] as! NSTextField).stringValue))
+        if override == nil {
+            // Create new connection
+            switch type {
+            case .local:
+                return LocalConnection(path: (inputs[0] as! NSTextField).stringValue)
+            case .sftp:
+                return try SFTPConnection(path: (inputs[3] as! NSTextField).stringValue,
+                                          host: (inputs[0] as! NSTextField).stringValue,
+                                          port: nil,
+                                          user: (inputs[1] as! NSTextField).stringValue,
+                                          authentication: .password(value: (inputs[2] as! NSTextField).stringValue))
+            }
+        } else {
+            // Update override connection
+            switch type {
+            case .local:
+                if var localConnection = override as? LocalConnection {
+                    localConnection.path = (inputs[0] as! NSTextField).stringValue
+                    return localConnection
+                } else { throw ExecutionError.failedCompose("While updating a Connection from user inputs, the given type \(type) and the type \(String(describing: override?.type)) of the existing Connection didn't match") }
+            case .sftp:
+                if var sftpConnection = override as? SFTPConnection {
+                    sftpConnection.path = (inputs[3] as! NSTextField).stringValue
+                    try sftpConnection.setHost((inputs[0] as! NSTextField).stringValue)
+                    try sftpConnection.setUser((inputs[1] as! NSTextField).stringValue)
+                    try sftpConnection.setAuthentication(.password(value: (inputs[2] as! NSTextField).stringValue))
+                    return sftpConnection
+                } else { throw ExecutionError.failedCompose("While updating a Connection from user inputs, the given type \(type) and the type \(String(describing: override?.type)) of the existing Connection didn't match") }
+            }
         }
     }
     
@@ -335,8 +359,9 @@ class SyncViewController: PreferencesViewController {
     func checkForUnsavedChanges(completion: @escaping () -> ()) {
         if unsavedChanges {
             // Compose new configuration and get current item now, before they change
-            var newConfiguration = self.composeConfiguration()
             let currentItem = self.currentItem()
+            var currentConfig = currentItem?.configuration
+            var newConfiguration = self.composeConfiguration(from: &currentConfig)
             
             // Present dialog
             saveUnsavedChanges { (saveChanges) in

@@ -15,8 +15,8 @@
         "repositoryURL": "https://gitlab.com/columbbus/BoteCore.git",
         "state": {
           "branch": null,
-          "revision": "aa1a14e9dba4c90807d0b5dad6f1330b47ce59f8",
-          "version": "0.2.9"
+          "revision": "64652a519846ae553178b88e5df863119d4f7c09",
+          "version": "0.2.11"
         }
       },
       {
