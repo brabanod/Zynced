@@ -15,7 +15,7 @@
 "bs9-My-vlj.title" = "Start";
 
 /* Class = "NSButtonCell"; title = "Save"; ObjectID = "dyn-Vu-sSX"; */
-"dyn-Vu-sSX.title" = "Save";
+"dyn-Vu-sSX.title" = "Speichern";
 
 /* Class = "NSTextFieldCell"; title = "Location"; ObjectID = "iIL-2k-eWm"; */
 "iIL-2k-eWm.title" = "Location";
@@ -24,10 +24,10 @@
 "mTI-OW-nVk.title" = "Text Cell";
 
 /* Class = "NSButtonCell"; title = "Error Log"; ObjectID = "o9z-rj-w6I"; */
-"o9z-rj-w6I.title" = "Error Log";
+"o9z-rj-w6I.title" = "Fehlerbericht";
 
 /* Class = "NSTextFieldCell"; title = "Path"; ObjectID = "pVq-eC-s4a"; */
 "pVq-eC-s4a.title" = "Path";
 
 /* Class = "NSTextFieldCell"; title = "Enter Name"; ObjectID = "zFI-gq-z11"; */
-"zFI-gq-z11.title" = "Enter Name";
+"zFI-gq-z11.title" = "Name eingeben";

@@ -14,23 +14,8 @@
 /* Class = "NSMenuItem"; title = "Preferences…"; ObjectID = "BOF-NM-1cW"; */
 "BOF-NM-1cW.title" = "Préférences…";
 
-/* Class = "NSMenuItem"; title = "Item5"; ObjectID = "RXd-o4-GTV"; */
-"RXd-o4-GTV.title" = "Item5";
-
-/* Class = "NSMenuItem"; title = "Item2"; ObjectID = "Vnw-cW-7Hj"; */
-"Vnw-cW-7Hj.title" = "Item2";
-
 /* Class = "NSViewController"; title = "Preferences"; ObjectID = "XfG-lQ-9wD"; */
-"XfG-lQ-9wD.title" = "Préférences";
-
-/* Class = "NSMenuItem"; title = "Item4"; ObjectID = "lG8-Pv-SvU"; */
-"lG8-Pv-SvU.title" = "Item4";
-
-/* Class = "NSMenuItem"; title = "Item1"; ObjectID = "mXI-AP-PT8"; */
-"mXI-AP-PT8.title" = "Item1";
-
-/* Class = "NSMenuItem"; title = "Item3"; ObjectID = "mw2-j8-9iJ"; */
-"mw2-j8-9iJ.title" = "Item3";
+"XfG-lQ-9wD.title" = "Preferences";
 
 /* Class = "NSMenu"; title = "Zynced"; ObjectID = "uQy-DD-JDr"; */
 "uQy-DD-JDr.title" = "Zynced";

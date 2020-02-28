@@ -63,6 +63,8 @@
 		505896C224093B980070FC24 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Preferences.strings; sourceTree = "<group>"; };
 		505896C424093B990070FC24 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Preferences.strings; sourceTree = "<group>"; };
 		505896C5240940CA0070FC24 /* MainApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainApplication.swift; sourceTree = "<group>"; };
+		505896E624095AF90070FC24 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
+		505896E824095B030070FC24 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
 		5084A76123F55549005F67D8 /* Zynced.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zynced.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5084A76423F55549005F67D8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5084A76623F55549005F67D8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -77,10 +79,8 @@
 		5084A77D23F560AF005F67D8 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		5084A78023F562E0005F67D8 /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
 		5084A78223F562EA005F67D8 /* PreferencesView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PreferencesView.xib; sourceTree = "<group>"; };
-		5084A78423F56D15005F67D8 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
 		5084A78823F56DC3005F67D8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5084A78A23F56DC6005F67D8 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
-		5084A78B23F56F62005F67D8 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
 		5084A78C23F56F62005F67D8 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		50AFD997240818B10053C1E9 /* ZyncedUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZyncedUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		50AFD999240818B10053C1E9 /* ZyncedUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZyncedUITests.swift; sourceTree = "<group>"; };
@@ -433,8 +433,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				5084A76B23F5554A005F67D8 /* Base */,
-				5084A78423F56D15005F67D8 /* de */,
-				5084A78B23F56F62005F67D8 /* fr */,
+				505896E624095AF90070FC24 /* fr */,
+				505896E824095B030070FC24 /* de */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
