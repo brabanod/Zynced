@@ -30,7 +30,11 @@ class SyncViewController: PreferencesViewController {
     @IBOutlet weak var connectionSelectRight: StackedInputView!
     private let connectionSelectLeftId = "connectionSelectLeft"
     private let connectionSelectRightId = "connectionSelectRight"
+    
+    /** Saves the `ConnectionType`'s that are available for the left (from) input section. */
     private let connectionChoicesLeft: [ConnectionType] = [ConnectionType.local]
+    
+    /** Saves the `ConnectionType`'s that are available for the right (to) input section. */
     private let connectionChoicesRight: [ConnectionType] = [ConnectionType.local, ConnectionType.sftp]
     
     // Stacked Inputs
@@ -44,12 +48,16 @@ class SyncViewController: PreferencesViewController {
     @IBOutlet weak var statusIndicator: StatusIndicatorView!
     
     
-    // Keeps track if inputs changed
+    /** Keeps track of changes in the input field, after last save. */
     var unsavedChanges = false
     
+    /** Saves the subscriptions for status and date for the table items. */
     var subscriptions = [(AnyCancellable, AnyCancellable)]()
     
-    // The currently in the table selected SyncItem
+    /** Saves the status subscription for the item currently displayed in the detail view. */
+    var statusSubscription: AnyCancellable?
+    
+    /** The currently selected `SyncItem` in the table. */
     func currentItem() -> SyncItem?  {
         let index = self.itemsTable.selectedRow
         if isIndexInRange(index) {
@@ -136,6 +144,7 @@ class SyncViewController: PreferencesViewController {
             syncedSub.cancel()
         }
         subscriptions.removeAll()
+        
     }
     
     
