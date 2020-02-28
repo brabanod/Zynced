@@ -183,6 +183,7 @@ class SyncViewController: PreferencesViewController {
         })
         
         startStopButton.isEnabled = true
+        connect(views: [nameTextField, stackedInputLeft, stackedInputRight])
     }
     
     
@@ -197,6 +198,41 @@ class SyncViewController: PreferencesViewController {
         statusIndicator.update(status: .inactive)
         updateStartStopButton(status: .inactive)
         startStopButton.isEnabled = false
+    }
+    
+    
+    /**
+     Connects an array of `NSView`'s using the `nextKeyView` property. If a given view is of type `StackedInputView`, then their first/last input fields are connected.
+     
+     - parameters:
+        - views: The array of `NSView`'s which should be connected
+     */
+    func connect(views: [NSView]) {
+        enum Selection { case first, last }
+        // This returns either the view itself or the first/last input of StackedInputView
+        let getView: (NSView?, Selection) -> (NSView?) = { (view: NSView?, selection: Selection) in
+            if let stackView = view as? StackedInputView {
+                switch selection {
+                case .first:
+                    return stackView.inputStack.views.first
+                case .last:
+                    return stackView.inputStack.views.last
+                }
+            } else {
+                return view
+            }
+        }
+        
+        // Connect
+        if views.count >= 2 {
+            for i in (0...(views.count-2)).reversed() {
+                // Connect the current view to the next in the views array
+                getView(views[i], .last)?.nextKeyView = getView(views[i+1], .first)
+            }
+            
+            // Connect the last view to the first in the array
+            getView(views.last, .last)?.nextKeyView = getView(views.first, .first)
+        }
     }
     
     
