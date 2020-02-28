@@ -10,9 +10,14 @@ import Cocoa
 
 class MainApplication: NSApplication {
     
+    private let commandFlag = NSEvent.ModifierFlags.command.rawValue
+    private let shiftFlag = NSEvent.ModifierFlags.shift.rawValue
+    private let capsLockFlag = NSEvent.ModifierFlags.capsLock.rawValue
+    
     override func sendEvent(_ event: NSEvent) {
         if event.type == .keyDown {
-            if event.modifierFlags.intersection(.deviceIndependentFlagsMask) == .command {
+            if ((event.modifierFlags.intersection(.deviceIndependentFlagsMask).rawValue == commandFlag) ||
+            (event.modifierFlags.intersection(.deviceIndependentFlagsMask).rawValue) == (commandFlag | capsLockFlag)) {
                 switch event.charactersIgnoringModifiers?.lowercased() {
                 case "x":
                     if NSApp.sendAction(#selector(NSText.cut(_:)), to:nil, from:self) { return }
@@ -28,8 +33,8 @@ class MainApplication: NSApplication {
                     break
                 }
             }
-            else if ((event.modifierFlags.intersection(.deviceIndependentFlagsMask).rawValue == (NSEvent.ModifierFlags.command.rawValue | NSEvent.ModifierFlags.shift.rawValue)) ||
-                (event.modifierFlags.intersection(.deviceIndependentFlagsMask).rawValue) == (NSEvent.ModifierFlags.command.rawValue | NSEvent.ModifierFlags.shift.rawValue | NSEvent.ModifierFlags.capsLock.rawValue)) {
+            else if ((event.modifierFlags.intersection(.deviceIndependentFlagsMask).rawValue == (commandFlag | shiftFlag)) ||
+                (event.modifierFlags.intersection(.deviceIndependentFlagsMask).rawValue) == (commandFlag | shiftFlag | capsLockFlag)) {
                 if event.charactersIgnoringModifiers == "Z" {
                     if NSApp.sendAction(Selector(("redo:")), to:nil, from:self) { return }
                 }
