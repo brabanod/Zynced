@@ -65,7 +65,14 @@ class SyncViewController: PreferencesViewController {
         }
         return nil
     }
+    
+    /** The previously selected item in the table. */
     var previousItem: SyncItem?
+    
+    /** Indicates, whether the currently displayed item is syncronizing at the moment. */
+    func isCurrentItemSyncing() -> Bool {
+        return currentItem()?.status == .active || currentItem()?.status == .connected
+    }
     
     
     
@@ -236,14 +243,6 @@ class SyncViewController: PreferencesViewController {
     }
     
     
-    /**
-     Indicates, whether the currently displayed item is syncronizing at the moment
-     */
-    func isItemSyncing() -> Bool {
-        return currentItem()?.status == .active || currentItem()?.status == .connected
-    }
-    
-    
     
     
     // MARK: - IBOutlet modification
@@ -300,7 +299,7 @@ class SyncViewController: PreferencesViewController {
     @IBAction func startStopSyncClicked(_ sender: NSButton) {
         // Start/stop sync for current item
         if let currentItem = self.currentItem() {
-            if isItemSyncing() {
+            if isCurrentItemSyncing() {
                 // Stop synchronization
                 syncOrchestrator?.stopSynchronizing(for: currentItem)
                 setButtonStart()
