@@ -135,6 +135,8 @@ class StatusItemManager: NSObject {
             NSApp.activate(ignoringOtherApps: true)
             windowCtrl.window?.makeKeyAndOrderFront(nil)
             windowCtrl.window?.delegate = self
+        } else {
+            NSApp.activate(ignoringOtherApps: true)
         }
     }
 }
