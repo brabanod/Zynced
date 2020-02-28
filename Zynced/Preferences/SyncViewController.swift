@@ -74,7 +74,7 @@ class SyncViewController: PreferencesViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        removeSubscriptions()
+        removeAllSubscriptions()
         
         // Set detail container background to white
         detailContainer.wantsLayer = true
@@ -102,7 +102,7 @@ class SyncViewController: PreferencesViewController {
     
     
     override func viewDidDisappear() {
-        removeSubscriptions()
+        removeAllSubscriptions()
     }
     
     
@@ -136,22 +136,101 @@ class SyncViewController: PreferencesViewController {
     
     
     /**
-     Cancels all subscriptions for the table view.
+     Cancels and cleans all subscription for whole view controller. **IMPORTATNT:** Use with caution!
      */
-    func removeSubscriptions() {
+    func removeAllSubscriptions() {
+        removeTableSubscriptions()
+        removeDetailSubscriptions()
+    }
+    
+    
+    /**
+     Cancels and cleans all subscriptions for the table view.
+     */
+    func removeTableSubscriptions() {
+        // Remove subscriptions for table
         for (statusSub, syncedSub) in subscriptions {
             statusSub.cancel()
             syncedSub.cancel()
         }
         subscriptions.removeAll()
-        
     }
     
     
-    private func resetDetailView() {
+    /**
+    Cancels and cleans all subscriptions for the detail view.
+    */
+    func removeDetailSubscriptions() {
+        statusSubscription?.cancel()
+        statusSubscription = nil
+    }
+    
+    
+    /**
+     Does UI setup for the detail view, with the given `SyncItem`
+     */
+    func setupDetailView(for item: SyncItem) {        
+        // Setup input fields
+        setupInputs(for: item.configuration)
+        
+        // Setup name text field
+        nameTextField.stringValue = item.configuration.name
+        
+        // Setup status subscription (updates status indicator and start/stop button)
+        statusSubscription = item.$status.sink(receiveValue: { (status) in
+            self.statusIndicator.update(status: status)
+            self.updateStartStopButton(status: status)
+        })
+        
+        startStopButton.isEnabled = true
+    }
+    
+    
+    /**
+     Resets the detail view to default input fields
+     */
+    func resetDetailView() {
+        removeDetailSubscriptions()
+        
         setupInputsDefault()
         nameTextField.stringValue = NSLocalizedString("Default Configuration Name", comment: "The default title presented in a configuration.")
-        // TODO: Reset status indicator
+        statusIndicator.update(status: .inactive)
+        updateStartStopButton(status: .inactive)
+        startStopButton.isEnabled = false
+    }
+    
+    
+    /**
+     Indicates, whether the currently displayed item is syncronizing at the moment
+     */
+    func isItemSyncing() -> Bool {
+        return currentItem()?.status == .active || currentItem()?.status == .connected
+    }
+    
+    
+    
+    
+    // MARK: - IBOutlet modification
+    
+    func updateStartStopButton(status: SyncStatus) {
+        switch status {
+        case .active, .connected:
+            setButtonStop()
+        case .inactive, .failed:
+            setButtonStart()
+        }
+    }
+    
+    
+    func setButtonStart() {
+        startStopButton.title = NSLocalizedString("Start", comment: "Stop title for the Start/Stop button.")
+        startStopButton.keyEquivalent = "\r"
+    }
+    
+    
+    func setButtonStop() {
+        startStopButton.title = NSLocalizedString("Stop", comment: "Stop title for the Start/Stop button.")
+        startStopButton.keyEquivalent = ""
     }
     
     
@@ -163,8 +242,6 @@ class SyncViewController: PreferencesViewController {
         checkForUnsavedChanges(currentItem: self.currentItem()) {
             // Deselect row in table, this will also update the detail view
             self.itemsTable.deselectAll(self)
-            
-            // TODO: Reset Title and status subscription
         }
     }
     
@@ -185,14 +262,24 @@ class SyncViewController: PreferencesViewController {
     
     
     @IBAction func startStopSyncClicked(_ sender: NSButton) {
-        // TODO: Start/Stop sync for currentItem
-        // Check in which status sync item is currently
-        
-        // Start -> Set button to default
-        sender.keyEquivalent = "\r"
-        
-        // Stop -> Set button to non-default
-        //sender.keyEquivalent = ""
+        // Start/stop sync for current item
+        if let currentItem = self.currentItem() {
+            if isItemSyncing() {
+                // Stop synchronization
+                syncOrchestrator?.stopSynchronizing(for: currentItem)
+                setButtonStart()
+            } else {
+                // Try to start synchronization and write any errors to ErrorLogger
+                do {
+                    try syncOrchestrator?.startSynchronizing(for: currentItem, errorHandler: { (item, error) in
+                        ErrorLogger.write(for: item.configuration.id, date: Date(), type: error, message: error.localizedDescription)
+                    })
+                    setButtonStop()
+                } catch let error {
+                    ErrorLogger.write(for: currentItem.configuration.id, date: Date(), type: error, message: error.localizedDescription)
+                }
+            }
+        }
     }
     
     
@@ -225,9 +312,6 @@ class SyncViewController: PreferencesViewController {
                 try configManager?.update(&configuration, for: overrideItem!.configuration.id)
                 overrideItem!.configuration = configuration
             }
-            
-            // TODO: Setup status subscription
-            
             
             // Update itemsTable
             reloadTable()
@@ -469,12 +553,9 @@ extension SyncViewController: NSTableViewDelegate {
             let currentItem = previousItem
             checkForUnsavedChanges(currentItem: currentItem) {
                 if self.isIndexInRange(tableview.selectedRow) {
-                    if let configuration = self.syncOrchestrator?.syncItems[tableview.selectedRow].configuration {
-                        // Setup inputs for the selected SyncItem
-                        self.setupInputs(for: configuration)
-                        // TODO: Set title
-                        // TODO: Set status indicator and subscribe for changes
-                        // TODO: Check if sync is start or stop and set button accordingly, also subscribe to changes for this button
+                    if let item = self.syncOrchestrator?.syncItems[tableview.selectedRow] {
+                        // Setup detail view for the selected SyncItem
+                        self.setupDetailView(for: item)
                     }
                 } else {
                     // Setup inputs for creating new Configuration
@@ -490,7 +571,7 @@ extension SyncViewController: NSTableViewDelegate {
     
     func reloadTable() {
         let selectedRow = itemsTable.selectedRow
-        removeSubscriptions()
+        removeTableSubscriptions()
         itemsTable.reloadData()
         if itemsTable.numberOfRows > 0 {
             itemsTable.selectRowIndexes(IndexSet(integer: selectedRow), byExtendingSelection: false)
@@ -596,7 +677,6 @@ extension SyncViewController {
                 if stackView.inputStack.views.count == layout.count {
                     (stackView.inputStack.views[0] as? NSTextField)?.stringValue = connection.path
                 }
-                nameTextField.stringValue = conf.name
             } else {
                 ErrorLogger.write(for: conf.id, date: Date(), type: nil, message: "Coulnd't load Configuration, because Connection was not of type \(ConnectionType.local.toString()).")
             }
@@ -639,7 +719,6 @@ extension SyncViewController {
                         (stackView.inputStack.views[2] as? NSTextField)?.stringValue = connection.getKeyPath() ?? ""
                     }
                 }
-                nameTextField.stringValue = conf.name
             } else {
                 ErrorLogger.write(for: conf.id, date: Date(), type: nil, message: "Coulnd't load Configuration, because Connection was not of type \(ConnectionType.sftp.toString()).")
             }
