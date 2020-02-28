@@ -163,7 +163,7 @@ extension StatusItemManager: NSMenuDelegate {
         // Deactivate monitoring
         teardownMonitoring()
         
-        // Remove the added menu items, thus only keep the last three items
-        menu.items = menu.items.suffix(3)
+        // Remove the added menu items, thus only keep the last 3 items + 2 separators = 5
+        menu.items = menu.items.suffix(5)
     }
 }
