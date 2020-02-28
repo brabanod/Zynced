@@ -39,6 +39,11 @@ class SyncViewController: PreferencesViewController {
     let stackedInputLeftId = "stackedInputLeft"
     let stackedInputRightId = "stackedInputRight"
     
+    // Detail view header
+    @IBOutlet weak var nameTextField: NSTextField!
+    @IBOutlet weak var statusIndicator: StatusIndicatorView!
+    
+    
     // Keeps track if inputs changed
     var unsavedChanges = false
     
@@ -82,6 +87,9 @@ class SyncViewController: PreferencesViewController {
         setupConnectionSelect()
         stackedInputLeft.identifier = NSUserInterfaceItemIdentifier(rawValue: stackedInputLeftId)
         stackedInputRight.identifier = NSUserInterfaceItemIdentifier(rawValue: stackedInputRightId)
+        
+        // Report changes on nameTextField
+        nameTextField.delegate = self
     }
     
     
@@ -97,7 +105,7 @@ class SyncViewController: PreferencesViewController {
             itemsTable.selectRowIndexes(IndexSet(integer: 0), byExtendingSelection: false)
         } else {
             // Show default input fields
-            setupInputsDefault()
+            resetDetailView()
         }
     }
     
@@ -128,6 +136,13 @@ class SyncViewController: PreferencesViewController {
             syncedSub.cancel()
         }
         subscriptions.removeAll()
+    }
+    
+    
+    private func resetDetailView() {
+        setupInputsDefault()
+        nameTextField.stringValue = NSLocalizedString("Default Configuration Name", comment: "The default title presented in a configuration.")
+        // TODO: Reset status indicator
     }
     
     
@@ -243,7 +258,7 @@ class SyncViewController: PreferencesViewController {
         let toConnection = try? createConnection(type: typeTo, override: &currentTo, stackView: stackedInputRight)
         
         if fromConnection != nil && toConnection != nil {
-            return Configuration(from: fromConnection!, to: toConnection!, name: "FIXME wire up label")
+            return Configuration(from: fromConnection!, to: toConnection!, name: nameTextField.stringValue)
         } else {
             return nil
         }
@@ -330,7 +345,7 @@ class SyncViewController: PreferencesViewController {
                 
                 // If the last item was deleted, show default inputs
                 if syncOrchestrator?.syncItems.count ?? 0 <= 0 {
-                    setupInputsDefault()
+                    resetDetailView()
                 }
             } catch let error {
                 let alert = NSAlert()
@@ -454,7 +469,7 @@ extension SyncViewController: NSTableViewDelegate {
                     }
                 } else {
                     // Setup inputs for creating new Configuration
-                    self.setupInputsDefault()
+                    self.resetDetailView()
                 }
                 
                 self.previousItem = self.currentItem()
@@ -572,6 +587,7 @@ extension SyncViewController {
                 if stackView.inputStack.views.count == layout.count {
                     (stackView.inputStack.views[0] as? NSTextField)?.stringValue = connection.path
                 }
+                nameTextField.stringValue = conf.name
             } else {
                 ErrorLogger.write(for: conf.id, date: Date(), type: nil, message: "Coulnd't load Configuration, because Connection was not of type \(ConnectionType.local.toString()).")
             }
@@ -614,6 +630,7 @@ extension SyncViewController {
                         (stackView.inputStack.views[2] as? NSTextField)?.stringValue = connection.getKeyPath() ?? ""
                     }
                 }
+                nameTextField.stringValue = conf.name
             } else {
                 ErrorLogger.write(for: conf.id, date: Date(), type: nil, message: "Coulnd't load Configuration, because Connection was not of type \(ConnectionType.sftp.toString()).")
             }
@@ -686,5 +703,18 @@ extension SyncViewController {
     
     @objc func didChangeInput(_ sender: Any) {
         unsavedChanges = true
+    }
+}
+
+
+
+
+// MARK: - NSTextFieldDelegate
+extension SyncViewController: NSTextFieldDelegate {
+
+    func controlTextDidChange(_ obj: Notification) {
+        if let textField = obj.object as? NSTextField {
+            didChangeInput(textField)
+        }
     }
 }

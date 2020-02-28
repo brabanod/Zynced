@@ -11,6 +11,7 @@
 		504B136723FB453400E271BE /* ErrorLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504B136623FB453400E271BE /* ErrorLogger.swift */; };
 		504D7F4823FD3F80007B72E4 /* SyncDirectionSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504D7F4723FD3F80007B72E4 /* SyncDirectionSelector.swift */; };
 		505896BD24092D0D0070FC24 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505896BC24092D0D0070FC24 /* KeychainHelper.swift */; };
+		505896BE24093B950070FC24 /* Preferences.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 505896C024093B950070FC24 /* Preferences.storyboard */; };
 		5084A76523F55549005F67D8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5084A76423F55549005F67D8 /* AppDelegate.swift */; };
 		5084A76723F55549005F67D8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5084A76623F55549005F67D8 /* ViewController.swift */; };
 		5084A76923F5554A005F67D8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5084A76823F5554A005F67D8 /* Assets.xcassets */; };
@@ -26,7 +27,6 @@
 		5084A78F23F57522005F67D8 /* BoteCore in Frameworks */ = {isa = PBXBuildFile; productRef = 5084A78E23F57522005F67D8 /* BoteCore */; };
 		50AFD99A240818B10053C1E9 /* ZyncedUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AFD999240818B10053C1E9 /* ZyncedUITests.swift */; };
 		50B2C81923FBFB480048FA6C /* ErrorLoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B2C81823FBFB480048FA6C /* ErrorLoggerTests.swift */; };
-		50B2C82223FC1A280048FA6C /* Preferences.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50B2C82123FC1A280048FA6C /* Preferences.storyboard */; };
 		50B2C82423FC1A990048FA6C /* SyncViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B2C82323FC1A990048FA6C /* SyncViewController.swift */; };
 		50B2C82723FC1AA70048FA6C /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B2C82523FC1AA70048FA6C /* PreferencesViewController.swift */; };
 		50B2C82A23FC1B510048FA6C /* PreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B2C82923FC1B510048FA6C /* PreferencesWindowController.swift */; };
@@ -56,6 +56,9 @@
 		504B136623FB453400E271BE /* ErrorLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLogger.swift; sourceTree = "<group>"; };
 		504D7F4723FD3F80007B72E4 /* SyncDirectionSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncDirectionSelector.swift; sourceTree = "<group>"; };
 		505896BC24092D0D0070FC24 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
+		505896BF24093B950070FC24 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Preferences.storyboard; sourceTree = "<group>"; };
+		505896C224093B980070FC24 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Preferences.strings; sourceTree = "<group>"; };
+		505896C424093B990070FC24 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Preferences.strings; sourceTree = "<group>"; };
 		5084A76123F55549005F67D8 /* Zynced.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zynced.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5084A76423F55549005F67D8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5084A76623F55549005F67D8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -81,7 +84,6 @@
 		50B2C81623FBFB480048FA6C /* ZyncedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZyncedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		50B2C81823FBFB480048FA6C /* ErrorLoggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLoggerTests.swift; sourceTree = "<group>"; };
 		50B2C81A23FBFB480048FA6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		50B2C82123FC1A280048FA6C /* Preferences.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Preferences.storyboard; sourceTree = "<group>"; };
 		50B2C82323FC1A990048FA6C /* SyncViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncViewController.swift; sourceTree = "<group>"; };
 		50B2C82523FC1AA70048FA6C /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
 		50B2C82923FC1B510048FA6C /* PreferencesWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWindowController.swift; sourceTree = "<group>"; };
@@ -199,7 +201,7 @@
 		50B2C82023FC194D0048FA6C /* Preferences */ = {
 			isa = PBXGroup;
 			children = (
-				50B2C82123FC1A280048FA6C /* Preferences.storyboard */,
+				505896C024093B950070FC24 /* Preferences.storyboard */,
 				50B2C82923FC1B510048FA6C /* PreferencesWindowController.swift */,
 				50B2C82523FC1AA70048FA6C /* PreferencesViewController.swift */,
 				50B2C82323FC1A990048FA6C /* SyncViewController.swift */,
@@ -331,7 +333,7 @@
 				5084A78723F56DC3005F67D8 /* Localizable.strings in Resources */,
 				5084A76923F5554A005F67D8 /* Assets.xcassets in Resources */,
 				5084A78323F562EA005F67D8 /* PreferencesView.xib in Resources */,
-				50B2C82223FC1A280048FA6C /* Preferences.storyboard in Resources */,
+				505896BE24093B950070FC24 /* Preferences.storyboard in Resources */,
 				5084A77A23F55BDA005F67D8 /* ConfigurationInfoView.xib in Resources */,
 				5084A76C23F5554A005F67D8 /* Main.storyboard in Resources */,
 			);
@@ -409,6 +411,16 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		505896C024093B950070FC24 /* Preferences.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				505896BF24093B950070FC24 /* Base */,
+				505896C224093B980070FC24 /* fr */,
+				505896C424093B990070FC24 /* de */,
+			);
+			name = Preferences.storyboard;
+			sourceTree = "<group>";
+		};
 		5084A76A23F5554A005F67D8 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

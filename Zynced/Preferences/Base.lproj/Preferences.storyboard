@@ -65,22 +65,8 @@
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView id="jWa-yL-90Y">
-                                                                    <rect key="frame" x="1" y="1" width="330" height="17"/>
+                                                                    <rect key="frame" x="1" y="1" width="392" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                                    <subviews>
-                                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hQS-LS-fss">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="330" height="17"/>
-                                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="UNX-Ee-Tnf">
-                                                                                <font key="font" metaFont="system"/>
-                                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                                            </textFieldCell>
-                                                                        </textField>
-                                                                    </subviews>
-                                                                    <connections>
-                                                                        <outlet property="textField" destination="hQS-LS-fss" id="1Mv-q7-uFX"/>
-                                                                    </connections>
                                                                 </tableCellView>
                                                             </prototypeCellViews>
                                                         </tableColumn>
@@ -112,8 +98,8 @@
                                         <rect key="frame" x="0.0" y="510" width="666" height="90"/>
                                         <subviews>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DaL-Fe-cg3">
-                                                <rect key="frame" x="28" y="30" width="221" height="29"/>
-                                                <textFieldCell key="cell" lineBreakMode="clipping" title="Configuration Name" id="zFI-gq-z11">
+                                                <rect key="frame" x="28" y="30" width="461" height="29"/>
+                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" title="Enter Name" id="zFI-gq-z11">
                                                     <font key="font" metaFont="system" size="25"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -142,6 +128,7 @@
                                             <constraint firstAttribute="trailing" secondItem="WOo-Wz-Ztw" secondAttribute="trailing" constant="30" id="H3x-yJ-hUt"/>
                                             <constraint firstItem="WOo-Wz-Ztw" firstAttribute="centerY" secondItem="D2f-jV-PCt" secondAttribute="centerY" id="PDG-Cp-Osk"/>
                                             <constraint firstItem="DaL-Fe-cg3" firstAttribute="centerY" secondItem="D2f-jV-PCt" secondAttribute="centerY" id="Vwu-YX-udN"/>
+                                            <constraint firstItem="yc8-iJ-UUV" firstAttribute="leading" secondItem="DaL-Fe-cg3" secondAttribute="trailing" constant="40" id="g21-qa-74p"/>
                                             <constraint firstItem="WOo-Wz-Ztw" firstAttribute="leading" secondItem="yc8-iJ-UUV" secondAttribute="trailing" constant="15" id="gbx-iy-phb"/>
                                             <constraint firstItem="yc8-iJ-UUV" firstAttribute="centerY" secondItem="D2f-jV-PCt" secondAttribute="centerY" id="pUZ-Rn-elv"/>
                                         </constraints>
@@ -487,10 +474,12 @@
                         <outlet property="connectionSelectRight" destination="OHu-V5-W8Y" id="ygX-3l-lr1"/>
                         <outlet property="detailContainer" destination="5Nh-0W-JNk" id="2Iu-nX-P1q"/>
                         <outlet property="itemsTable" destination="oVw-Gp-Hlu" id="wwX-vI-PAn"/>
+                        <outlet property="nameTextField" destination="DaL-Fe-cg3" id="66c-h2-MqH"/>
                         <outlet property="saveButton" destination="ZJC-iP-NEs" id="qf8-oF-Shh"/>
                         <outlet property="stackedInputLeft" destination="UH2-rp-3dt" id="THJ-dF-MQx"/>
                         <outlet property="stackedInputRight" destination="4bb-EW-9fw" id="VeD-DD-kjS"/>
                         <outlet property="startStopButton" destination="dbq-w9-Whx" id="pkc-Nh-9Iz"/>
+                        <outlet property="statusIndicator" destination="yc8-iJ-UUV" id="ovw-VA-b9C"/>
                         <outlet property="syncDirectionSelector" destination="J67-Xx-gHF" id="TdJ-Vf-YVc"/>
                     </connections>
                 </viewController>
