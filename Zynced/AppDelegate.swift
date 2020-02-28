@@ -31,6 +31,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         statusItemManager.showPreferences()
     }
     
+    @IBAction func showAbout(_ sender: Any) {
+        NSApp.sendAction(#selector(NSApp.orderFrontStandardAboutPanel(_:)), to:nil, from:self)
+        NSApp.activate(ignoringOtherApps: true)
+    }
+    
     
     
     // MARK: - Synchronization setup
