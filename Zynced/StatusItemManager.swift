@@ -135,6 +135,7 @@ class StatusItemManager: NSObject {
             NSApp.activate(ignoringOtherApps: true)
             windowCtrl.window?.makeKeyAndOrderFront(nil)
             windowCtrl.window?.delegate = self
+            windowCtrl.window?.title = "Zynced"
         } else {
             NSApp.activate(ignoringOtherApps: true)
         }
