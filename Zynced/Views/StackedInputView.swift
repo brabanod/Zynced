@@ -194,27 +194,6 @@ class StackedInputView: NSView {
             inputStack.addView(input, in: .top)
             inputStack.addConstraints([inputLeft, inputRight])
         }
-        
-        // Connect inputs for cycling through them
-        connectInputs()
-    }
-    
-    
-    /**
-     Connects all the input views in the stack with `nextKeyView`.
-     */
-    func connectInputs() {
-        // Begin from the item second to last and set nextKeyView to the last
-        // Then cycle through the stack to the first item
-        // Only possible if the stack has two or more input views
-        if inputStack.views.count >= 2 {
-            for i in (0...(inputStack.views.count-2)).reversed() {
-                inputStack.views[i].nextKeyView = inputStack.views[i+1]
-            }
-            
-            // Connect the last input to the first
-            inputStack.views.last?.nextKeyView = inputStack.views.first
-        }
     }
 }
 
