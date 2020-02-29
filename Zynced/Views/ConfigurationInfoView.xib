@@ -43,8 +43,11 @@
                     </constraints>
                 </customView>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nxi-1f-A1o">
-                    <rect key="frame" x="203" y="8" width="79" height="16"/>
-                    <textFieldCell key="cell" lineBreakMode="clipping" title="Last Synced" id="Bhf-Md-JBU">
+                    <rect key="frame" x="243" y="8" width="39" height="16"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="35" id="fe9-9e-WH9"/>
+                    </constraints>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Last" id="Bhf-Md-JBU">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -52,7 +55,7 @@
                 </textField>
             </subviews>
             <constraints>
-                <constraint firstItem="nxi-1f-A1o" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="J0W-c7-V8I" secondAttribute="trailing" constant="20" id="2cd-mz-uZF"/>
+                <constraint firstItem="nxi-1f-A1o" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="J0W-c7-V8I" secondAttribute="trailing" constant="12" id="2cd-mz-uZF"/>
                 <constraint firstItem="3AF-oY-c4z" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="8" id="5wr-uK-7Dm"/>
                 <constraint firstAttribute="bottom" secondItem="J0W-c7-V8I" secondAttribute="bottom" constant="8" id="FnL-Y2-H3A"/>
                 <constraint firstItem="1bJ-so-6kr" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="8" id="JbC-As-F92"/>
