@@ -43,7 +43,10 @@ class ErrorLogger {
             }
             
             // Create new ErrorLogItem
-            let errorTypeString = String(describing: type(of: errorType)) + "." + String(describing: errorType.self)
+            var errorTypeString = ""
+            if errorType != nil {
+                errorTypeString = String(describing: type(of: errorType!)) + "." + String(describing: errorType!.self)
+            }
             let item = ErrorLogItem(date: date, type: errorTypeString, message: message)
             
             // Append to the previous items and save

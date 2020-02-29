@@ -253,7 +253,7 @@ class SyncViewController: PreferencesViewController {
     
     
     @IBAction func showErrorLog(_ sender: NSButton) {
-        // TODO: Get id from configuration of currentItem and use it to show ErrorLog
+        performSegue(withIdentifier: "ErrorLogSegue", sender: self)
     }
     
     
@@ -284,9 +284,17 @@ class SyncViewController: PreferencesViewController {
     }
     
     
+    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ErrorLogSegue" {
+            let vc = segue.destinationController as! ErrorLogViewController
+            vc.syncItem = currentItem()
+        }
+    }
     
     
-    // MARK: Save/Delete
+    
+    
+    // MARK: - Save/Delete
     
     /**
      Saves a `Configuration` based on the data, that is currently in the input fields.
