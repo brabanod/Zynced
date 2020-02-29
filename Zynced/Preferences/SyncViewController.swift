@@ -381,12 +381,12 @@ class SyncViewController: PreferencesViewController {
             switch type {
             case .local:
                 if var localConnection = override as? LocalConnection {
-                    localConnection.path = (inputs[0] as! NSTextField).stringValue
+                    localConnection.path = (inputs[0] as! PathInputField).stringValue
                     return localConnection
                 } else { throw ExecutionError.failedCompose("While updating a Connection from user inputs, the given type \(type) and the type \(String(describing: override?.type)) of the existing Connection didn't match") }
             case .sftp:
                 if var sftpConnection = override as? SFTPConnection {
-                    sftpConnection.path = (inputs[3] as! NSTextField).stringValue
+                    sftpConnection.path = (inputs[3] as! PathInputField).stringValue
                     try sftpConnection.setHost((inputs[0] as! NSTextField).stringValue)
                     try sftpConnection.setUser((inputs[1] as! NSTextField).stringValue)
                     try sftpConnection.setAuthentication(.password(value: (inputs[2] as! NSTextField).stringValue))
@@ -668,7 +668,7 @@ extension SyncViewController {
         let stackID = stackView.identifier?.rawValue ?? ""
         if stackID == "" { print("### stackID ist empty") }
         
-        let layout = [InputItem(label: NSLocalizedString("Path", comment: "Label for path configuration input description."), type: .textfield, inputIdentifier: stackID + ".localPath", selector: #selector(SyncViewController.didChangeInput(_:)), target: self)]
+        let layout = [InputItem(label: NSLocalizedString("Path", comment: "Label for path configuration input description."), type: .filetextfield, inputIdentifier: stackID + ".localPath", selector: #selector(SyncViewController.didChangeInput(_:)), target: self)]
         
         stackView.layout(layout)
         
@@ -676,7 +676,7 @@ extension SyncViewController {
         if let conf = configuration {
             if let connection = getConnection(for: stackView, from: conf) as? LocalConnection {
                 if stackView.inputStack.views.count == layout.count {
-                    (stackView.inputStack.views[0] as? NSTextField)?.stringValue = connection.path
+                    (stackView.inputStack.views[0] as? PathInputField)?.stringValue = connection.path
                 }
             } else {
                 ErrorLogger.write(for: conf.id, date: Date(), type: nil, message: "Coulnd't load Configuration, because Connection was not of type \(ConnectionType.local.toString()).")
@@ -700,7 +700,7 @@ extension SyncViewController {
         let layout = [InputItem(label: NSLocalizedString("Host", comment: "Label for host configuration input description."), type: .textfield, inputIdentifier: stackID + ".sftpHost", selector: #selector(SyncViewController.didChangeInput(_:)), target: self),
                       InputItem(label: NSLocalizedString("User", comment: "Label for user configuration input description."), type: .textfield, inputIdentifier: stackID + ".sftpUser", selector: #selector(SyncViewController.didChangeInput(_:)), target: self),
                       InputItem(label: NSLocalizedString("Password", comment: "Label for password configuration input description."), type: .textfield, inputIdentifier: stackID + ".sftpPassword", selector: #selector(SyncViewController.didChangeInput(_:)), target: self),
-                      InputItem(label: NSLocalizedString("Path", comment: "Label for path configuration input description."), type: .textfield, inputIdentifier: stackID + ".sftpPath", selector: #selector(SyncViewController.didChangeInput(_:)), target: self)]
+                      InputItem(label: NSLocalizedString("Path", comment: "Label for path configuration input description."), type: .filetextfield, inputIdentifier: stackID + ".sftpPath", selector: #selector(SyncViewController.didChangeInput(_:)), target: self)]
         
         stackView.layout(layout)
         
@@ -710,7 +710,7 @@ extension SyncViewController {
                 if stackView.inputStack.views.count == layout.count {
                     (stackView.inputStack.views[0] as? NSTextField)?.stringValue = connection.host
                     (stackView.inputStack.views[1] as? NSTextField)?.stringValue = connection.user
-                    (stackView.inputStack.views[3] as? NSTextField)?.stringValue = connection.path
+                    (stackView.inputStack.views[3] as? PathInputField)?.stringValue = connection.path
                     
                     // Set password/keypath textfield
                     switch connection.authentication {

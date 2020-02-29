@@ -10,7 +10,7 @@ import Cocoa
 
 
 enum InputType {
-    case textfield, dropdown
+    case textfield, dropdown, filetextfield
 }
 
 
@@ -23,7 +23,7 @@ struct InputItem {
 }
 
 
-class StackedInputView: NSView {
+class StackedInputView: ClipfreeView {
     
     var inputItems: [InputItem] = [InputItem]()
     var labelStack: NSStackView!
@@ -172,6 +172,15 @@ class StackedInputView: NSView {
                 callbacks.append(callback)
                 textfield.delegate = callback
                 input = textfield
+                
+            case .filetextfield:
+                let fileInput = PathInputField(frame: .zero)
+                fileInput.textField.isEditable = true
+                fileInput.textField.cell?.isScrollable = true
+                let callback = TextFieldCallback(selector: item.selector, target: item.target)
+                callbacks.append(callback)
+                fileInput.textField.delegate = callback
+                input = fileInput
 
             case .dropdown:
                 let dropdown = NSPopUpButton(frame: .zero)
