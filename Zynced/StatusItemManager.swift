@@ -12,6 +12,7 @@ import Combine
 
 class StatusItemManager: NSObject {
     
+    var windowController: NSWindowController?
     var statusItem: NSStatusItem?
     var preferencesShown = false
     
@@ -126,18 +127,25 @@ class StatusItemManager: NSObject {
             
             // Instatiate ViewController and set properties
             let storyboard = NSStoryboard(name: "Preferences", bundle: nil)
-            guard let windowCtrl = storyboard.instantiateController(withIdentifier: .init(stringLiteral: "preferencesID")) as? PreferencesWindowController else { return }
-            guard let vc = windowCtrl.contentViewController as? SyncViewController else { return }
+            guard let windowController = storyboard.instantiateController(withIdentifier: .init(stringLiteral: "preferencesID")) as? PreferencesWindowController else { return }
+            guard let vc = windowController.contentViewController as? SyncViewController else { return }
             vc.configManager = configManager
             vc.syncOrchestrator = syncOrchestrator
             
             // Present window
             NSApp.activate(ignoringOtherApps: true)
-            windowCtrl.window?.makeKeyAndOrderFront(nil)
-            windowCtrl.window?.delegate = self
-            windowCtrl.window?.title = "Zynced"
+            windowController.window?.makeKeyAndOrderFront(nil)
+            windowController.window?.delegate = self
+            windowController.window?.title = "Zynced"
+            self.windowController = windowController
         } else {
+            // Bring app to foreground
             NSApp.activate(ignoringOtherApps: true)
+            
+            // Deminiaturize if needed
+            if windowController?.window?.isMiniaturized ?? false {
+                windowController?.window?.deminiaturize(self)
+            }
         }
     }
 }
