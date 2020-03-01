@@ -122,13 +122,11 @@ extension ErrorLogViewController: NSTableViewDelegate {
             // Get text for cell and assign to textfield
             var text = ""
             if tableColumn == tableView.tableColumns[0] {
-                let formatter = DateFormatter()
-                formatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSSS Z"
-                text = formatter.string(from: item.date)
+                text = getDataFor(item: item, column: 0)
             } else if tableColumn == tableView.tableColumns[1] {
-                text = item.type
+                text = getDataFor(item: item, column: 1)
             } else if tableColumn == tableView.tableColumns[2] {
-                text = item.message
+                text = getDataFor(item: item, column: 2)
             }
             cell?.textField?.stringValue = text
             cell?.textField?.font = NSFont.monospacedSystemFont(ofSize: 12.0, weight: .regular)
