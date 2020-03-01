@@ -12,6 +12,7 @@ import BoteCore
 class ErrorLogViewController: NSViewController {
     
     @IBOutlet weak var logTable: NSTableView!
+    @IBOutlet weak var scrollView: NSScrollView!
     
     /** The `SyncItem`, for which the error log should be displayed. */
     var syncItem: SyncItem?
@@ -32,6 +33,9 @@ class ErrorLogViewController: NSViewController {
             logData = try? ErrorLogger.read(for: id)
         }
         
+        // Setup scroll view
+        scrollView.documentView?.frame = scrollView.frame
+        
         // Setup table
         logTable.delegate = self
         logTable.dataSource = self
@@ -40,7 +44,9 @@ class ErrorLogViewController: NSViewController {
         logTable.tableColumns[2].headerCell.stringValue = NSLocalizedString("Description", comment: "Description header title for error log table.")
         logTable.usesAlternatingRowBackgroundColors = true
         
-    
+        // Setup table column widths
+        autoSizeTableColumns()
+        logTable.reloadData()
     }
     
     
@@ -63,6 +69,42 @@ class ErrorLogViewController: NSViewController {
             ErrorLogger.clean(for: id)
         }
         logTable.reloadData()
+    }
+    
+    
+    func autoSizeTableColumns() {
+        for column in 0...logTable.tableColumns.count-1 {
+            sizeToFit(column: column, padding: 10.0)
+        }
+    }
+    
+
+    func sizeToFit(column: Int, padding: CGFloat) {
+        if let view = logTable.view(atColumn: column, row: 0, makeIfNecessary: true) as? NSTableCellView {
+            var width = logTable.tableColumns[column].minWidth
+            if let data = logData {
+                for item in data {
+                    view.textField?.stringValue = getDataFor(item: item, column: column)
+                    let size = view.fittingSize
+                    width = max(width, size.width + padding)
+                }
+                logTable.tableColumns[column].minWidth = width
+            }
+        }
+    }
+    
+    
+    func getDataFor(item: ErrorLogItem, column: Int) -> String {
+        if column == 0 {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSSS Z"
+            return formatter.string(from: item.date)
+        } else if column == 1 {
+            return item.type
+        } else if column == 2 {
+            return item.message
+        }
+        return ""
     }
 }
 
@@ -97,7 +139,9 @@ extension ErrorLogViewController: NSTableViewDelegate {
     }
     
     
-    
+    func tableView(_ tableView: NSTableView, shouldReorderColumn columnIndex: Int, toColumn newColumnIndex: Int) -> Bool {
+        return false
+    }
 }
 
 
