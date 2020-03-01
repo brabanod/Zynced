@@ -46,7 +46,6 @@ class ErrorLogViewController: NSViewController {
         
         // Setup table column widths
         autoSizeTableColumns()
-        logTable.reloadData()
     }
     
     
@@ -76,6 +75,7 @@ class ErrorLogViewController: NSViewController {
         for column in 0...logTable.tableColumns.count-1 {
             sizeToFit(column: column, padding: 10.0)
         }
+        logTable.reloadData()
     }
     
 
