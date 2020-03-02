@@ -19,6 +19,7 @@ class SyncViewController: PreferencesViewController {
     // Main views
     @IBOutlet weak var itemsTable: NSTableView!
     @IBOutlet weak var detailContainer: NSView!
+    @IBOutlet weak var inputsContainer: ProtectionView!
     
     // Detail view buttons
     @IBOutlet weak var syncDirectionSelector: SyncDirectionSelector!
@@ -105,6 +106,11 @@ class SyncViewController: PreferencesViewController {
         
         // Report changes on nameTextField
         nameTextField.delegate = self
+        
+        // Setup protection for inputs
+        inputsContainer.protectedControls = [connectionSelectLeft, connectionSelectRight, stackedInputLeft, stackedInputRight]
+        inputsContainer.target = self
+        inputsContainer.action = #selector(SyncViewController.showInputProtectionAlert)
     }
     
     
@@ -187,6 +193,7 @@ class SyncViewController: PreferencesViewController {
         statusSubscription = item.$status.sink(receiveValue: { (status) in
             self.statusIndicator.update(status: status)
             self.updateStartStopButton(status: status)
+            self.updateInputProtection(status: status)
         })
         
         startStopButton.isEnabled = true
@@ -205,6 +212,8 @@ class SyncViewController: PreferencesViewController {
         statusIndicator.update(status: .inactive)
         updateStartStopButton(status: .inactive)
         startStopButton.isEnabled = false
+        inputsContainer.disableProtection()
+
         self.view.window?.recalculateKeyViewLoop()
     }
     
@@ -235,9 +244,19 @@ class SyncViewController: PreferencesViewController {
     }
     
     
+    func updateInputProtection(status: SyncStatus) {
+        switch status {
+        case .active, .connected:
+            inputsContainer.enableProtection()
+        case .inactive, .failed:
+            inputsContainer.disableProtection()
+        }
+    }
     
     
-    // MARK: - IBActions
+    
+    
+    // MARK: - IBActions/UI Actions
     
     @IBAction func addItem(_ sender: Any) {
         checkForUnsavedChanges(currentItem: self.currentItem()) {
@@ -288,6 +307,27 @@ class SyncViewController: PreferencesViewController {
         if segue.identifier == "ErrorLogSegue" {
             let vc = segue.destinationController as! ErrorLogViewController
             vc.syncItem = currentItem()
+        }
+    }
+    
+    
+    /** Indicates whether the input protection alert is currently displayed. */
+    var isInputProtectionAlertDisplayed = false
+    
+    /** Presents the input protection alert. */
+    @objc func showInputProtectionAlert() {
+        if !isInputProtectionAlertDisplayed {
+            let alert = NSAlert()
+            alert.messageText = NSLocalizedString("Input Protection Warning", comment: "Alert message telling that input is disabled.")
+            alert.informativeText = NSLocalizedString("Input Protection Warning Text", comment: "Alert text telling that input is disabled.")
+            alert.alertStyle = NSAlert.Style.warning
+            alert.addButton(withTitle: NSLocalizedString("OK", comment: "Title for ok button."))
+            if let window = self.view.window {
+                isInputProtectionAlertDisplayed = true
+                alert.beginSheetModal(for: window) { (response) in
+                    self.isInputProtectionAlertDisplayed = false
+                }
+            }
         }
     }
     

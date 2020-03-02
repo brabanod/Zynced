@@ -26,6 +26,7 @@
 		5084A78723F56DC3005F67D8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5084A78923F56DC3005F67D8 /* Localizable.strings */; };
 		5084A78F23F57522005F67D8 /* BoteCore in Frameworks */ = {isa = PBXBuildFile; productRef = 5084A78E23F57522005F67D8 /* BoteCore */; };
 		5086CE90240AD91800E46574 /* ErrorLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5086CE8F240AD91800E46574 /* ErrorLogViewController.swift */; };
+		5086EE55240D19D2000EB588 /* ProtectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5086EE54240D19D2000EB588 /* ProtectionView.swift */; };
 		50AE84F3240A77EC003626F1 /* PathInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AE84F2240A77EC003626F1 /* PathInputField.swift */; };
 		50AE851F240ACCC2003626F1 /* Clipfree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AE851E240ACCC2003626F1 /* Clipfree.swift */; };
 		50AFD99A240818B10053C1E9 /* ZyncedUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AFD999240818B10053C1E9 /* ZyncedUITests.swift */; };
@@ -80,6 +81,7 @@
 		5084A78A23F56DC6005F67D8 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5084A78C23F56F62005F67D8 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5086CE8F240AD91800E46574 /* ErrorLogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLogViewController.swift; sourceTree = "<group>"; };
+		5086EE54240D19D2000EB588 /* ProtectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtectionView.swift; sourceTree = "<group>"; };
 		50AE84F2240A77EC003626F1 /* PathInputField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathInputField.swift; sourceTree = "<group>"; };
 		50AE851E240ACCC2003626F1 /* Clipfree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clipfree.swift; sourceTree = "<group>"; };
 		50AFD997240818B10053C1E9 /* ZyncedUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZyncedUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -170,6 +172,7 @@
 				504D7F4723FD3F80007B72E4 /* SyncDirectionSelector.swift */,
 				50D3895F23FD71BD0083F3C3 /* StackedInputView.swift */,
 				50AE84F2240A77EC003626F1 /* PathInputField.swift */,
+				5086EE54240D19D2000EB588 /* ProtectionView.swift */,
 				50AE851E240ACCC2003626F1 /* Clipfree.swift */,
 			);
 			path = Views;
@@ -375,6 +378,7 @@
 				5084A77523F55677005F67D8 /* StatusItemManager.swift in Sources */,
 				50B2C82723FC1AA70048FA6C /* PreferencesViewController.swift in Sources */,
 				5084A77C23F55C2A005F67D8 /* ConfigurationInfoView.swift in Sources */,
+				5086EE55240D19D2000EB588 /* ProtectionView.swift in Sources */,
 				5086CE90240AD91800E46574 /* ErrorLogViewController.swift in Sources */,
 				5027889423FD38F700635849 /* StatusIndicatorView.swift in Sources */,
 				5084A76523F55549005F67D8 /* AppDelegate.swift in Sources */,
