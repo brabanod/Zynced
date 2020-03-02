@@ -289,14 +289,17 @@ class SyncViewController: PreferencesViewController {
                 syncOrchestrator?.stopSynchronizing(for: currentItem)
                 setButtonStart()
             } else {
-                // Try to start synchronization and write any errors to ErrorLogger
-                do {
-                    try syncOrchestrator?.startSynchronizing(for: currentItem, errorHandler: { (item, error) in
-                        ErrorLogger.write(for: item.configuration.id, date: Date(), type: error, message: error.localizedDescription)
-                    })
-                    setButtonStop()
-                } catch let error {
-                    ErrorLogger.write(for: currentItem.configuration.id, date: Date(), type: error, message: error.localizedDescription)
+                // Check if there are any unsaved changes and present unsaved changes dialog first
+                checkForUnsavedChanges(currentItem: currentItem) {
+                    // Try to start synchronization and write any errors to ErrorLogger
+                    do {
+                        try self.syncOrchestrator?.startSynchronizing(for: currentItem, errorHandler: { (item, error) in
+                            ErrorLogger.write(for: item.configuration.id, date: Date(), type: error, message: error.localizedDescription)
+                        })
+                        self.setButtonStop()
+                    } catch let error {
+                        ErrorLogger.write(for: currentItem.configuration.id, date: Date(), type: error, message: error.localizedDescription)
+                    }
                 }
             }
         }
@@ -504,8 +507,15 @@ class SyncViewController: PreferencesViewController {
     }
     
     
+    /** Discards changes for the current item. */
     func discardChanges() {
         unsavedChanges = false
+        
+        // Reset inputs. Only needed, when detail view stays on the same item as before discard was called.
+        if let current = currentItem(),
+            previousItem?.configuration.id == current.configuration.id {
+            setupDetailView(for: current)
+        }
     }
     
     
