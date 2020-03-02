@@ -116,17 +116,7 @@ class ZyncedUITests: XCTestCase {
     
 
     override func tearDown() {
-        // Remove first element
-//        itemsTable.children(matching: .tableRow).element(boundBy: 0).children(matching: .cell).element.click()
-//        let entfernenButton = window.buttons["entfernen"]
-//        entfernenButton.click()
-//        let deleteButton = window.sheets["Hinweis"].buttons["Delete"]
-//        deleteButton.click()
-//
-//        // Remove second element
-//        itemsTable.tableRows.children(matching: .cell).element.click()
-//        entfernenButton.click()
-//        deleteButton.click()
+        // Remove remaining items
         deleteFirstItem()
         deleteFirstItem()
     }
