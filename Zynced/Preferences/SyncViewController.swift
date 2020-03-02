@@ -376,9 +376,9 @@ class SyncViewController: PreferencesViewController {
             // Create new connection
             switch type {
             case .local:
-                return LocalConnection(path: (inputs[0] as! NSTextField).stringValue)
+                return LocalConnection(path: (inputs[0] as! PathInputField).stringValue)
             case .sftp:
-                return try SFTPConnection(path: (inputs[3] as! NSTextField).stringValue,
+                return try SFTPConnection(path: (inputs[3] as! PathInputField).stringValue,
                                           host: (inputs[0] as! NSTextField).stringValue,
                                           port: nil,
                                           user: (inputs[1] as! NSTextField).stringValue,
