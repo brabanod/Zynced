@@ -80,15 +80,17 @@ class ErrorLogViewController: NSViewController {
     
 
     func sizeToFit(column: Int, padding: CGFloat) {
-        if let view = logTable.view(atColumn: column, row: 0, makeIfNecessary: true) as? NSTableCellView {
-            var width = logTable.tableColumns[column].minWidth
-            if let data = logData {
-                for item in data {
-                    view.textField?.stringValue = getDataFor(item: item, column: column)
-                    let size = view.fittingSize
-                    width = max(width, size.width + padding)
+        if logTable.numberOfRows > 0 {
+            if let view = logTable.view(atColumn: column, row: 0, makeIfNecessary: true) as? NSTableCellView {
+                var width = logTable.tableColumns[column].minWidth
+                if let data = logData {
+                    for item in data {
+                        view.textField?.stringValue = getDataFor(item: item, column: column)
+                        let size = view.fittingSize
+                        width = max(width, size.width + padding)
+                    }
+                    logTable.tableColumns[column].minWidth = width
                 }
-                logTable.tableColumns[column].minWidth = width
             }
         }
     }
