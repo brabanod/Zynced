@@ -14,6 +14,13 @@ class PathInputField: ClipfreeControl {
     private var openButton: NSButton!
     var canChooseFiles = false
     
+    override var isEnabled: Bool {
+        didSet {
+            self.textField.isEnabled = self.isEnabled
+            self.openButton.isEnabled = self.isEnabled
+        }
+    }
+    
     
     override var font: NSFont? {
         set {

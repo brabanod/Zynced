@@ -23,22 +23,34 @@ struct InputItem {
 }
 
 
-class StackedInputView: ClipfreeView {
+class StackedInputView: ClipfreeControl {
     
+    /** An array of the configured `InputItem`'s. */
     var inputItems: [InputItem] = [InputItem]()
+    
+    /** The `NSStackView` which contains all the input fields. */
     var labelStack: NSStackView!
+    
+    /** The `NSStackView` which contains all the input fields. */
     var inputStack: NSStackView!
     
-    // The percentual distribution of the two views (means one is 0.3 wide, the other 0.7)
+    /** Setting this will also set the according value in all inputs. */
+    override var isEnabled: Bool {
+        didSet {
+            setIsEnabledForAllInputs(self.isEnabled)
+        }
+    }
+    
+    /** The percentual distribution of the two views (means one is 0.3 wide, the other 0.7). */
     private let distributionRatio: CGFloat = 0.3
     
-    // The spacing between the two stack view
+    /** The spacing between the two stack view. */
     private let stackSpace: CGFloat = 10.0
     
-    // The height of an input group
+    /** The height of an input group. */
     private let itemHeight: CGFloat = 20.0
     
-    // The spacing between elements in the stacks
+    /** The spacing between elements in the stacks. */
     private let stackItemSpacing: CGFloat = 20.0
     
     private var callbacks = [TextFieldCallback]()
@@ -202,6 +214,15 @@ class StackedInputView: ClipfreeView {
             input.addConstraint(inputHeight)
             inputStack.addView(input, in: .top)
             inputStack.addConstraints([inputLeft, inputRight])
+        }
+    }
+    
+    
+    private func setIsEnabledForAllInputs(_ isEnabled: Bool) {
+        for view in inputStack.views {
+            if let input = view as? NSControl {
+                input.isEnabled = isEnabled
+            }
         }
     }
 }
