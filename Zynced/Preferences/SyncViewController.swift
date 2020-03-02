@@ -742,6 +742,9 @@ extension SyncViewController {
                 ErrorLogger.write(for: conf.id, date: Date(), type: nil, message: "Coulnd't load Configuration, because Connection was not of type \(ConnectionType.local.toString()).")
             }
         }
+        
+        // Recalculate keyViewLoop
+        self.view.window?.recalculateKeyViewLoop()
     }
     
     
@@ -784,6 +787,9 @@ extension SyncViewController {
                 ErrorLogger.write(for: conf.id, date: Date(), type: nil, message: "Coulnd't load Configuration, because Connection was not of type \(ConnectionType.sftp.toString()).")
             }
         }
+        
+        // Recalculate keyViewLoop
+        self.view.window?.recalculateKeyViewLoop()
     }
     
     
