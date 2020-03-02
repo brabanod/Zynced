@@ -43,12 +43,16 @@ class StatusIndicatorView: NSView {
         switch status {
         case .connected:
             self.layer?.backgroundColor = CGColor.StatusColor.connected
+            self.toolTip = NSLocalizedString("Status Connected Explanation", comment: "A tooltip text, which explain what the green color (connected) means.")
         case .active:
             self.layer?.backgroundColor = CGColor.StatusColor.active
+            self.toolTip = NSLocalizedString("Status Active Explanation", comment: "A tooltip text, which explain what the yellow color (active) means.")
         case .inactive:
             self.layer?.backgroundColor = CGColor.StatusColor.inactive
+            self.toolTip = NSLocalizedString("Status Inactive Explanation", comment: "A tooltip text, which explain what the gray color (inactive) means.")
         case .failed:
             self.layer?.backgroundColor = CGColor.StatusColor.failed
+            self.toolTip = NSLocalizedString("Status Failed Explanation", comment: "A tooltip text, which explain what the red color (failed) means.")
         }
     }
     
