@@ -182,7 +182,9 @@ class SyncViewController: PreferencesViewController {
     /**
      Does UI setup for the detail view, with the given `SyncItem`
      */
-    func setupDetailView(for item: SyncItem) {        
+    func setupDetailView(for item: SyncItem) {
+        removeDetailSubscriptions()
+        
         // Setup input fields
         setupInputs(for: item.configuration)
         
