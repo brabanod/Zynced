@@ -15,6 +15,7 @@
 		505896C6240940CA0070FC24 /* MainApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505896C5240940CA0070FC24 /* MainApplication.swift */; };
 		505896C7240940CE0070FC24 /* MainApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505896C5240940CA0070FC24 /* MainApplication.swift */; };
 		505896C8240940CE0070FC24 /* MainApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505896C5240940CA0070FC24 /* MainApplication.swift */; };
+		506A4D1A240EA61C0057A1C7 /* SyncStatus+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506A4D19240EA61C0057A1C7 /* SyncStatus+Extension.swift */; };
 		5084A76523F55549005F67D8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5084A76423F55549005F67D8 /* AppDelegate.swift */; };
 		5084A76923F5554A005F67D8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5084A76823F5554A005F67D8 /* Assets.xcassets */; };
 		5084A76C23F5554A005F67D8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5084A76A23F5554A005F67D8 /* Main.storyboard */; };
@@ -66,6 +67,7 @@
 		505896C5240940CA0070FC24 /* MainApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainApplication.swift; sourceTree = "<group>"; };
 		505896E624095AF90070FC24 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
 		505896E824095B030070FC24 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
+		506A4D19240EA61C0057A1C7 /* SyncStatus+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SyncStatus+Extension.swift"; sourceTree = "<group>"; };
 		5084A76123F55549005F67D8 /* Zynced.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zynced.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5084A76423F55549005F67D8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5084A76823F5554A005F67D8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -222,6 +224,7 @@
 			children = (
 				504B136623FB453400E271BE /* ErrorLogger.swift */,
 				50B8A6E924055BED00EDB79A /* ConnectionType+Extension.swift */,
+				506A4D19240EA61C0057A1C7 /* SyncStatus+Extension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -382,6 +385,7 @@
 				5086CE90240AD91800E46574 /* ErrorLogViewController.swift in Sources */,
 				5027889423FD38F700635849 /* StatusIndicatorView.swift in Sources */,
 				5084A76523F55549005F67D8 /* AppDelegate.swift in Sources */,
+				506A4D1A240EA61C0057A1C7 /* SyncStatus+Extension.swift in Sources */,
 				504B136723FB453400E271BE /* ErrorLogger.swift in Sources */,
 				50AE84F3240A77EC003626F1 /* PathInputField.swift in Sources */,
 				504D7F4823FD3F80007B72E4 /* SyncDirectionSelector.swift in Sources */,

@@ -72,7 +72,7 @@ class SyncViewController: PreferencesViewController {
     
     /** Indicates, whether the currently displayed item is synchronizing at the moment. */
     func isCurrentItemSyncing() -> Bool {
-        return currentItem()?.status == .active || currentItem()?.status == .connected
+        return currentItem()?.status.isRunningStatus() ?? false
     }
     
     
@@ -225,10 +225,9 @@ class SyncViewController: PreferencesViewController {
     // MARK: - IBOutlet modification
     
     func updateStartStopButton(status: SyncStatus) {
-        switch status {
-        case .active, .connected:
+        if status.isRunningStatus() {
             setButtonStop()
-        case .inactive, .failed:
+        } else {
             setButtonStart()
         }
     }
@@ -247,10 +246,9 @@ class SyncViewController: PreferencesViewController {
     
     
     func updateInputProtection(status: SyncStatus) {
-        switch status {
-        case .active, .connected:
+        if status.isRunningStatus() {
             inputsContainer.enableProtection()
-        case .inactive, .failed:
+        } else {
             inputsContainer.disableProtection()
         }
     }
