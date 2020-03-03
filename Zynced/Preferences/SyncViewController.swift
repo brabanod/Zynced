@@ -70,7 +70,7 @@ class SyncViewController: PreferencesViewController {
     /** The previously selected item in the table. */
     var previousItem: SyncItem?
     
-    /** Indicates, whether the currently displayed item is syncronizing at the moment. */
+    /** Indicates, whether the currently displayed item is synchronizing at the moment. */
     func isCurrentItemSyncing() -> Bool {
         return currentItem()?.status == .active || currentItem()?.status == .connected
     }
@@ -413,7 +413,12 @@ class SyncViewController: PreferencesViewController {
     
     
     /**
-     Creates a connection for a given type using the input fields from the stackView
+     Creates a connection for a given type using the input fields from the stackView.
+     
+     - parameters:
+        - type: The `ConnectionType`, that should be created.
+        - override: A `Connection` object, which will be updated if given. If this parameter is given, a new `Connection` is not created but instead is the `override` object updated and returned.
+        - stackView: The `StackedInputView` which input fields should be use to create/update the `Connection`.
      */
     func createConnection(type: ConnectionType, override: inout Connection?, stackView: StackedInputView) throws -> Connection {
         let inputs = stackView.inputStack.views
