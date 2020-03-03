@@ -49,14 +49,6 @@ class ErrorLogViewController: NSViewController {
     }
     
     
-    // FIXME: REMOVE, only for demo
-    override func viewDidAppear() {
-        if let id = itemId {
-            ErrorLogger.write(for: id, date: Date(), type: ExecutionError.failedCompose("Bla"), message: "Coulnd't load Configuration, because Connection was not of type \(ConnectionType.local.toString()).")
-        }
-    }
-    
-    
     @IBAction func closeWindowClicked(_ sender: Any) {
         //self.view.window?.close()
         self.dismiss(self)
