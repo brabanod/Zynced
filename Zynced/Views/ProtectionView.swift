@@ -18,7 +18,6 @@ class ProtectionView: NSControl {
     
     
     override func mouseDown(with event: NSEvent) {
-        print("mouse down")
         if isProtectionEnabled {
             if target != nil, action != nil {
                 target!.performSelector(onMainThread: action!, with: self, waitUntilDone: false)
