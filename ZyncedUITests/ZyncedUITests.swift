@@ -64,8 +64,8 @@ class ZyncedUITests: XCTestCase {
         statusItem.click()
         app.menuBars.menuItems["Einstellungen…"].click()
 
-        window = app.windows["Window"]
-        itemsTable = app.windows["Window"].tables
+        window = app.windows["Zynced"]
+        itemsTable = window.tables
         
         // Register Textfields
         localPathTextField = window.textFields["stackedInputLeft.localPath"]
