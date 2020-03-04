@@ -40,6 +40,16 @@ class PathInputField: ClipfreeControl {
     }
     
     
+    override var identifier: NSUserInterfaceItemIdentifier? {
+        set {
+            self.textField.identifier = newValue
+        }
+        get {
+            return self.textField.identifier
+        }
+    }
+    
+    
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         setupView()
