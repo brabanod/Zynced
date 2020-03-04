@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5027889423FD38F700635849 /* StatusIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5027889323FD38F700635849 /* StatusIndicatorView.swift */; };
 		504B136723FB453400E271BE /* ErrorLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504B136623FB453400E271BE /* ErrorLogger.swift */; };
+		504BED1A240FB4E8000A2067 /* PopUpButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504BED19240FB4E8000A2067 /* PopUpButton.swift */; };
 		504D7F4823FD3F80007B72E4 /* SyncDirectionSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504D7F4723FD3F80007B72E4 /* SyncDirectionSelector.swift */; };
 		505896BD24092D0D0070FC24 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505896BC24092D0D0070FC24 /* KeychainHelper.swift */; };
 		505896BE24093B950070FC24 /* Preferences.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 505896C024093B950070FC24 /* Preferences.storyboard */; };
@@ -59,6 +60,7 @@
 /* Begin PBXFileReference section */
 		5027889323FD38F700635849 /* StatusIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusIndicatorView.swift; sourceTree = "<group>"; };
 		504B136623FB453400E271BE /* ErrorLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLogger.swift; sourceTree = "<group>"; };
+		504BED19240FB4E8000A2067 /* PopUpButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpButton.swift; sourceTree = "<group>"; };
 		504D7F4723FD3F80007B72E4 /* SyncDirectionSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncDirectionSelector.swift; sourceTree = "<group>"; };
 		505896BC24092D0D0070FC24 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		505896BF24093B950070FC24 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Preferences.storyboard; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 				50D3895F23FD71BD0083F3C3 /* StackedInputView.swift */,
 				50AE84F2240A77EC003626F1 /* PathInputField.swift */,
 				5086EE54240D19D2000EB588 /* ProtectionView.swift */,
+				504BED19240FB4E8000A2067 /* PopUpButton.swift */,
 				50AE851E240ACCC2003626F1 /* Clipfree.swift */,
 			);
 			path = Views;
@@ -374,6 +377,7 @@
 				50D3896023FD71BD0083F3C3 /* StackedInputView.swift in Sources */,
 				50B2C82A23FC1B510048FA6C /* PreferencesWindowController.swift in Sources */,
 				505896C6240940CA0070FC24 /* MainApplication.swift in Sources */,
+				504BED1A240FB4E8000A2067 /* PopUpButton.swift in Sources */,
 				5084A77E23F560AF005F67D8 /* Colors.swift in Sources */,
 				50B2C82423FC1A990048FA6C /* SyncViewController.swift in Sources */,
 				50B8A6EA24055BED00EDB79A /* ConnectionType+Extension.swift in Sources */,

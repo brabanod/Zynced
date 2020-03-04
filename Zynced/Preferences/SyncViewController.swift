@@ -850,12 +850,14 @@ extension SyncViewController {
     @objc func leftConnectionChanged(_ sender: NSPopUpButton) {
         let type = connectionChoicesLeft[sender.indexOfSelectedItem]
         setupInputs(for: type, configuration: nil, stackView: stackedInputLeft)
+        unsavedChanges = true
     }
     
     
     @objc func rightConnectionChanged(_ sender: NSPopUpButton) {
         let type = connectionChoicesRight[sender.indexOfSelectedItem]
         setupInputs(for: type, configuration: nil, stackView: stackedInputRight)
+        unsavedChanges = true
     }
     
     

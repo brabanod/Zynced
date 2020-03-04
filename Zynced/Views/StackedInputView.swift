@@ -53,7 +53,7 @@ class StackedInputView: ClipfreeControl {
     /** The spacing between elements in the stacks. */
     private let stackItemSpacing: CGFloat = 20.0
     
-    private var callbacks = [TextFieldCallback]()
+    private var callbacks = [NSObject]()
 
     
     override init(frame frameRect: NSRect) {
@@ -195,10 +195,10 @@ class StackedInputView: ClipfreeControl {
                 input = fileInput
 
             case .dropdown:
-                let dropdown = NSPopUpButton(frame: .zero)
-                dropdown.target = item.target
-                dropdown.action = item.selector
+                let dropdown = PopUpButton(frame: .zero)
                 dropdown.autoenablesItems = true
+                let callback = PopUpButtonCallback(selector: item.selector, target: item.target, popupButton: dropdown)
+                callbacks.append(callback)
                 input = dropdown
             }
 
