@@ -75,7 +75,7 @@ class SyncDirectionSelector: NSView {
         let imageView = NSImageView(image: NSImage(named: "RightArrowSelected")!)
         let centerHorizontal = NSLayoutConstraint(item: imageView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1.0, constant: 0.0)
         let topConst = NSLayoutConstraint(item: imageView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 0.0)
-        let heightConst = NSLayoutConstraint(item: imageView, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 1.0, constant: 0.0)
+        let heightConst = NSLayoutConstraint(item: imageView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 60.0)
         let aspectRatio = NSLayoutConstraint(item: imageView, attribute: .width, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 1.0, constant: 0.0)
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -97,23 +97,23 @@ class SyncDirectionSelector: NSView {
         buttonLeft!.translatesAutoresizingMaskIntoConstraints = false
         buttonRight!.translatesAutoresizingMaskIntoConstraints = false
         
-        // Constraints left button
-        let blLeftConst = NSLayoutConstraint(item: buttonLeft!, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1.0, constant: 0.0)
+        // Constraints left button (pin right edge to center x)
+        let blRightConst = NSLayoutConstraint(item: buttonLeft!, attribute: .right, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1.0, constant: 0.0)
         let blTopConst = NSLayoutConstraint(item: buttonLeft!, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 0.0)
-        let blWidthConst = NSLayoutConstraint(item: buttonLeft!, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 0.5, constant: 0.0)
+        let blWidthConst = NSLayoutConstraint(item: buttonLeft!, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 60.0)
         let blAspectRatio = NSLayoutConstraint(item: buttonLeft!, attribute: .height, relatedBy: .equal, toItem: buttonLeft!, attribute: .width, multiplier: 1.0, constant: 0.0)
         
-        // Constraints right button
-        let brRightConst = NSLayoutConstraint(item: buttonRight!, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1.0, constant: 0.0)
+        // Constraints right button (pin right edge to center x)
+        let brLeftConst = NSLayoutConstraint(item: buttonRight!, attribute: .left, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1.0, constant: 0.0)
         let brTopConst = NSLayoutConstraint(item: buttonRight!, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 0.0)
-        let brWidthConst = NSLayoutConstraint(item: buttonRight!, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 0.5, constant: 0.0)
+        let brWidthConst = NSLayoutConstraint(item: buttonRight!, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 60.0)
         let brAspectRatio = NSLayoutConstraint(item: buttonRight!, attribute: .height, relatedBy: .equal, toItem: buttonRight!, attribute: .width, multiplier: 1.0, constant: 0.0)
         
         // Add buttons and constraints
         self.addSubview(buttonLeft!)
         self.addSubview(buttonRight!)
-        self.addConstraints([blLeftConst, blTopConst, blWidthConst, blAspectRatio])
-        self.addConstraints([brRightConst, brTopConst, brWidthConst, brAspectRatio])
+        self.addConstraints([blRightConst, blTopConst, blWidthConst, blAspectRatio])
+        self.addConstraints([brLeftConst, brTopConst, brWidthConst, brAspectRatio])
         
     }
     
