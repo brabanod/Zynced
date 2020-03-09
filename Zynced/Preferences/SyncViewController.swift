@@ -420,7 +420,7 @@ class SyncViewController: PreferencesViewController {
      */
     func createConnection(type: ConnectionType, override: inout Connection?, stackView: StackedInputView) throws -> Connection {
         let inputs = stackView.inputStack.views
-        if override == nil {
+        if override == nil || type != override?.type {
             // Create new connection
             switch type {
             case .local:
