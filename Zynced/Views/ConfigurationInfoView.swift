@@ -48,10 +48,7 @@ class ConfigurationInfoView: NSView, LoadableView {
     
     
     func setLocation(_ path: String) {
-        // Replace the home directory with ~
-        let homePath = FileManager.default.homeDirectoryForCurrentUser.absoluteString.dropFirst("file://".count)
-        let readablePath = path.replacingOccurrences(of: homePath, with: "~/")
-        locationLabel.stringValue = readablePath
+        locationLabel.stringValue = path.replaceHomeDirectory()
     }
     
     

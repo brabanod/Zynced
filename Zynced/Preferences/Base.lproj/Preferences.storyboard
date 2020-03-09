@@ -53,7 +53,7 @@
                                                     <tableColumns>
                                                         <tableColumn width="330" minWidth="40" maxWidth="1000" id="DKx-fu-5wF">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                                <font key="font" metaFont="controlContent" size="11"/>
+                                                                <font key="font" metaFont="label" size="11"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                             </tableHeaderCell>
@@ -157,79 +157,11 @@
                                                     <constraint firstItem="J67-Xx-gHF" firstAttribute="width" secondItem="WLB-zm-869" secondAttribute="width" id="YmK-cn-NPA"/>
                                                 </constraints>
                                             </customView>
-                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="8IM-i2-laj">
+                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="8IM-i2-laj" customClass="ConnectionInfoView" customModule="Zynced" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="18" width="266" height="135"/>
-                                                <subviews>
-                                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VQ5-et-Uo6">
-                                                        <rect key="frame" x="103" y="75" width="60" height="60"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="60" id="5hM-hH-o0f"/>
-                                                            <constraint firstAttribute="width" constant="60" id="Z19-rY-Tu0"/>
-                                                        </constraints>
-                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Local" id="Ual-Ax-kYH"/>
-                                                    </imageView>
-                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nqF-o0-0Oz">
-                                                        <rect key="frame" x="103" y="48" width="60" height="17"/>
-                                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Location" id="iIL-2k-eWm">
-                                                            <font key="font" metaFont="system" size="14"/>
-                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                        </textFieldCell>
-                                                    </textField>
-                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kBa-C3-6OD">
-                                                        <rect key="frame" x="116" y="21" width="34" height="17"/>
-                                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Path" id="Q3Y-ub-nOu">
-                                                            <font key="font" metaFont="system" size="14"/>
-                                                            <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
-                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                        </textFieldCell>
-                                                    </textField>
-                                                </subviews>
-                                                <constraints>
-                                                    <constraint firstItem="kBa-C3-6OD" firstAttribute="centerX" secondItem="8IM-i2-laj" secondAttribute="centerX" id="Kk8-ar-B2J"/>
-                                                    <constraint firstItem="kBa-C3-6OD" firstAttribute="top" secondItem="nqF-o0-0Oz" secondAttribute="bottom" constant="10" id="LaF-CZ-b0q"/>
-                                                    <constraint firstItem="nqF-o0-0Oz" firstAttribute="top" secondItem="VQ5-et-Uo6" secondAttribute="bottom" constant="10" id="ON2-o4-Vkg"/>
-                                                    <constraint firstItem="VQ5-et-Uo6" firstAttribute="top" secondItem="8IM-i2-laj" secondAttribute="top" id="Ug6-GE-zqQ"/>
-                                                    <constraint firstItem="VQ5-et-Uo6" firstAttribute="centerX" secondItem="8IM-i2-laj" secondAttribute="centerX" id="jkh-Yf-Tg6"/>
-                                                    <constraint firstItem="nqF-o0-0Oz" firstAttribute="centerX" secondItem="8IM-i2-laj" secondAttribute="centerX" id="xDl-6a-Vyv"/>
-                                                </constraints>
                                             </customView>
-                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="aqK-a5-Bwb">
+                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="aqK-a5-Bwb" customClass="ConnectionInfoView" customModule="Zynced" customModuleProvider="target">
                                                 <rect key="frame" x="400" y="18" width="266" height="135"/>
-                                                <subviews>
-                                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="euU-ze-Epb">
-                                                        <rect key="frame" x="103" y="75" width="60" height="60"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="60" id="VeX-qP-DyM"/>
-                                                            <constraint firstAttribute="height" constant="60" id="qxU-3r-wrH"/>
-                                                        </constraints>
-                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Remote" id="khb-ds-T34"/>
-                                                    </imageView>
-                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="A1d-ER-heX">
-                                                        <rect key="frame" x="103" y="48" width="60" height="17"/>
-                                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Location" id="TGf-Ps-WMM">
-                                                            <font key="font" metaFont="system" size="14"/>
-                                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                        </textFieldCell>
-                                                    </textField>
-                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0ql-Hi-FWi">
-                                                        <rect key="frame" x="116" y="21" width="34" height="17"/>
-                                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Path" id="pVq-eC-s4a">
-                                                            <font key="font" metaFont="system" size="14"/>
-                                                            <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
-                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                        </textFieldCell>
-                                                    </textField>
-                                                </subviews>
-                                                <constraints>
-                                                    <constraint firstItem="euU-ze-Epb" firstAttribute="centerX" secondItem="aqK-a5-Bwb" secondAttribute="centerX" id="Jqf-LQ-J0C"/>
-                                                    <constraint firstItem="0ql-Hi-FWi" firstAttribute="centerX" secondItem="aqK-a5-Bwb" secondAttribute="centerX" id="RJX-ej-Pve"/>
-                                                    <constraint firstItem="A1d-ER-heX" firstAttribute="centerX" secondItem="aqK-a5-Bwb" secondAttribute="centerX" id="aLZ-KH-sac"/>
-                                                    <constraint firstItem="0ql-Hi-FWi" firstAttribute="top" secondItem="A1d-ER-heX" secondAttribute="bottom" constant="10" id="erq-Kb-uqS"/>
-                                                    <constraint firstItem="A1d-ER-heX" firstAttribute="top" secondItem="euU-ze-Epb" secondAttribute="bottom" constant="10" id="fl6-1e-EOc"/>
-                                                    <constraint firstItem="euU-ze-Epb" firstAttribute="top" secondItem="aqK-a5-Bwb" secondAttribute="top" id="jIE-k7-wNw"/>
-                                                </constraints>
                                             </customView>
                                         </subviews>
                                         <constraints>
@@ -470,6 +402,8 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="connectionInfoLeft" destination="8IM-i2-laj" id="mul-EF-LcJ"/>
+                        <outlet property="connectionInfoRight" destination="aqK-a5-Bwb" id="ZjB-FM-giZ"/>
                         <outlet property="connectionSelectLeft" destination="UwE-wW-pOe" id="gD9-ly-xoe"/>
                         <outlet property="connectionSelectRight" destination="OHu-V5-W8Y" id="ygX-3l-lr1"/>
                         <outlet property="detailContainer" destination="5Nh-0W-JNk" id="2Iu-nX-P1q"/>
@@ -544,13 +478,13 @@ DQ
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <scrollView autohidesScrollers="YES" horizontalLineScroll="18" horizontalPageScroll="10" verticalLineScroll="18" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sqK-ml-xGq">
-                                                    <rect key="frame" x="0.0" y="0.0" width="743" height="341"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="743" height="266"/>
                                                     <clipView key="contentView" id="Clt-WK-iw2">
-                                                        <rect key="frame" x="1" y="0.0" width="741" height="340"/>
+                                                        <rect key="frame" x="1" y="0.0" width="741" height="265"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
                                                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="16" rowSizeStyle="automatic" headerView="V8v-0Q-6gC" viewBased="YES" id="J7P-JK-hMm">
-                                                                <rect key="frame" x="0.0" y="0.0" width="741" height="315"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="741" height="240"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <size key="intercellSpacing" width="3" height="2"/>
                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -558,7 +492,7 @@ DQ
                                                                 <tableColumns>
                                                                     <tableColumn width="116" minWidth="40" maxWidth="1000" id="Odp-nG-52Y">
                                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                                            <font key="font" metaFont="controlContent" size="11"/>
+                                                                            <font key="font" metaFont="label" size="11"/>
                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                         </tableHeaderCell>
@@ -596,7 +530,7 @@ DQ
                                                                     </tableColumn>
                                                                     <tableColumn width="116" minWidth="40" maxWidth="1000" id="ueR-xm-ZR5">
                                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                                            <font key="font" metaFont="controlContent" size="11"/>
+                                                                            <font key="font" metaFont="label" size="11"/>
                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                         </tableHeaderCell>
@@ -634,7 +568,7 @@ DQ
                                                                     </tableColumn>
                                                                     <tableColumn width="116" minWidth="40" maxWidth="1000" id="ZCS-Dh-MHc">
                                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                                            <font key="font" metaFont="controlContent" size="11"/>
+                                                                            <font key="font" metaFont="label" size="11"/>
                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                         </tableHeaderCell>
@@ -728,9 +662,7 @@ DQ
         </scene>
     </scenes>
     <resources>
-        <image name="Local" width="55" height="45"/>
         <image name="NSAddTemplate" width="11" height="11"/>
         <image name="NSRemoveTemplate" width="11" height="11"/>
-        <image name="Remote" width="60" height="60"/>
     </resources>
 </document>

@@ -32,6 +32,10 @@ class SyncViewController: PreferencesViewController {
     private let connectionSelectLeftId = "connectionSelectLeft"
     private let connectionSelectRightId = "connectionSelectRight"
     
+    // Connection info views
+    @IBOutlet weak var connectionInfoLeft: ConnectionInfoView!
+    @IBOutlet weak var connectionInfoRight: ConnectionInfoView!
+    
     /** Saves the `ConnectionType`'s that are available for the left (from) input section. */
     private let connectionChoicesLeft: [ConnectionType] = [ConnectionType.local]
     
