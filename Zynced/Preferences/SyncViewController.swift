@@ -462,12 +462,12 @@ class SyncViewController: PreferencesViewController {
             // Update override connection
             switch type {
             case .local:
-                if var localConnection = override as? LocalConnection {
+                if let localConnection = override as? LocalConnection {
                     localConnection.path = (inputs[0] as! PathInputField).stringValue
                     return localConnection
                 } else { throw ExecutionError.failedCompose("While updating a Connection from user inputs, the given type \(type) and the type \(String(describing: override?.type)) of the existing Connection didn't match") }
             case .sftp:
-                if var sftpConnection = override as? SFTPConnection {
+                if let sftpConnection = override as? SFTPConnection {
                     sftpConnection.path = (inputs[3] as! PathInputField).stringValue
                     try sftpConnection.setHost((inputs[0] as! NSTextField).stringValue)
                     try sftpConnection.setUser((inputs[1] as! NSTextField).stringValue)
