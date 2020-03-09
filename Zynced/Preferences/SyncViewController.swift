@@ -202,6 +202,9 @@ class SyncViewController: PreferencesViewController {
             self.updateInputProtection(status: status)
         })
         
+        // Setup connection info
+        updateConnectionInfo()
+        
         startStopButton.isEnabled = true
         self.view.window?.recalculateKeyViewLoop()
     }
@@ -219,6 +222,7 @@ class SyncViewController: PreferencesViewController {
         updateStartStopButton(status: .inactive)
         startStopButton.isEnabled = false
         inputsContainer.disableProtection()
+        resetConnectionInfo()
 
         self.view.window?.recalculateKeyViewLoop()
     }
@@ -255,6 +259,24 @@ class SyncViewController: PreferencesViewController {
         } else {
             inputsContainer.disableProtection()
         }
+    }
+    
+    
+    func updateConnectionInfo() {
+        connectionInfoLeft.update(with: currentItem()?.configuration.from)
+        connectionInfoRight.update(with: currentItem()?.configuration.to)
+    }
+    
+    
+    func resetConnectionInfo() {
+        connectionInfoLeft.update(with: nil)
+        connectionInfoRight.update(with: nil)
+    }
+    
+    
+    func updateUIAfterSave() {
+        reloadTable()
+        updateConnectionInfo()
     }
     
     
@@ -369,8 +391,8 @@ class SyncViewController: PreferencesViewController {
                 overrideItem!.configuration = configuration
             }
             
-            // Update itemsTable
-            reloadTable()
+            // Update UI
+            updateUIAfterSave()
             
             // Select last item in table, if new item was created
             if isNewConfiguration {

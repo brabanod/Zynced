@@ -50,11 +50,11 @@ class ConnectionInfoView: NSView, LoadableView {
             locationLabel.stringValue = getLocation(for: connection!)
             
             // Set path
-            pathLabel.stringValue = connection!.path.replaceHomeDirectory()
+            pathLabel.stringValue = getPath(for: connection!)
         } else {
             imageView.image = NSImage(named: "Local")!
-            locationLabel.stringValue = "/Users/pascal/Library/Mobile Documents/com~apple~CloudDocs/Uni"//NSLocalizedString("Location", comment: "Title for location in connection detail view.")
-            pathLabel.stringValue = NSLocalizedString("Path", comment: "Title for path in connection detail view.")
+            locationLabel.stringValue = NSLocalizedString("Location", comment: "Title for location in connection detail view.")
+            pathLabel.stringValue = NSLocalizedString("Path Title", comment: "Title for path in connection detail view.")
         }
     }
     
@@ -72,6 +72,15 @@ class ConnectionInfoView: NSView, LoadableView {
             return Host.current().localizedName ?? NSLocalizedString("Local Machine", comment: "Title for local machine.")
         } else {
             return NSLocalizedString("Remote Machine", comment: "Title for remote machine.")
+        }
+    }
+    
+    
+    private func getPath(for connection: Connection) -> String {
+        if connection.path == "" {
+            return NSLocalizedString("Path Title", comment: "Title for path in connection detail view.")
+        } else {
+            return connection.path.replaceHomeDirectory()
         }
     }
     
