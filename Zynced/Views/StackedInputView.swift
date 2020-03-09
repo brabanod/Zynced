@@ -16,6 +16,7 @@ enum InputType {
 
 struct InputItem {
     var label: String
+    var placeholder: String?
     var type: InputType
     var inputIdentifier: String
     var selector: Selector?
@@ -178,6 +179,7 @@ class StackedInputView: ClipfreeControl {
             switch item.type {
             case .textfield:
                 let textfield = NSTextField(frame: .zero)
+                textfield.placeholderString = item.placeholder
                 textfield.isEditable = true
                 textfield.cell?.isScrollable = true
                 let callback = TextFieldCallback(selector: item.selector, target: item.target)
@@ -187,6 +189,7 @@ class StackedInputView: ClipfreeControl {
                 
             case .filetextfield:
                 let fileInput = PathInputField(frame: .zero)
+                fileInput.textField.placeholderString = item.placeholder
                 fileInput.textField.isEditable = true
                 fileInput.textField.cell?.isScrollable = true
                 let callback = TextFieldCallback(selector: item.selector, target: item.target)

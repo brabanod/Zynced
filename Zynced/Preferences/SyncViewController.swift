@@ -731,7 +731,7 @@ extension SyncViewController {
         let stackID = stackView.identifier?.rawValue ?? ""
         if stackID == "" { print("### stackID ist empty") }
         
-        let layout = [InputItem(label: NSLocalizedString("Path", comment: "Label for path configuration input description."), type: .filetextfield, inputIdentifier: stackID + ".localPath", selector: #selector(SyncViewController.didChangeInput(_:)), target: self)]
+        let layout = [InputItem(label: NSLocalizedString("Path", comment: "Label for path configuration input description."), placeholder: NSLocalizedString("Path Placeholder", comment: "Placeholder for path configuration input."), type: .filetextfield, inputIdentifier: stackID + ".localPath", selector: #selector(SyncViewController.didChangeInput(_:)), target: self)]
         
         stackView.layout(layout)
         
@@ -763,10 +763,10 @@ extension SyncViewController {
         let stackID = stackView.identifier?.rawValue ?? ""
         if stackID == "" { print("### stackID ist empty") }
         
-        let layout = [InputItem(label: NSLocalizedString("Host", comment: "Label for host configuration input description."), type: .textfield, inputIdentifier: stackID + ".sftpHost", selector: #selector(SyncViewController.didChangeInput(_:)), target: self),
-                      InputItem(label: NSLocalizedString("User", comment: "Label for user configuration input description."), type: .textfield, inputIdentifier: stackID + ".sftpUser", selector: #selector(SyncViewController.didChangeInput(_:)), target: self),
-                      InputItem(label: NSLocalizedString("Password", comment: "Label for password configuration input description."), type: .textfield, inputIdentifier: stackID + ".sftpPassword", selector: #selector(SyncViewController.didChangeInput(_:)), target: self),
-                      InputItem(label: NSLocalizedString("Path", comment: "Label for path configuration input description."), type: .filetextfield, inputIdentifier: stackID + ".sftpPath", selector: #selector(SyncViewController.didChangeInput(_:)), target: self)]
+        let layout = [InputItem(label: NSLocalizedString("Host", comment: "Label for host configuration input description."), placeholder: NSLocalizedString("Host Placeholder", comment: "Placeholder for host configuration input."), type: .textfield, inputIdentifier: stackID + ".sftpHost", selector: #selector(SyncViewController.didChangeInput(_:)), target: self),
+                      InputItem(label: NSLocalizedString("User", comment: "Label for user configuration input description."), placeholder: NSLocalizedString("User Placeholder", comment: "Placeholder for user configuration input."), type: .textfield, inputIdentifier: stackID + ".sftpUser", selector: #selector(SyncViewController.didChangeInput(_:)), target: self),
+                      InputItem(label: NSLocalizedString("Password", comment: "Label for password configuration input description."), placeholder: NSLocalizedString("Password Placeholder", comment: "Placeholder for password configuration input."), type: .textfield, inputIdentifier: stackID + ".sftpPassword", selector: #selector(SyncViewController.didChangeInput(_:)), target: self),
+                      InputItem(label: NSLocalizedString("Path", comment: "Label for path configuration input description."), placeholder: NSLocalizedString("Path Placeholder", comment: "Placeholder for path configuration input."), type: .filetextfield, inputIdentifier: stackID + ".sftpPath", selector: #selector(SyncViewController.didChangeInput(_:)), target: self)]
         
         stackView.layout(layout)
         
