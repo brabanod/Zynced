@@ -3,22 +3,22 @@
 "Dtl-P0-Kr7.title" = "Window";
 
 /* Class = "NSTextFieldCell"; title = "Path"; ObjectID = "Q3Y-ub-nOu"; */
-"Q3Y-ub-nOu.title" = "Path";
+"Q3Y-ub-nOu.title" = "Chemin";
 
 /* Class = "NSTextFieldCell"; title = "Location"; ObjectID = "TGf-Ps-WMM"; */
-"TGf-Ps-WMM.title" = "Location";
+"TGf-Ps-WMM.title" = "Emplacement";
 
 /* Class = "NSTextFieldCell"; title = "Table View Cell"; ObjectID = "UNX-Ee-Tnf"; */
 "UNX-Ee-Tnf.title" = "Table View Cell";
 
 /* Class = "NSButtonCell"; title = "Start"; ObjectID = "bs9-My-vlj"; */
-"bs9-My-vlj.title" = "Start";
+"bs9-My-vlj.title" = "Commencer";
 
 /* Class = "NSButtonCell"; title = "Save"; ObjectID = "dyn-Vu-sSX"; */
-"dyn-Vu-sSX.title" = "Save";
+"dyn-Vu-sSX.title" = "Enregistrer";
 
 /* Class = "NSTextFieldCell"; title = "Location"; ObjectID = "iIL-2k-eWm"; */
-"iIL-2k-eWm.title" = "Location";
+"iIL-2k-eWm.title" = "Emplacement";
 
 /* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "mTI-OW-nVk"; */
 "mTI-OW-nVk.title" = "Text Cell";
@@ -27,7 +27,7 @@
 "o9z-rj-w6I.title" = "Rapport d'erreur";
 
 /* Class = "NSTextFieldCell"; title = "Path"; ObjectID = "pVq-eC-s4a"; */
-"pVq-eC-s4a.title" = "Path";
+"pVq-eC-s4a.title" = "Chemin";
 
 /* Class = "NSTextFieldCell"; title = "Enter Name"; ObjectID = "zFI-gq-z11"; */
-"zFI-gq-z11.title" = "Entrez nom";
+"zFI-gq-z11.title" = "Entrez un nom";

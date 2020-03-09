@@ -560,7 +560,7 @@ class SyncViewController: PreferencesViewController {
         alert.messageText = NSLocalizedString("Unsaved Changes", comment: "Alert message aksing what to do with unsaved changes.")
         alert.informativeText = NSLocalizedString("Unsaved Changes Text", comment: "Alert text aksing what to do with unsaved changes.")
         alert.alertStyle = NSAlert.Style.warning
-        alert.addButton(withTitle: NSLocalizedString("Save", comment: "Title for yes button."))
+        alert.addButton(withTitle: NSLocalizedString("Save", comment: "Title for save button."))
         alert.addButton(withTitle: NSLocalizedString("Discard", comment: "Title for no button."))
         if let window = self.view.window {
             alert.beginSheetModal(for: window) { (response) in
