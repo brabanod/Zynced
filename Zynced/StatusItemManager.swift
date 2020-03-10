@@ -94,10 +94,10 @@ class StatusItemManager: NSObject {
         infoView.setLocation(item.configuration.from.path)
         infoView.setLastSynced(item.lastSynced)
         
-        let statusSub = item.$status.sink { (newStatus) in
+        let statusSub = item.$status.receive(on: OperationQueue.main).sink { (newStatus) in
             infoView.setStatus(newStatus)
         }
-        let syncedSub = item.$lastSynced.sink { (newSyncDate) in
+        let syncedSub = item.$lastSynced.receive(on: OperationQueue.main).sink { (newSyncDate) in
             infoView.setLastSynced(newSyncDate)
         }
         subscriptions.append((statusSub, syncedSub))

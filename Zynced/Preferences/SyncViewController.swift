@@ -196,7 +196,7 @@ class SyncViewController: PreferencesViewController {
         nameTextField.stringValue = item.configuration.name
         
         // Setup status subscription (updates status indicator and start/stop button)
-        statusSubscription = item.$status.sink(receiveValue: { (status) in
+        statusSubscription = item.$status.receive(on: OperationQueue.main).sink(receiveValue: { (status) in
             self.statusIndicator.update(status: status)
             self.updateStartStopButton(status: status)
             self.updateInputProtection(status: status)
@@ -615,10 +615,10 @@ extension SyncViewController: NSTableViewDelegate {
             infoView.setLocation(item.configuration.from.path)
             infoView.setLastSynced(item.lastSynced)
             
-            let statusSub = item.$status.sink { (newStatus) in
+            let statusSub = item.$status.receive(on: OperationQueue.main).sink { (newStatus) in
                 infoView.setStatus(newStatus)
             }
-            let syncedSub = item.$lastSynced.sink { (newSyncDate) in
+            let syncedSub = item.$lastSynced.receive(on: OperationQueue.main).sink { (newSyncDate) in
                 infoView.setLastSynced(newSyncDate)
             }
             subscriptions.append((statusSub, syncedSub))
