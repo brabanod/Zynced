@@ -61,15 +61,17 @@ class ConnectionInfoView: NSView, LoadableView {
     
     private func isRemoteConnection(_: Connection) -> Bool {
         let isRemoteType = connection?.type != ConnectionType.local
-        let isiCloudConnection = connection?.path.contains("/Mobile Documents/com~apple~CloudDocs/") ?? false
-        
-        return isRemoteType || isiCloudConnection
+        return isRemoteType || self.isiCloudConnection(connection)
     }
     
     
     private func getLocation(for connection: Connection) -> String {
         if connection.type == .local {
-            return Host.current().localizedName ?? NSLocalizedString("Local Machine", comment: "Title for local machine.")
+            if self.isiCloudConnection(connection) {
+                return "iCloud"
+            } else {
+                return Host.current().localizedName ?? NSLocalizedString("Local Machine", comment: "Title for local machine.")
+            }
         } else {
             return NSLocalizedString("Remote Machine", comment: "Title for remote machine.")
         }
@@ -80,8 +82,15 @@ class ConnectionInfoView: NSView, LoadableView {
         if connection.path == "" {
             return NSLocalizedString("Path Title", comment: "Title for path in connection detail view.")
         } else {
-            return connection.path.replaceHomeDirectory()
+            var cleanPath = connection.path.replaceHomeDirectory()
+            cleanPath = cleanPath.replacingOccurrences(of: "~/Library/Mobile Documents/com~apple~CloudDocs/", with: "/")
+            return cleanPath
         }
+    }
+    
+    
+    private func isiCloudConnection(_ connection: Connection?) -> Bool {
+        return connection?.path.contains("/Library/Mobile Documents/com~apple~CloudDocs/") ?? false
     }
     
 }
