@@ -376,8 +376,7 @@ class SyncViewController: PreferencesViewController {
         do {
             unsavedChanges = false
             
-            var overrideConfiguration = overrideItem?.configuration
-            guard var configuration = composeConfiguration(from: &overrideConfiguration) else { throw ExecutionError.failedSave }
+            guard var configuration = composeConfiguration() else { throw ExecutionError.failedSave }
             
             let isNewConfiguration = overrideItem == nil
             
@@ -416,17 +415,15 @@ class SyncViewController: PreferencesViewController {
     /**
      Composes a `Configuration` object using the data, that is currently in the input fields.
      */
-    func composeConfiguration(from current: inout Configuration?) -> Configuration? {
+    func composeConfiguration() -> Configuration? {
         // Create Configuration from input labels
         guard let leftDropdown = connectionSelectLeft.inputStack.views.first(where: { $0.identifier!.rawValue == connectionSelectLeftId} ) as? NSPopUpButton else { return nil }
         let typeFrom = connectionChoicesLeft[leftDropdown.indexOfSelectedItem]
-        var currentFrom = current?.from
-        let fromConnection = try? createConnection(type: typeFrom, override: &currentFrom, stackView: stackedInputLeft)
+        let fromConnection = try? createConnection(type: typeFrom, stackView: stackedInputLeft)
         
         guard let rightDropdown = connectionSelectRight.inputStack.views.first(where: { $0.identifier!.rawValue == connectionSelectRightId} ) as? NSPopUpButton else { return nil }
         let typeTo = connectionChoicesRight[rightDropdown.indexOfSelectedItem]
-        var currentTo = current?.to
-        let toConnection = try? createConnection(type: typeTo, override: &currentTo, stackView: stackedInputRight)
+        let toConnection = try? createConnection(type: typeTo, stackView: stackedInputRight)
         
         if fromConnection != nil && toConnection != nil {
             return Configuration(from: fromConnection!, to: toConnection!, name: nameTextField.stringValue)
@@ -444,37 +441,18 @@ class SyncViewController: PreferencesViewController {
         - override: A `Connection` object, which will be updated if given. If this parameter is given, a new `Connection` is not created but instead is the `override` object updated and returned.
         - stackView: The `StackedInputView` which input fields should be use to create/update the `Connection`.
      */
-    func createConnection(type: ConnectionType, override: inout Connection?, stackView: StackedInputView) throws -> Connection {
+    func createConnection(type: ConnectionType, stackView: StackedInputView) throws -> Connection {
         let inputs = stackView.inputStack.views
-        if override == nil || type != override?.type {
-            // Create new connection
-            switch type {
-            case .local:
-                return LocalConnection(path: (inputs[0] as! PathInputField).stringValue)
-            case .sftp:
-                return try SFTPConnection(path: (inputs[3] as! PathInputField).stringValue,
-                                          host: (inputs[0] as! NSTextField).stringValue,
-                                          port: nil,
-                                          user: (inputs[1] as! NSTextField).stringValue,
-                                          authentication: .password(value: (inputs[2] as! NSTextField).stringValue))
-            }
-        } else {
-            // Update override connection
-            switch type {
-            case .local:
-                if let localConnection = override as? LocalConnection {
-                    localConnection.path = (inputs[0] as! PathInputField).stringValue
-                    return localConnection
-                } else { throw ExecutionError.failedCompose("While updating a Connection from user inputs, the given type \(type) and the type \(String(describing: override?.type)) of the existing Connection didn't match") }
-            case .sftp:
-                if let sftpConnection = override as? SFTPConnection {
-                    sftpConnection.path = (inputs[3] as! PathInputField).stringValue
-                    try sftpConnection.setHost((inputs[0] as! NSTextField).stringValue)
-                    try sftpConnection.setUser((inputs[1] as! NSTextField).stringValue)
-                    try sftpConnection.setAuthentication(.password(value: (inputs[2] as! NSTextField).stringValue))
-                    return sftpConnection
-                } else { throw ExecutionError.failedCompose("While updating a Connection from user inputs, the given type \(type) and the type \(String(describing: override?.type)) of the existing Connection didn't match") }
-            }
+        
+        switch type {
+        case .local:
+            return LocalConnection(path: (inputs[0] as! PathInputField).stringValue)
+        case .sftp:
+            return try SFTPConnection(path: (inputs[3] as! PathInputField).stringValue,
+                                      host: (inputs[0] as! NSTextField).stringValue,
+                                      port: nil,
+                                      user: (inputs[1] as! NSTextField).stringValue,
+                                      authentication: .password(value: (inputs[2] as! NSTextField).stringValue))
         }
     }
     
