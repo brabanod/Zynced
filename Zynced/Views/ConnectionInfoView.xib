@@ -28,9 +28,9 @@
                     </constraints>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Local" id="fR4-80-o6J"/>
                 </imageView>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Tx4-eT-R9V">
-                    <rect key="frame" x="104" y="67" width="64" height="17"/>
-                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Location" id="6op-LI-U6j">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="500" translatesAutoresizingMaskIntoConstraints="NO" id="Tx4-eT-R9V">
+                    <rect key="frame" x="8" y="67" width="255" height="17"/>
+                    <textFieldCell key="cell" lineBreakMode="truncatingTail" alignment="center" title="Location" id="6op-LI-U6j">
                         <font key="font" metaFont="menu" size="14"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -47,6 +47,8 @@
             </subviews>
             <constraints>
                 <constraint firstItem="Tx4-eT-R9V" firstAttribute="top" secondItem="qv1-zc-OeL" secondAttribute="bottom" constant="10" id="2zs-Zf-h9T"/>
+                <constraint firstItem="Tx4-eT-R9V" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="10" id="4gV-7x-7Sk"/>
+                <constraint firstAttribute="trailing" secondItem="Tx4-eT-R9V" secondAttribute="trailing" constant="10" id="Ose-he-6Vk"/>
                 <constraint firstItem="iL5-Xq-wrb" firstAttribute="centerX" secondItem="c22-O7-iKe" secondAttribute="centerX" id="Q39-7j-pc7"/>
                 <constraint firstItem="iL5-Xq-wrb" firstAttribute="top" secondItem="Tx4-eT-R9V" secondAttribute="bottom" constant="10" id="Qdu-Ob-6ck"/>
                 <constraint firstItem="qv1-zc-OeL" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" id="mte-g8-GFl"/>
