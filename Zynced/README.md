@@ -11,22 +11,22 @@ _Possible Solutions_:
 
 ### BoteCore:
 #### Urgent:
-[ ] Sync manually (also on startup to check if everything is up-to-date). Maybe find a better solution than just removing everything and uploading everything again
-[ ] Divide SFTP into SFTPKeyConnection and SFTPPasswordConnection
-[ ] Implement more Transfer Handlers (AWS, WebDAV, GoogleDrive, FTP)
+- [ ] Sync manually (also on startup to check if everything is up-to-date). Maybe find a better solution than just removing everything and uploading everything again
+- [ ] Divide SFTP into SFTPKeyConnection and SFTPPasswordConnection
+- [ ] Implement more Transfer Handlers (AWS, WebDAV, GoogleDrive, FTP)
 
 #### Later:
 
 
 ### Zynced:
 #### Urgent:
-[ ] Add explanations for Status Indicator in UI (besides tooltips)
-[ ] Saved Item with no password &rarr add password &rarr save &rarr fails because no Keychain Item was initialy created
-[ ] Coordinate upload of big files (async), maybe with upload indicator
-[ ] Check what happens, when only password or path was changed, because the keychain item (search properties) don't change
+- [ ] Add explanations for Status Indicator in UI (besides tooltips)
+- [ ] Saved Item with no password &rarr add password &rarr save &rarr fails because no Keychain Item was initialy created
+- [ ] Coordinate upload of big files (async), maybe with upload indicator
+- [ ] Check what happens, when only password or path was changed, because the keychain item (search properties) don't change
 
 #### Later
-[ ] Fix UITests
+- [ ] Fix UITests
 
 
 
